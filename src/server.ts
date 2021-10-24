@@ -1,10 +1,10 @@
-import express from 'express'
+import { app } from 'app'
 
-import { categoriesRoutes } from './routes/categories.routes'
+const api = app.listen(process.env.API_PORT, () => {
+  console.log(`\n🚀 API Started on port ${process.env.API_PORT} \n😉 Check Hello Message at ${process.env.API_URL}:${process.env.API_PORT}/hello`)
+})
 
-const app = express()
-app.use(express.json())
-
-app.use('/categories', categoriesRoutes)
-
-app.listen(3333, () => console.log('Server is running'))
+process.on('SIGINT', () => {
+  console.log('\n🔒 API Stopped')
+  api.close()
+})
