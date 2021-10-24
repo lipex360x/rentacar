@@ -1,7 +1,7 @@
 import { Category } from '@modules/cars/model/Category'
 import { ICategoriesRepositoryProps } from '@modules/cars/repositories/interfaces/ICategoriesRepository'
 
-class ListCategoriesService {
+class CategoryListService {
   constructor (private repository: ICategoriesRepositoryProps) {}
 
   execute (): Category[] {
@@ -9,4 +9,4 @@ class ListCategoriesService {
   }
 }
 
-export { ListCategoriesService }
+export { CategoryListService }

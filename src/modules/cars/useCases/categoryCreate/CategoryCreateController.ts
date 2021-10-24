@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
 
-import { CreateCategoryServices } from '@modules/cars/useCases/createCategory/CreateCategoryService'
+import { CategoryCreateService } from '@modules/cars/useCases/categoryCreate/CategoryCreateService'
 
-class CreateCategoryController {
-  constructor (private service:CreateCategoryServices) {}
+class CategoryCreateController {
+  constructor (private service:CategoryCreateService) {}
 
   handle (request:Request, response: Response): Response {
     const { name, description } = request.body
@@ -14,4 +14,4 @@ class CreateCategoryController {
   }
 }
 
-export { CreateCategoryController }
+export { CategoryCreateController }

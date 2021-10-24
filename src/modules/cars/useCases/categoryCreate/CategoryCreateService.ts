@@ -5,7 +5,7 @@ interface IRequestProps {
   description: string
 }
 
-class CreateCategoryServices {
+class CategoryCreateService {
   constructor (private repository:ICategoriesRepositoryProps) {}
 
   execute ({ name, description }:IRequestProps) {
@@ -17,4 +17,4 @@ class CreateCategoryServices {
   }
 }
 
-export { CreateCategoryServices }
+export { CategoryCreateService }
