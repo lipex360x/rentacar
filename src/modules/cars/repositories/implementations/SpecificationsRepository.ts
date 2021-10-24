@@ -2,10 +2,18 @@ import { Specification } from '@modules/cars/model/Specification'
 import { ICreateProps, IFindByNameProps, ISpecificationsRepository } from '../interfaces/ISpecificationsRepository'
 
 class SpecificationsRepository implements ISpecificationsRepository {
+  private static INSTANCE: SpecificationsRepository
+
   private specifications: Specification[]
 
-  constructor () {
+  private constructor () {
     this.specifications = []
+  }
+
+  public static getInstance () {
+    if (!this.INSTANCE) this.INSTANCE = new SpecificationsRepository()
+
+    return this.INSTANCE
   }
 
   create ({ name, description }: ICreateProps): void {

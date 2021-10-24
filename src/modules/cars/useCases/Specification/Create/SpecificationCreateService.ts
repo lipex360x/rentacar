@@ -1,11 +1,11 @@
-import { ISpecificationsRepository } from '../repositories/interfaces/ISpecificationsRepository'
+import { ISpecificationsRepository } from '@modules/cars/repositories/interfaces/ISpecificationsRepository'
 
 interface IRequestProps {
   name: string
   description: string
 }
 
-class CreateSpecificationService {
+class SpecificationCreateService {
   constructor (private repository:ISpecificationsRepository) {}
 
   execute ({ name, description }:IRequestProps) {
@@ -17,4 +17,4 @@ class CreateSpecificationService {
   }
 }
 
-export { CreateSpecificationService }
+export { SpecificationCreateService }
