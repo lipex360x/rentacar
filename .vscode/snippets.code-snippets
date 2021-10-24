@@ -1,0 +1,55 @@
+{
+	"Template Snippets": {
+    "prefix": "snippetTemplate",
+    "body": [
+      "\"${1:SNIPPET_TITLE}\": {",
+      "  \"prefix\": \"${2:PREFIX}\",",
+      "  \"body\": [",
+      "    \"${3:BODY}\"",
+      "  ]",
+      "},",
+      "",
+    ]
+  },
+
+	"Swagger Route": {
+		"prefix": "swaggerPath",
+		"body": [
+				"\"/${1:routeName}\": {",
+				"  \"post\": {",
+				"    \"tags\": [\"${2:tagName}\"],",
+				"    \"summary\": \"${3:summaryDescription}\",",
+				"    \"description\": \"${4:description}\",",
+				"    \"requestBody\": {",
+				"      \"content\": {",
+				"        \"application/json\" :{",
+				"          \"schema\":  {",
+				"            \"type\": \"object\",",
+				"            ",
+				"            \"properties\": {",
+				"              \"${5:propertyName}\": {",
+				"                \"type\": \"${6|string,integer,number,boolean|}\"",
+				"              }",
+				"            },",
+				"",
+				"            \"example\": {",
+				"              \"${7:propertyName}\": \"${8:propertySample}\"",
+				"            }",
+				"            ",
+				"          }",
+				"        }",
+				"      }",
+				"    },",
+				"    \"responses\": {",
+				"        \"201\": {          ",
+				"          \"description\": \"Created\"",
+				"        }",
+				"      }",
+				"    }",
+				"  }",
+		]
+	},
+	
+}
+
+

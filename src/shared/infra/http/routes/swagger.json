@@ -5,7 +5,51 @@
     "description": "This is an API Rent",
     "version": "1.0.0",
     "contact": {
+      "name": "Felipe",
+      "url": "http://www.example.com/support",
       "email": "lipex360@gmail.com"
     }
-  }
+  },
+  "paths":{
+    "/categories": {
+      "post": {
+        "tags": ["Category"],
+        "summary": "Create a Category",
+        "description": "Create a new Category",
+        "requestBody": {
+          "content": {
+            "application/json" :{
+              "schema":  {
+                "type": "object",
+                
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                },
+
+                "example": {
+                  "name": "Category name sample",
+                  "description": "Description sample"
+                }
+                
+              }
+            }
+          }
+        },
+        "responses": {
+            "200": {          
+              "description": "Created"
+            },
+            "500": {
+              "description": "Category already exists"
+            }
+          }
+        }
+      }
+    }
+
 }
