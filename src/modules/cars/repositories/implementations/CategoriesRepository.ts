@@ -11,10 +11,6 @@ class CategoriesRepository implements ICategoriesRepositoryProps {
   create ({ name, description }: ICreateProps): void {
     const category = new Category()
 
-    const findCategory = this.findByName({ name })
-
-    if (findCategory) throw new Error('Category already exists')
-
     Object.assign(category, {
       name,
       description
