@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 
-import { CategoryCreateService } from '@modules/cars/useCases/categoryCreate/CategoryCreateService'
+import { CategoryCreateService } from '@modules/cars/useCases/Category/Create/CategoryCreateService'
 
 class CategoryCreateController {
   constructor (private service:CategoryCreateService) {}

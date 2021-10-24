@@ -1,4 +1,4 @@
-import { ICategoriesRepositoryProps } from '../../repositories/interfaces/ICategoriesRepository'
+import { ICategoriesRepositoryProps } from '@modules/cars/repositories/interfaces/ICategoriesRepository'
 
 interface IRequestProps {
   name: string
