@@ -2,7 +2,7 @@ import { CategoriesRepository } from '@modules/cars/repositories/implementations
 import { ListCategoriesService } from './ListCategoriesService'
 import { ListCategoriesController } from './ListCategoriesController'
 
-const repository = new CategoriesRepository()
+const repository = CategoriesRepository.getInstance()
 
 const listCategoriesService = new ListCategoriesService(repository)
 

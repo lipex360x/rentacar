@@ -2,9 +2,17 @@ import { Category } from '@modules/cars/model/Category'
 import { ICategoriesRepositoryProps, ICreateProps, IFindByNameProps } from '../interfaces/ICategoriesRepository'
 
 class CategoriesRepository implements ICategoriesRepositoryProps {
+  private static INSTANCE: CategoriesRepository
+
   private categories: Category[]
 
-  constructor () {
+  public static getInstance (): CategoriesRepository {
+    if (!this.INSTANCE) this.INSTANCE = new CategoriesRepository()
+
+    return this.INSTANCE
+  }
+
+  private constructor () {
     this.categories = []
   }
 
