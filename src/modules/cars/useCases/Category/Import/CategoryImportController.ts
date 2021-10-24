@@ -4,12 +4,12 @@ import { CategoryImportService } from './CategoryImportService'
 class CategoryImportController {
   constructor (private categoryImportService:CategoryImportService) {}
 
-  handle (request:Request, response:Response): Response {
+  async handle (request:Request, response:Response): Promise<Response> {
     const { file } = request
 
-    this.categoryImportService.execute({ file })
+    const importFile = await this.categoryImportService.execute({ file })
 
-    return response.send()
+    return response.json(importFile)
   }
 }
 
