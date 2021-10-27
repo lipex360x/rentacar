@@ -5,9 +5,9 @@ class OrmConnect {
   async execute () {
     try {
       const connect = await createConnections()
-      const { database } = connect[0].options
+      const { options } = connect[0]
 
-      console.log(`Connected to database ${database}`)
+      console.log(`Connected to database ${options.database}`)
     } catch (error) {
       return promiseRetry({
         maxAttempt: 5,

@@ -4,7 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts"
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
+    "orm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "orm:create": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create -n ",
+    "orm:run": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run",
+    "orm:revert": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert",
+    "orm:show": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:show",
+    "test": "jest --passWithNoTests --noStackTrace --setupFiles dotenv/config",
+    "test:c": "jest --clearCache",
+    "test:v": "jest --passWithNoTests",
+    "seed:config": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm-seeding/dist/cli.js config",
+    "seed:run": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm-seeding/dist/cli.js seed"
   },
   "keywords": [],
   "author": "",
