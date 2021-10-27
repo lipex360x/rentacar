@@ -1,4 +1,4 @@
-import { Specification } from '@modules/cars/model/Specification'
+import { Specification } from '@modules/cars/entities/Specification'
 import { ICreateProps, IFindByNameProps, ISpecificationsRepository } from '../interfaces/ISpecificationsRepository'
 
 class SpecificationsRepository implements ISpecificationsRepository {

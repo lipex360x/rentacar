@@ -1,6 +1,6 @@
 import fs from 'fs'
 import csvParse from 'csv-parse'
-import { Category } from '@modules/cars/model/Category'
+import { Category } from '@modules/cars/entities/Category'
 import { ICategoriesRepositoryProps } from '@modules/cars/repositories/interfaces/ICategoriesRepository'
 
 interface IRequestProps {

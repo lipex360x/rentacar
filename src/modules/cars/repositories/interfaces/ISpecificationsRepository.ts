@@ -1,4 +1,4 @@
-import { Specification } from '@modules/cars/model/Specification'
+import { Specification } from '@modules/cars/entities/Specification'
 
 export interface ICreateProps {
   name: string

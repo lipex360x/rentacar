@@ -1,4 +1,4 @@
-import { Category } from '@modules/cars/model/Category'
+import { Category } from '@modules/cars/entities/Category'
 
 export interface ICreateProps {
   name: string
