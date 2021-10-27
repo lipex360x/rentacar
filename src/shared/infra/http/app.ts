@@ -4,6 +4,7 @@ import swagger from 'swagger-ui-express'
 
 import { routes } from '@shared/infra/http/routes'
 import swaggerFile from './routes/swagger.json'
+import '@shared/infra/typeorm'
 
 const app = express()
 

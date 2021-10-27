@@ -8,3 +8,13 @@ services:
       - 3333:3333
     volumes:
       - .:/usr/app
+
+  postgresdb:
+    image: postgres
+    container_name: ${POSTGRES_CONTAINER_NAME}
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASS}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - ${POSTGRES_PORT}:5432
