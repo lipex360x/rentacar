@@ -1,10 +1,14 @@
 import { Specification } from '@modules/cars/entities/Specification'
 import { ISpecificationsRepository } from '@modules/cars/repositories/interfaces/ISpecificationsRepository'
+import { inject, injectable } from 'tsyringe'
 
+@injectable()
 class SpecificationListService {
-  constructor (private repository:ISpecificationsRepository) {}
+  constructor (
+    @inject('SpecificationsRepository')
+    private repository:ISpecificationsRepository) {}
 
-  execute (): Specification[] {
+  async execute (): Promise<Specification[]> {
     return this.repository.list()
   }
 }

@@ -10,23 +10,17 @@ class CategoriesRepository implements ICategoriesRepositoryProps {
   }
 
   async create ({ name, description }: ICreateProps): Promise<void> {
-    const category = this.repository.create({
-      description,
-      name
-    })
+    const category = this.repository.create({ name, description })
 
     await this.repository.save(category)
   }
 
   async findByName ({ name }: IFindByNameProps): Promise<Category> {
-    const getCategory = this.repository.findOne({ name })
-
-    return getCategory
+    return this.repository.findOne({ name })
   }
 
   async list (): Promise<Category[]> {
-    const category = await this.repository.find()
-    return category
+    return this.repository.find()
   }
 }
 

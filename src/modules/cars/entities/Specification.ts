@@ -1,15 +1,36 @@
 import { v4 as uuid } from 'uuid'
+import {
+  Entity,
+  Column,
+  PrimaryColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
+  BeforeInsert
+} from 'typeorm'
 
-class Specification {
-  id?: string
-  name: string
-  description: string
-  created_at: Date
+@Entity('specifications')
+export class Specification {
+  @PrimaryColumn('uuid')
+    specification_id?: string
 
-  constructor () {
-    if (!this.id) this.id = uuid()
-    this.created_at = new Date()
+  @Column()
+    name: string
+
+  @Column()
+    description: string
+
+  @CreateDateColumn()
+    created_at: Date
+
+  @UpdateDateColumn()
+    updated_at: Date
+
+  @DeleteDateColumn()
+    deleted_at: Date
+
+  @BeforeInsert()
+  specificationProps (): void {
+    this.specification_id = uuid()
   }
 }
-
-export { Specification }

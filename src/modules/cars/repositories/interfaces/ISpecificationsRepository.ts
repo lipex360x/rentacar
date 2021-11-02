@@ -10,7 +10,7 @@ export interface IFindByNameProps {
 }
 
 export interface ISpecificationsRepository {
-  create(data: ICreateProps): void
-  findByName(data: IFindByNameProps): Specification
-  list(): Specification[]
+  create(data: ICreateProps): Promise<void>
+  findByName(data: IFindByNameProps): Promise<Specification>
+  list(): Promise<Specification[]>
 }

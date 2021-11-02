@@ -1,15 +1,19 @@
 import { ISpecificationsRepository } from '@modules/cars/repositories/interfaces/ISpecificationsRepository'
+import { inject, injectable } from 'tsyringe'
 
 interface IRequestProps {
   name: string
   description: string
 }
 
+@injectable()
 class SpecificationCreateService {
-  constructor (private repository:ISpecificationsRepository) {}
+  constructor (
+    @inject('SpecificationsRepository')
+    private repository:ISpecificationsRepository) {}
 
-  execute ({ name, description }:IRequestProps) {
-    const findSpecification = this.repository.findByName({ name })
+  async execute ({ name, description }:IRequestProps) {
+    const findSpecification = await this.repository.findByName({ name })
 
     if (findSpecification) throw new Error('specification already exists')
 

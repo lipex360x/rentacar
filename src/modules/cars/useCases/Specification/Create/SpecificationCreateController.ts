@@ -1,13 +1,15 @@
+import { container } from 'tsyringe'
 import { Request, Response } from 'express'
+
 import { SpecificationCreateService } from './SpecificationCreateService'
 
 class SpecificationCreateController {
-  constructor (private service:SpecificationCreateService) {}
-
-  handle (request: Request, response: Response): Response {
+  async handle (request: Request, response: Response): Promise<Response> {
     const { name, description } = request.body
 
-    this.service.execute({ name, description })
+    const service = container.resolve(SpecificationCreateService)
+
+    await service.execute({ name, description })
 
     return response.status(201).send()
   }

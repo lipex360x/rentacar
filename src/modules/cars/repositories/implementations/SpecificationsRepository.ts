@@ -1,40 +1,26 @@
 import { Specification } from '@modules/cars/entities/Specification'
+import { getRepository, Repository } from 'typeorm'
 import { ICreateProps, IFindByNameProps, ISpecificationsRepository } from '../interfaces/ISpecificationsRepository'
 
 class SpecificationsRepository implements ISpecificationsRepository {
-  private static INSTANCE: SpecificationsRepository
+  private repository: Repository<Specification>
 
-  private specifications: Specification[]
-
-  private constructor () {
-    this.specifications = []
+  constructor () {
+    this.repository = getRepository(Specification)
   }
 
-  public static getInstance () {
-    if (!this.INSTANCE) this.INSTANCE = new SpecificationsRepository()
+  async create ({ name, description }: ICreateProps): Promise<void> {
+    const specification = this.repository.create({ name, description })
 
-    return this.INSTANCE
+    await this.repository.save(specification)
   }
 
-  create ({ name, description }: ICreateProps): void {
-    const specification = new Specification()
-
-    Object.assign(specification, {
-      name,
-      description
-    })
-
-    this.specifications.push(specification)
+  async findByName ({ name }: IFindByNameProps): Promise<Specification> {
+    return this.repository.findOne({ name })
   }
 
-  findByName ({ name }: IFindByNameProps): Specification {
-    const findSpecification = this.specifications.find((specification) => specification.name === name)
-
-    return findSpecification
-  }
-
-  list (): Specification[] {
-    return this.specifications
+  async list (): Promise<Specification[]> {
+    return this.repository.find()
   }
 }
 
