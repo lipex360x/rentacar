@@ -1,40 +1,32 @@
 import { Category } from '@modules/cars/entities/Category'
+import { getRepository, Repository } from 'typeorm'
 import { ICategoriesRepositoryProps, ICreateProps, IFindByNameProps } from '../interfaces/ICategoriesRepository'
 
 class CategoriesRepository implements ICategoriesRepositoryProps {
-  private static INSTANCE: CategoriesRepository
+  private repository: Repository<Category>
 
-  private categories: Category[]
-
-  public static getInstance (): CategoriesRepository {
-    if (!this.INSTANCE) this.INSTANCE = new CategoriesRepository()
-
-    return this.INSTANCE
+  constructor () {
+    this.repository = getRepository(Category)
   }
 
-  private constructor () {
-    this.categories = []
-  }
-
-  create ({ name, description }: ICreateProps): void {
-    const category = new Category()
-
-    Object.assign(category, {
-      name,
-      description
+  async create ({ name, description }: ICreateProps): Promise<void> {
+    const category = this.repository.create({
+      description,
+      name
     })
 
-    this.categories.push(category)
+    await this.repository.save(category)
   }
 
-  findByName ({ name }: IFindByNameProps): Category {
-    const getCategory = this.categories.find((category) => category.name === name)
+  async findByName ({ name }: IFindByNameProps): Promise<Category> {
+    const getCategory = this.repository.findOne({ name })
 
     return getCategory
   }
 
-  list (): Category[] {
-    return this.categories
+  async list (): Promise<Category[]> {
+    const category = await this.repository.find()
+    return category
   }
 }
 

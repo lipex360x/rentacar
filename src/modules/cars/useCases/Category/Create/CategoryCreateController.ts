@@ -5,10 +5,10 @@ import { CategoryCreateService } from '@modules/cars/useCases/Category/Create/Ca
 class CategoryCreateController {
   constructor (private service:CategoryCreateService) {}
 
-  handle (request:Request, response: Response): Response {
+  async handle (request:Request, response: Response): Promise<Response> {
     const { name, description } = request.body
 
-    this.service.execute({ name, description })
+    await this.service.execute({ name, description })
 
     return response.status(201).send()
   }

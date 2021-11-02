@@ -4,7 +4,7 @@ import { ICategoriesRepositoryProps } from '@modules/cars/repositories/interface
 class CategoryListService {
   constructor (private repository: ICategoriesRepositoryProps) {}
 
-  execute (): Category[] {
+  async execute (): Promise<Category[]> {
     return this.repository.list()
   }
 }

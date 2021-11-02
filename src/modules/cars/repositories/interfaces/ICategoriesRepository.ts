@@ -10,7 +10,7 @@ export interface IFindByNameProps {
 }
 
 export interface ICategoriesRepositoryProps {
-  create(data: ICreateProps): void
-  findByName(data: IFindByNameProps): Category
-  list(): Category[]
+  create(data: ICreateProps): Promise<void>
+  findByName(data: IFindByNameProps): Promise<Category>
+  list(): Promise<Category[]>
 }

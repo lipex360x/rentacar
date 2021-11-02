@@ -8,8 +8,8 @@ interface IRequestProps {
 class CategoryCreateService {
   constructor (private repository:ICategoriesRepositoryProps) {}
 
-  execute ({ name, description }:IRequestProps) {
-    const findCategory = this.repository.findByName({ name })
+  async execute ({ name, description }:IRequestProps): Promise<void> {
+    const findCategory = await this.repository.findByName({ name })
 
     if (findCategory) throw new Error('category already exists')
 

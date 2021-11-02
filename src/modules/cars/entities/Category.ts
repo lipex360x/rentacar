@@ -9,7 +9,7 @@ import {
   DeleteDateColumn
 } from 'typeorm'
 
-@Entity('categorys')
+@Entity('categories')
 export class Category {
   @PrimaryColumn('uuid')
     category_id?: string
