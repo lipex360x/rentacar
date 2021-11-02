@@ -1,3 +1,4 @@
+import { inject, injectable } from 'tsyringe'
 import { ICategoriesRepositoryProps } from '@modules/cars/repositories/interfaces/ICategoriesRepository'
 
 interface IRequestProps {
@@ -5,8 +6,11 @@ interface IRequestProps {
   description: string
 }
 
+@injectable()
 class CategoryCreateService {
-  constructor (private repository:ICategoriesRepositoryProps) {}
+  constructor (
+    @inject('CategoriesRepository')
+    private repository:ICategoriesRepositoryProps) {}
 
   async execute ({ name, description }:IRequestProps): Promise<void> {
     const findCategory = await this.repository.findByName({ name })
