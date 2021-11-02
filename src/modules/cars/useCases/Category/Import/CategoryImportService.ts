@@ -2,6 +2,7 @@ import fs from 'fs'
 import csvParse from 'csv-parse'
 import { Category } from '@modules/cars/entities/Category'
 import { ICategoriesRepositoryProps } from '@modules/cars/repositories/interfaces/ICategoriesRepository'
+import { inject, injectable } from 'tsyringe'
 
 interface IRequestProps {
   file: Express.Multer.File
@@ -12,8 +13,11 @@ interface IImportCategoryProps {
   description: string
 }
 
+@injectable()
 class CategoryImportService {
-  constructor (private repository: ICategoriesRepositoryProps) {}
+  constructor (
+    @inject('CategoriesRepository')
+    private repository: ICategoriesRepositoryProps) {}
 
   private loadFile ({ file }:IRequestProps): Promise<IImportCategoryProps[]> {
     return new Promise((resolve, reject) => {
@@ -52,7 +56,9 @@ class CategoryImportService {
         name, description
       })
 
-      if (!this.repository.findByName({ name })) this.repository.create(setCategory)
+      const getCategory = await this.repository.findByName({ name })
+
+      if (!getCategory) await this.repository.create(setCategory)
     }
   }
 }
