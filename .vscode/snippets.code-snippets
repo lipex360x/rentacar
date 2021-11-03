@@ -314,6 +314,31 @@
     ]
   },
 
+  "Plop File": {
+    "prefix": "plopGenerate",
+    "body": [
+      "module.exports = {",
+      "  description: '${1:Description}',",
+      "  prompts: [",
+      "    {",
+      "      type: 'input',",
+      "      name: 'name',",
+      "      message: '${2:Text}'",
+      "    }",
+      "  ],",
+      "  actions: [",
+      "    {",
+      "      type: 'add',",
+      "      path: '${3:path_to_create_file}',",
+      "      templateFile: './${TM_DIRECTORY/^.+\\/(.*)$/$1/}/templates/${4:template_hbs}'",
+      "    }",
+      "  ] // array of actions",
+      "}",
+      ""
+    ]
+  },
+  
+
   "Interface Template": {
     "prefix": "interfaceTemplate",
     "body": [

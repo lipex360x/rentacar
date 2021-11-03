@@ -1,0 +1,46 @@
+import { MigrationInterface, QueryRunner, Table } from 'typeorm'
+
+export default class {{pascalCase name}}-{{message}} implements MigrationInterface {
+  public async up (queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.createTable(
+      new Table({
+        name: 'TABLE_NAME',
+        columns: [
+          {
+            name: 'TABLE_SINGLE_NAME_id',
+            type: 'uuid',
+            isPrimary: true
+          },
+
+          {
+            name: 'COLUMN_NAME',
+            type: 'varchar'
+          },
+
+          {
+            name: 'created_at',
+            type: 'timestamp with time zone',
+            default: 'now()'
+          },
+
+          {
+            name: 'updated_at',
+            type: 'timestamp with time zone',
+            default: 'now()'
+          },
+
+          {
+            name: 'deleted_at',
+            type: 'timestamp with time zone',
+            isNullable: true,
+            default: null
+          }
+        ]
+      })
+    )
+  }
+
+  public async down (queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.dropTable('TABLE_NAME')
+  }
+}

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
+    "generate": " yarn plop --plopfile ./src/shared/generators/plopfile.js",
     "orm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "orm:create": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create -n ",
     "orm:run": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run",
@@ -27,6 +28,7 @@
     "faker": "^5.5.3",
     "multer": "^1.4.3",
     "pg": "^8.7.1",
+    "plop": "^2.7.6",
     "reflect-metadata": "^0.1.13",
     "swagger-ui-express": "^4.1.6",
     "tracer": "^1.1.5",
