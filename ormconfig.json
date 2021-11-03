@@ -7,9 +7,10 @@
   "password": "root",
   "database": "rentx",
 
-  "migrations": ["./src/shared/infra/typeorm/migrations/*.ts"],
+  "seeds": ["./src/shared/infra/typeorm/seeds/*.{ts,js}"],
   "entities": ["./src/modules/**/entities/*.{ts,js}"],
-
+  "migrations": ["./src/shared/infra/typeorm/migrations/*.ts"],
+  
   "cli": { 
     "migrationsDir": "./src/shared/infra/typeorm/migrations" 
   }

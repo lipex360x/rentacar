@@ -86,9 +86,9 @@
 		]
 	},
 
-	"Migration Create Table Template": {
-		"prefix": "migrationTable",
-		"body": [
+  "Migration Create Table Template": {
+    "prefix": "migrationTable",
+    "body": [
       "import { MigrationInterface, QueryRunner, Table } from 'typeorm'",
       "",
       "export default class ${1:MigrationName} implements MigrationInterface {",
@@ -134,8 +134,8 @@
       "  public async down (queryRunner: QueryRunner): Promise<void> {",
       "    await queryRunner.dropTable('${2:TABLE_NAME}')",
       "  }",
-			"}",
-			"",
+      "}",
+      "",
 		]
   },
 
@@ -264,6 +264,53 @@
       "@OneToMany(() => ${1:MANY_ENTITY}, ${2:nickname} => ${2:nickname}.${TM_FILENAME_BASE/(.*)/${1:/downcase}/}, {})",
       "${2:nickname}: ${1:MANY_ENTITY}[]",
       "",
+    ]
+  },
+
+  "Factory TypeORM Template": {
+    "prefix": "factoryTemplate",
+    "body": [
+      "import Faker from 'faker'",
+      "import { define } from 'typeorm-seeding'",
+      "import ENTITYXXXXX from '@modules/'",
+      "",
+      "define(ENTITY, (faker: typeof Faker, context: { roles: string[] }) => {",
+      "  const dateCreate = new Date()",
+      "  const ENTITYXXXXX = new ENTITY()",
+      "",
+      "   Object.assign(ENTITY, {",
+      "    _id: faker.datatype.uuid(),",
+      "    property: faker.lorem.word,",
+      "    created_at: dateCreate,",
+      "    updated_at: dateCreate,",
+      "  })",
+      "",
+      "  return ENTITYXXXXX",
+      "})",
+    ]
+  },
+
+
+  "Seed TypeORM Template": {
+    "prefix": "seedTemplate",
+    "body": [
+      "import { v4 as uuid } from 'uuid'",
+      "import { Factory, Seeder } from 'typeorm-seeding'",
+      "import { Connection } from 'typeorm'",
+      "import ENTITY from '@modules/'",
+      "",
+      "export default class $TM_FILENAME_BASE implements Seeder {",
+      "  public async run (factory: Factory, connection: Connection): Promise<any> {",
+      "    await connection",
+      "      .createQueryBuilder()",
+      "      .insert()",
+      "      .into(ENTITY)",
+      "      .values([",
+      "        { _id: uuid(), property: 'value' },",
+      "      ])",
+      "      .execute()",
+      "  }",
+      "}",
     ]
   },
 
