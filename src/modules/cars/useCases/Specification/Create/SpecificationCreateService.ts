@@ -12,12 +12,12 @@ class SpecificationCreateService {
     @inject('SpecificationsRepository')
     private repository:ISpecificationsRepository) {}
 
-  async execute ({ name, description }:IRequestProps) {
+  async execute ({ name, description }:IRequestProps): Promise<void> {
     const findSpecification = await this.repository.findByName({ name })
 
     if (findSpecification) throw new Error('specification already exists')
 
-    this.repository.create({ name, description })
+    await this.repository.create({ name, description })
   }
 }
 

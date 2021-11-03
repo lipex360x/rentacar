@@ -22,6 +22,7 @@ class CategoryImportService {
   private loadFile ({ file }:IRequestProps): Promise<IImportCategoryProps[]> {
     return new Promise((resolve, reject) => {
       const stream = fs.createReadStream(file.path, { encoding: 'binary' })
+
       const categories: IImportCategoryProps[] = []
 
       const parseFile = csvParse({ delimiter: ';' })
@@ -44,12 +45,14 @@ class CategoryImportService {
     const categories = await this.loadFile({ file })
 
     let firstLine = true
+
     for (const category of categories) {
       if (firstLine) {
         firstLine = false
         continue
       }
       const { name, description } = category
+
       const setCategory = new Category()
 
       Object.assign(setCategory, {

@@ -8,9 +8,9 @@ class CategoryImportController {
 
     const service = container.resolve(CategoryImportService)
 
-    const importFile = await service.execute({ file })
+    await service.execute({ file })
 
-    return response.json(importFile)
+    return response.status(201).send()
   }
 }
 

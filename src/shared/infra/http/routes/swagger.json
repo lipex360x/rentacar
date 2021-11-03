@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Rental-API Documentation",
+    "title": "RentX Documentation",
     "description": "This is an API Rent",
     "version": "1.0.0",
     "contact": {
@@ -10,7 +10,8 @@
       "email": "lipex360@gmail.com"
     }
   },
-  "paths":{
+  
+  "paths": {
     "/categories": {
       "post": {
         "tags": ["Category"],
@@ -48,30 +49,29 @@
               "description": "Category already exists"
             }
           }
-        },
+      },
 
-        "get": {
-          "tags": ["Category"],
-          "summary": "List Categories",
-          "description": "List all Categories",
-          "responses": {
-            "200": {          
-              "description": "Success",
-              "content": {
-                "application/json": {
+      "get": {
+        "tags": ["Category"],
+        "summary": "List Categories",
+        "description": "List all Categories",
+        "responses": {
+          "200": {          
+            "description": "Success",
+            "content": {
+              "application/json": {
 
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        },
-                        "description": {
-                          "type": "string"
-                        }
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
                       }
                     }
                   }
@@ -81,6 +81,51 @@
           }
         }
       }
+    },
+    "/specifications": {
+      "post": {
+        "tags": ["Specifications"],
+        "summary": "Create a Specification",
+        "description": "Create a new specification",
+        "requestBody": {
+          "content": {
+            "application/json" :{
+              "schema":  {
+                "$ref": "#/definitions/Specifications"
+              }
+            }
+          }
+        },
+        "responses": {
+            "201": {          
+              "description": "Created"
+            },
+            "500": {
+              "description": "Specification already exists!"
+            }
+          }
+      }
     }
+  },
+
+  "definitions": {
+    "Specifications": {
+      "type": "object",
+                
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+
+      "example": {
+        "name": "Name Sample",
+        "description": "Description Sample"
+      }
+    }
+  }
 
 }

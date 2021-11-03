@@ -17,7 +17,7 @@ class CategoryCreateService {
 
     if (findCategory) throw new Error('category already exists')
 
-    this.repository.create({ name, description })
+    await this.repository.create({ name, description })
   }
 }
 
