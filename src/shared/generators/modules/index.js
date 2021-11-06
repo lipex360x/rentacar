@@ -5,6 +5,13 @@ module.exports = {
       type: 'input',
       name: 'name',
       message: 'Type the module name:'
+    },
+
+    {
+      // type: 'input',
+      name: 'teste',
+      default: new Date().getTime()
+      // message: 'teste de novo input:'
     }
   ],
   actions: [
