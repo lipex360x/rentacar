@@ -1,13 +1,13 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
-export default class {{pascalCase name}}-{{teste}} implements MigrationInterface {
+export default class {{pascalCase name}}{{timestamp}} implements MigrationInterface {
   public async up (queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'TABLE_NAME',
+        name: 'XXX_TABLE_NAME_XXX',
         columns: [
           {
-            name: 'TABLE_SINGLE_NAME_id',
+            name: 'XXX_TABLE_ID_XXX',
             type: 'uuid',
             isPrimary: true
           },
@@ -41,6 +41,6 @@ export default class {{pascalCase name}}-{{teste}} implements MigrationInterface
   }
 
   public async down (queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('TABLE_NAME')
+    await queryRunner.dropTable('XXX_TABLE_NAME_XXX')
   }
 }

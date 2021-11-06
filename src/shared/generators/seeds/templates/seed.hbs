@@ -1,0 +1,20 @@
+import { v4 as uuid } from 'uuid'
+import { Factory, Seeder } from 'typeorm-seeding'
+import { Connection } from 'typeorm'
+import { XXXXXX } from '@modules/XXXXX/infra/typeorm/entities/ZZZZZZZ'
+
+export default class {{pascalCase name}} implements Seeder {
+  public async run (factory: Factory, connection: Connection): Promise<any> {
+    await connection
+      .createQueryBuilder()
+      .insert()
+      .into(XXXXXX)
+      .values([
+        {
+          XXXXXX_id: uuid(),
+          props: 'values'
+        }
+      ])
+      .execute()
+  }
+}
