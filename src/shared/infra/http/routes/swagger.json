@@ -10,19 +10,19 @@
       "email": "lipex360@gmail.com"
     }
   },
-  
   "paths": {
     "/categories": {
       "post": {
-        "tags": ["Category"],
+        "tags": [
+          "Category"
+        ],
         "summary": "Create a Category",
         "description": "Create a new Category",
         "requestBody": {
           "content": {
-            "application/json" :{
-              "schema":  {
+            "application/json": {
+              "schema": {
                 "type": "object",
-                
                 "properties": {
                   "name": {
                     "type": "string"
@@ -31,41 +31,38 @@
                     "type": "string"
                   }
                 },
-
                 "example": {
                   "name": "Category name sample",
                   "description": "Description sample"
                 }
-                
               }
             }
           }
         },
         "responses": {
-            "200": {          
-              "description": "Created"
-            },
-            "500": {
-              "description": "Category already exists"
-            }
+          "200": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Category already exists"
           }
+        }
       },
-
       "get": {
-        "tags": ["Category"],
+        "tags": [
+          "Category"
+        ],
         "summary": "List Categories",
         "description": "List all Categories",
         "responses": {
-          "200": {          
+          "200": {
             "description": "Success",
             "content": {
               "application/json": {
-
                 "schema": {
                   "type": "array",
                   "items": {
                     "type": "object",
-                    
                     "properties": {
                       "name": {
                         "type": "string"
@@ -82,50 +79,80 @@
         }
       }
     },
+
+    "categories/import": {
+      "post": {
+        "tags": ["Category"],
+        "summary": "Massive Import categories",
+        "description": "Massive Import with CSV File",
+        "requestBody": {
+          "content": {
+            "$ref": "#/definitions/Specifications/Import"
+          }
+        }
+      }
+    },
+
     "/specifications": {
       "post": {
-        "tags": ["Specifications"],
+        "tags": [
+          "Specifications"
+        ],
         "summary": "Create a Specification",
         "description": "Create a new specification",
         "requestBody": {
           "content": {
-            "application/json" :{
-              "schema":  {
-                "$ref": "#/definitions/Specifications"
-              }
-            }
+            "$ref": "#/definitions/Specifications/Create"
           }
         },
         "responses": {
-            "201": {          
-              "description": "Created"
-            },
-            "500": {
-              "description": "Specification already exists!"
-            }
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Specification already exists!"
           }
+        }
       }
     }
   },
 
   "definitions": {
     "Specifications": {
-      "type": "object",
-                
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
+      "Create": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              }
+            },
+            "example": {
+              "name": "Name Sample",
+              "description": "Description Sample"
+            }
+          }
         }
       },
 
-      "example": {
-        "name": "Name Sample",
-        "description": "Description Sample"
+      "Import": {
+        "multipart/form-data": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "file": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          }
+        }
       }
     }
+    
   }
-
 }
