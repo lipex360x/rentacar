@@ -3,8 +3,15 @@ module.exports = {
   prompts: [{
     type: 'input',
     name: 'name',
-    message: 'Type module name:'
+    message: 'Type module name:',
+    validate: value => {
+      if (!value) {
+        return 'Name is required'
+      }
+      return true
+    }
   }],
+
   actions: [
     // INFRA: http
     {

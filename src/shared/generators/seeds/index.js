@@ -4,7 +4,13 @@ module.exports = {
     {
       type: 'input',
       name: 'name',
-      message: 'Type Seed name:'
+      message: 'Type Seed name:',
+      validate: value => {
+        if (!value) {
+          return 'Name is required'
+        }
+        return true
+      }
     }
   ],
   actions: [
