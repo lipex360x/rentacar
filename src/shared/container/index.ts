@@ -4,6 +4,8 @@ import { CategoriesRepository } from '@modules/cars/repositories/implementations
 import { ISpecificationsRepository } from '@modules/cars/repositories/interfaces/ISpecificationsRepository'
 import { SpecificationsRepository } from '@modules/cars/repositories/implementations/SpecificationsRepository'
 
+import '@modules/accounts/repositories'
+
 container.registerSingleton<ICategoriesRepositoryProps>(
   'CategoriesRepository',
   CategoriesRepository

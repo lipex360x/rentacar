@@ -1,0 +1,16 @@
+import { Repository, getRepository } from 'typeorm'
+
+import {{pascalCase name}} from '@modules/{{camelCase name}}/infra/typeorm/entities/{{pascalCase name}}'
+import I{{pascalCase name}}Repository, { CreateProps } from '@modules/{{camelCase name}}/repositories/interfaces/I{{pascalCase name}}Repository'
+
+export default class {{pascalCase name}}Repository implements I{{pascalCase name}}Repository {
+  private repository: Repository<{{pascalCase name}}>
+
+  constructor () {
+    this.repository = getRepository({{pascalCase name}})
+  }
+
+  async create ({ data }: CreateProps): Promise<{{pascalCase name}}> {
+    //  TO DO
+  }
+}

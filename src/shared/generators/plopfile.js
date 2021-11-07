@@ -1,5 +1,5 @@
 const moduleGenerator = require('./modules/index')
-const seedGenerator = require('./seed/index')
+const seedGenerator = require('./seeds/index')
 const migrationGenerator = require('./migrations/index')
 
 module.exports = function (plop) {

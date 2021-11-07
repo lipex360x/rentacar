@@ -1,0 +1,9 @@
+import {{pascalCase name}} from '@modules/{{camelCase name}}/infra/typeorm/entities/{{pascalCase name}}'
+
+export interface CreateProps {
+  data: string
+}
+
+export default interface I{{pascalCase name}}Repository {
+  create(data: CreateProps): Promise<{{pascalCase name}}>
+}

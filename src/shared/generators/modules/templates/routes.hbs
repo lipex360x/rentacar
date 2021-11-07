@@ -1,0 +1,12 @@
+// snippet: routerTemplate
+import { Router } from 'express'
+
+import Create{{pascalCase name}}Controller from '@modules/{{camelCase name}}/useCases/{{pascalCase name}}/Create/{{pascalCase name}}CreateController'
+
+const router = Router()
+
+const create{{pascalCase name}}Controller = new Create{{pascalCase name}}Controller()
+
+router.post('/', create{{pascalCase name}}Controller.create)
+
+export default router

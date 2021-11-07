@@ -1,0 +1,34 @@
+import { v4 as uuid } from 'uuid'
+
+import {
+  Entity,
+  Column,
+  PrimaryColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  BeforeInsert,
+  DeleteDateColumn
+} from 'typeorm'
+
+@Entity('{{camelCase name}}s')
+export default class {{pascalCase name}} {
+  @PrimaryColumn('uuid')
+  // OBJECT_ID: string;
+
+  @Column()
+  data: string;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
+
+  @DeleteDateColumn()
+  deleted_at: Date;
+
+  @BeforeInsert()
+  userProps (): void {
+    this.{{camelCase name}}_id = uuid()
+  }
+}

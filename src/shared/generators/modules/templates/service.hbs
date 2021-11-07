@@ -1,0 +1,21 @@
+import { inject, injectable } from 'tsyringe'
+// import AppError from '@shared/errors/AppError'
+
+import {{pascalCase name}} from '@modules/{{camelCase name}}/infra/typeorm/entities/{{pascalCase name}}'
+import I{{pascalCase name}}Repository from '@modules/{{camelCase name}}/repositories/interfaces/I{{pascalCase name}}Repository'
+
+interface Request{
+  data: string
+}
+
+@injectable()
+export default class Create{{pascalCase name}}Service {
+  constructor (
+    @inject('{{pascalCase name}}Repository')
+    private repository: I{{pascalCase name}}Repository
+  ) {}
+
+  async execute ({ data }: Request): Promise<{{pascalCase name}}> {
+    // To Do
+  }
+}

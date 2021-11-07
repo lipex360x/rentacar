@@ -1,0 +1,22 @@
+import AppError from '@shared/errors/AppError'
+import Faker from 'faker'
+
+import Fake{{pascalCase name}}Repository from '@modules/{{camelCase name}}/repositories/fakes/Fake{{pascalCase name}}Repository'
+import {{pascalCase name}}CreateService from './{{pascalCase name}}CreateService'
+
+let fake{{camelCase name}}Repository: Fake{{pascalCase name}}Repository
+let {{camelCase name}}CreateService: {{pascalCase name}}CreateService
+
+describe('TEST_NAME ', () => {
+  beforeEach(() => {
+    fake{{camelCase name}}Repository = new Fake{{pascalCase name}}Repository()
+    {{camelCase name}}CreateService = new {{pascalCase name}}CreateService(fake{{camelCase name}}Repository)
+  })
+
+  it('should be able to create a new {{camelCase name}}', async () => {
+    const props = null
+    const test = await {{camelCase name}}CreateService.execute({ props })
+
+    expect(test).toHaveProperty('VALUE')
+  })
+})
