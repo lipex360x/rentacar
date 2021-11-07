@@ -1,8 +1,8 @@
 import { Router } from 'express'
 import swagger from 'swagger-ui-express'
 
-import { categoriesRoutes } from './categories.routes'
-import { specificationsRoutes } from './specifications.routes'
+import { categoriesRoutes } from '@modules/cars/infra/routes/categories.routes'
+import { specificationsRoutes } from '@modules/cars/infra/routes/specifications.routes'
 
 import userRoutes from '@modules/accounts/infra/http/routes/user.routes'
 

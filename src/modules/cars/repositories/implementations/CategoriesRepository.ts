@@ -1,4 +1,4 @@
-import { Category } from '@modules/cars/entities/Category'
+import { Category } from '@modules/cars/infra/typeorm/entities/Category'
 import { getRepository, Repository } from 'typeorm'
 import { ICategoriesRepositoryProps, ICreateProps, IFindByNameProps } from '../interfaces/ICategoriesRepository'
 

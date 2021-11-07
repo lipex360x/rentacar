@@ -1,6 +1,6 @@
 import fs from 'fs'
 import csvParse from 'csv-parse'
-import { Category } from '@modules/cars/entities/Category'
+import { Category } from '@modules/cars/infra/typeorm/entities/Category'
 import { ICategoriesRepositoryProps } from '@modules/cars/repositories/interfaces/ICategoriesRepository'
 import { inject, injectable } from 'tsyringe'
 

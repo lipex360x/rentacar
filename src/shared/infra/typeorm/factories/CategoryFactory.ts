@@ -1,6 +1,6 @@
 import Faker from 'faker'
 import { define } from 'typeorm-seeding'
-import { Category } from '@modules/cars/entities/Category'
+import { Category } from '@modules/cars/infra/typeorm/entities/Category'
 
 define(Category, (faker: typeof Faker, context: { roles: string[] }) => {
   const dateCreate = new Date()
