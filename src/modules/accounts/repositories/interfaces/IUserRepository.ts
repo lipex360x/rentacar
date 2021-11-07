@@ -8,6 +8,11 @@ export interface CreateProps {
   isAdmin?: boolean
 }
 
+export interface FindByEmailProps {
+  email: string
+}
+
 export default interface IUserRepository {
   create(data: CreateProps): Promise<User>
+  findByEmail(data: FindByEmailProps): Promise<User>
 }
