@@ -10,8 +10,8 @@ export default class {{pascalCase name}}CreateController {
 
     const service = container.resolve({{pascalCase name}}CreateService)
 
-    const {{name}}CreateService = await service.execute({ props })
+    const serviceResponse = await service.execute({ props })
 
-    return response.json({{name}}CreateService)
+    return response.json(serviceResponse)
   }
 }

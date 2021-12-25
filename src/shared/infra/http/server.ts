@@ -5,6 +5,6 @@ const api = app.listen(process.env.API_PORT, () => {
 })
 
 process.on('SIGINT', () => {
-  console.log('\n🔒 API Stopped')
+  console.log('\n\n⚓ API Stopped')
   api.close()
 })

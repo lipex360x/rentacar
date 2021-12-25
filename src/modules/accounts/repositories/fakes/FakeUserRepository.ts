@@ -1,4 +1,5 @@
 import { v4 as uuid } from 'uuid'
+import bcrypt from 'bcryptjs'
 
 import User from '@modules/accounts/infra/typeorm/entities/User'
 import IUserRepository, { CreateProps, FindByEmailProps } from '../interfaces/IUserRepository'
@@ -8,12 +9,13 @@ export default class FakeUserRepository implements IUserRepository {
 
   async create ({ name, email, password, isAdmin, driver_license }:CreateProps): Promise<User> {
     const user = new User()
+    const passwordCrypted = await bcrypt.hash(password, 8)
 
     Object.assign(user, {
       user_id: uuid(),
       name,
       email,
-      password,
+      password: passwordCrypted,
       isAdmin,
       driver_license,
       created_at: new Date(),

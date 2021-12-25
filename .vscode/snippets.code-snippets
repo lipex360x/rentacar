@@ -102,66 +102,22 @@
 		]
 	},
 
-
-  "Migration FK Column": {
-		"prefix": "migrationForeignKey",
-		"body": [
-    "import { MigrationInterface, QueryRunner, TableColumn, TableForeignKey } from 'typeorm'",
-    "",
-    "export default class ${1:MigrationName}",
-    "  implements MigrationInterface {",
-    "  public async up(queryRunner: QueryRunner): Promise<void> {",
-    "",
-    "    await queryRunner.addColumn(",
-    "      '${2:DATABASE_NAME}',",
-    "      new TableColumn({",
-    "        name: '${3:COLUMN_NAME}',",
-    "        type: 'uuid',",
-    "        isNullable: true,",
-    "      })",
-    "    );",
-    "",
-    "    await queryRunner.createForeignKey(",
-    "      '${2:DATABASE_NAME}',",
-    "      new TableForeignKey({",
-    "        name: '${2:DATABASE_NAME}_To_${5:REFERENCE_TABLE}',",
-    "        columnNames: ['${3:COLUMN_NAME}'],",
-    "",
-    "        referencedTableName: '${5:REFERENCE_TABLE}',",
-    "        referencedColumnNames: ['${3:COLUMN_NAME}'],",
-    "",
-    "        onDelete: '${6|CASCADE,SET NULL|}',",
-    "        onUpdate: '${7|CASCADE,SET NULL|}'",
-    "      })",
-    "    )",
-    "  }",
-    "",
-    "  public async down(queryRunner: QueryRunner): Promise<void> {",
-    "    await queryRunner.dropForeignKey('${2:DATABASE_NAME}', '${2:DATABASE_NAME}_To_${5:REFERENCE_TABLE}');",
-    "    await queryRunner.dropColumn('${2:DATABASE_NAME}', '${3:COLUMN_NAME}');",
-    "  }",
-    "}",
-    ]
-  },
-
   "Entity Template": {
     "prefix": "entityTemplate",
     "body": [
-		"import { v4 as uuid } from 'uuid'",
+    "import { v4 as uuid } from 'uuid'",
     "import {",
     "  Entity,",
     "  Column,",
     "  PrimaryColumn,",
     "  CreateDateColumn,",
-    "  UpdateDateColumn,",
-    "  DeleteDateColumn,",
-    "  BeforeInsert",
+    "  UpdateDateColumn",
     "} from 'typeorm'",
     "",
     "@Entity('${TM_FILENAME_BASE/(.*)/${1:/downcase}/}s')",
-    "export class $TM_FILENAME_BASE {",
+    "export default class $TM_FILENAME_BASE {",
     "  @PrimaryColumn('uuid')",
-    "  ${TM_FILENAME_BASE/(.*)/${1:/downcase}/}_id?: string;",
+    "  id: string;",
     "",
     "  @Column()",
     "  name: string;",
@@ -175,12 +131,11 @@
     "  @DeleteDateColumn()",
     "  deleted_at: Date;",
     "",
-		"  @BeforeInsert()",
-		"  ${TM_FILENAME_BASE/(.*)/${1:/downcase}/}Props (): void {",
-		"    this.${TM_FILENAME_BASE/(.*)/${1:/downcase}/}_id = uuid()",
-		"  }",
-		"}",
-		"",
+    "  constructor() {",
+    "    if (!this.id) this.id = uuid()",
+    "  }",
+    "}",
+    "",
     ]
   },
 
@@ -253,31 +208,6 @@
     ]
   },
 
-  "Plop File": {
-    "prefix": "plopTemplate",
-    "body": [
-      "module.exports = {",
-      "  description: '${1:Description}',",
-      "  prompts: [",
-      "    {",
-      "      type: 'input',",
-      "      name: 'name',",
-      "      message: '${2:Text}'",
-      "    }",
-      "  ],",
-      "  actions: [",
-      "    {",
-      "      type: 'add',",
-      "      path: '${3:path_to_create_file}',",
-      "      templateFile: './${TM_DIRECTORY/^.+\\/(.*)$/$1/}/templates/${4:template_hbs}'",
-      "    }",
-      "  ] // array of actions",
-      "}",
-      ""
-    ]
-  },
-  
-
   "Interface Template": {
     "prefix": "interfaceTemplate",
     "body": [
@@ -293,7 +223,6 @@
       "",
     ]
   },
-
 
   "Fake Repository Template": {
     "prefix": "fakeRepositoryTemplate",
@@ -372,13 +301,13 @@
     "body": [
       "import { Router } from 'express'",
       "",
-      "import CONTROLLER_NAME from '../controllers/${2:CONTROLLER}'",
+      "import CONTROLLER_NAME from '@modules/'",
       "",
       "const router = Router()",
       "",
       "const controllerInstance = new CONTROLLER_NAME()",
       "",
-      "router.${1|get,post,put,patch,delete|}('/', controllerInstance.function)",
+      "router.${1|get,post,put,patch,delete|}('/', controllerInstance.handle)",
       "",
       "export default router",
       ""
