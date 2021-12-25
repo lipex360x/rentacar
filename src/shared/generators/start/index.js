@@ -49,7 +49,7 @@ module.exports = {
         }
         return true
       }
-    },
+    }
   ],
 
   actions: (data) => {
@@ -65,6 +65,18 @@ module.exports = {
         type: 'add',
         path: '../../../docker-compose.yml',
         templateFile: './start/templates/docker-compose.hbs'
+      },
+
+      {
+        type: 'add',
+        path: '../../../jest.config.js',
+        templateFile: './start/templates/jest.config.hbs'
+      },
+
+      {
+        type: 'add',
+        path: '../../../tsconfig.json',
+        templateFile: './start/templates/tsconfig.hbs'
       }
 
     ]

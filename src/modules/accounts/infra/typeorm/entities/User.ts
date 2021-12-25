@@ -12,8 +12,6 @@ import {
   DeleteDateColumn
 } from 'typeorm'
 
-import { Exclude } from 'class-transformer'
-
 @Entity('users')
 export default class User {
   @PrimaryColumn('uuid')
@@ -22,8 +20,7 @@ export default class User {
   @Column()
     name: string
 
-  @Column()
-  @Exclude()
+  @Column({ select: false })
     password: string
 
   @Column()
@@ -44,9 +41,8 @@ export default class User {
   @DeleteDateColumn()
     deleted_at: Date
 
-  @BeforeInsert()
-  userProps (): void {
-    this.user_id = uuid()
+  constructor () {
+    if (!this.user_id) this.user_id = uuid()
   }
 
   @BeforeInsert()

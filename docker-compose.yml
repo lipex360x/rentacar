@@ -1,23 +1,26 @@
 version: "3.7"
 
 services:
-  app:
-    container_name: rentx
-    build: .
-    volumes:
-      - .:/usr/app
-    network_mode: host
-
   postgresdb:
     image: postgres
-    container_name: ${POSTGRES_CONTAINER_NAME}
+    container_name: ${TYPEORM_CONTAINER_NAME}
     environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASS}
-      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${TYPEORM_USERNAME}
+      - POSTGRES_PASSWORD=${TYPEORM_PASSWORD}
+      - POSTGRES_DB=${TYPEORM_DATABASE}
     volumes:
       - pgdata:/data/postgres
     network_mode: host
+
+  # mongodb:
+  #   image: mongo
+  #   container_name: ${MONGODB_CONTAINER_NAME}
+  #   network_mode: host
+
+  # redisdb:
+  #   image: redis:alpine
+  #   container_name: ${REDIS_CONTAINER_NAME}
+  #   network_mode: host
 
 volumes:
   pgdata:

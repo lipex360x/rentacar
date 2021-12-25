@@ -1,7 +1,6 @@
 // snippet: controllerTemplate
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
-import { classToClass } from 'class-transformer'
 
 import CreateUserService from '@modules/accounts/useCases/User/Create/UserCreateService'
 
@@ -13,6 +12,6 @@ export default class CreateUserController {
 
     const createUserService = await service.execute({ name, email, password, driver_license, isAdmin })
 
-    return response.json(classToClass(createUserService))
+    return response.json(createUserService)
   }
 }
