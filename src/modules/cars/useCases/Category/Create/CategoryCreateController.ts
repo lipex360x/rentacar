@@ -1,7 +1,7 @@
 import { container } from 'tsyringe'
 import { Request, Response } from 'express'
 
-import { CategoryCreateService } from '@modules/cars/useCases/Category/Create/CategoryCreateService'
+import CategoryCreateService from './CategoryCreateService'
 
 class CategoryCreateController {
   async handle (request:Request, response: Response): Promise<Response> {
@@ -15,4 +15,4 @@ class CategoryCreateController {
   }
 }
 
-export { CategoryCreateController }
+export default CategoryCreateController

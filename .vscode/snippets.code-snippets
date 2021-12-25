@@ -312,6 +312,34 @@
       "export default router",
       ""
     ]
-  }	
+  },
+
+  "Test Spec Template": {
+    "prefix": "testTemplate",
+    "body": [
+      "import AppError from '@shared/errors/AppError'",
+      "import Faker from 'faker'",
+      "",
+      "import FAKE_REPOSITORY from '@modules/'",
+      "import SERVICE_NAME from './'",
+      "",
+      "let fakeRepository: FAKE_REPOSITORY",
+      "let serviceName: SERVICE_NAME",
+      "",
+      "describe('${1:TEST_NAME}', () => {",
+      "  beforeEach(() => {",
+      "    fakeRepository = new FAKE_REPOSITORY()",
+      "    serviceName = new SERVICE_NAME(fakeRepository)",
+      "  })",
+      "",
+      "  it('should be able to ', async () => {",
+      "",
+      "",
+      "  })",
+      "",
+      "})",
+      "",
+    ]
+  },
 	
 }

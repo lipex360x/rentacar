@@ -1,6 +1,6 @@
-import { Category } from '@modules/cars/infra/typeorm/entities/Category'
+import Category from '@modules/cars/infra/typeorm/entities/Category'
 import { getRepository, Repository } from 'typeorm'
-import { ICategoriesRepositoryProps, ICreateProps, IFindByNameProps } from '../interfaces/ICategoriesRepository'
+import ICategoriesRepositoryProps, { ICreateProps, IFindByNameProps } from '../../../repositories/interfaces/ICategoriesRepository'
 
 class CategoriesRepository implements ICategoriesRepositoryProps {
   private repository: Repository<Category>
@@ -9,10 +9,10 @@ class CategoriesRepository implements ICategoriesRepositoryProps {
     this.repository = getRepository(Category)
   }
 
-  async create ({ name, description }: ICreateProps): Promise<void> {
+  async create ({ name, description }: ICreateProps): Promise<Category> {
     const category = this.repository.create({ name, description })
 
-    await this.repository.save(category)
+    return this.repository.save(category)
   }
 
   async findByName ({ name }: IFindByNameProps): Promise<Category> {
@@ -24,4 +24,4 @@ class CategoriesRepository implements ICategoriesRepositoryProps {
   }
 }
 
-export { CategoriesRepository }
+export default CategoriesRepository

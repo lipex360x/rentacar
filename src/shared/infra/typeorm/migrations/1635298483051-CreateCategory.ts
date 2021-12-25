@@ -7,7 +7,7 @@ export default class CreateCategory1635298483051 implements MigrationInterface {
         name: 'categories',
         columns: [
           {
-            name: 'category_id',
+            name: 'id',
             type: 'uuid',
             isPrimary: true
           },

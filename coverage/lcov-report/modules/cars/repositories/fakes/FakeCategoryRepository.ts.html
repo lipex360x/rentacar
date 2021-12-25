@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for modules/accounts/repositories/fakes/FakeUserRepository.ts</title>
+    <title>Code coverage report for modules/cars/repositories/fakes/FakeCategoryRepository.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">modules/accounts/repositories/fakes</a> FakeUserRepository.ts</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">modules/cars/repositories/fakes</a> FakeCategoryRepository.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">91.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>13/13</span>
+                <span class='fraction'>11/12</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>4/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">90.9% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/12</span>
+                <span class='fraction'>10/11</span>
             </div>
         
             
@@ -91,75 +91,72 @@
 <a name='L32'></a><a href='#L32'>32</a>
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { v4 as uuid } from 'uuid'
-import bcrypt from 'bcryptjs'
 &nbsp;
-import User from '@modules/accounts/infra/typeorm/entities/User'
-import IUserRepository, { CreateProps, FindByEmailProps } from '../interfaces/IUserRepository'
+import Category from '@modules/cars/infra/typeorm/entities/Category'
+import ICategoriesRepositoryProps, { ICreateProps, IFindByNameProps } from '../interfaces/ICategoriesRepository'
 &nbsp;
-export default class FakeUserRepository implements IUserRepository {
-  private repository: User[] = []
+export default class FakeCategoryRepository implements ICategoriesRepositoryProps {
+  private repository: Category[] = []
 &nbsp;
-  async create ({ name, email, password, isAdmin, driver_license }:CreateProps): Promise&lt;User&gt; {
-    const user = new User()
-    const passwordCrypted = await bcrypt.hash(password, 8)
+  async create ({ name, description }:ICreateProps): Promise&lt;Category&gt; {
+    const category = new Category()
 &nbsp;
-    Object.assign(user, {
+    Object.assign(category, {
       id: uuid(),
       name,
-      email,
-      password: passwordCrypted,
-      isAdmin,
-      driver_license,
+      description,
       created_at: new Date(),
       updated_at: new Date()
     })
 &nbsp;
-    this.repository.push(user)
+    this.repository.push(category)
 &nbsp;
-    return user
+    return category
   }
 &nbsp;
-  async findByEmail ({ email }: FindByEmailProps): Promise&lt;User&gt; {
-    const getUser = this.repository.find(user =&gt; user.email === email)
+  async findByName ({ name }: IFindByNameProps): Promise&lt;Category&gt; {
+    const getCategory = this.repository.find(category =&gt; category.name === name)
 &nbsp;
-    return getUser
+    return getCategory
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  async </span>list (): Promise&lt;Category[]&gt; {
+<span class="cstat-no" title="statement not covered" >    return this.repository</span>
   }
 }
 &nbsp;</pre></td></tr></table></pre>
