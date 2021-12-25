@@ -16,36 +16,6 @@ describe('User Auth', () => {
     userCreateService = new UserCreateService(fakeUserRepository)
   })
 
-  it('should be able to check if user exists', async () => {
-    const user = {
-      name: Faker.name.firstName(),
-      email: Faker.internet.email(),
-      password: Faker.datatype.uuid(),
-      driver_license: '12345678',
-      isAdmin: false
-    }
-    const createUser = await userCreateService.execute(user)
-
-    expect(createUser).toHaveProperty('user_id')
-
-    const userAuth = await userAuthService.execute({ email: user.email, password: user.password })
-
-    expect(userAuth).toHaveProperty('token')
-  })
-
-  it('should be able to check if user password is valid', async () => {
-    const user = {
-      name: Faker.name.firstName(),
-      email: Faker.internet.email(),
-      password: Faker.datatype.uuid(),
-      driver_license: '12345678',
-      isAdmin: false
-    }
-    const createUser = await userCreateService.execute(user)
-
-    expect(createUser).toHaveProperty('user_id')
-  })
-
   it('should be able to check if user is valid', async () => {
     const user = {
       name: Faker.name.firstName(),
@@ -55,18 +25,28 @@ describe('User Auth', () => {
       isAdmin: false
     }
 
-    const createUser = await userCreateService.execute(user)
+    await userCreateService.execute(user)
 
-    expect(createUser).toHaveProperty('user_id')
-
-    user.email = Faker.internet.email()
+    let fakeUser = {
+      ...user,
+      email: Faker.internet.email()
+    }
 
     await expect(
-      userAuthService.execute(user)
+      userAuthService.execute(fakeUser)
+    ).rejects.toBeInstanceOf(AppError)
+
+    fakeUser = {
+      ...user,
+      password: Faker.datatype.uuid()
+    }
+
+    await expect(
+      userAuthService.execute(fakeUser)
     ).rejects.toBeInstanceOf(AppError)
   })
 
-  it('should be able to check if password is valid', async () => {
+  it('should be able to create a token', async () => {
     const user = {
       name: Faker.name.firstName(),
       email: Faker.internet.email(),
@@ -75,34 +55,10 @@ describe('User Auth', () => {
       isAdmin: false
     }
 
-    const createUser = await userCreateService.execute(user)
+    await userCreateService.execute(user)
 
-    expect(createUser).toHaveProperty('user_id')
+    const webtoken = await userAuthService.execute({ email: user.email, password: user.password })
 
-    user.password = Faker.datatype.uuid()
-
-    await expect(
-      userAuthService.execute(user)
-    ).rejects.toBeInstanceOf(AppError)
+    expect(webtoken).toHaveProperty('token')
   })
-
-  // it('should not be able to generate a token to invalid user', async () => {
-  //   const user = {
-  //     name: Faker.name.firstName(),
-  //     email: Faker.internet.email(),
-  //     password: Faker.datatype.uuid(),
-  //     driver_license: '12345678',
-  //     isAdmin: false
-  //   }
-
-  //   await expect(
-  //     userAuthService.execute(user)
-  //   ).rejects.toBeInstanceOf(AppError)
-  // })
-
-  // it('should be able to generate a token', async () => {
-  //   const userAuth = await userAuthService.execute()
-
-  //   expect(userAuth).toHaveProperty('XXXXXXXXXXXXX')
-  // })
 })
