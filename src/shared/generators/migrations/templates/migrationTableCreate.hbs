@@ -7,14 +7,14 @@ export default class {{pascalCase name}}{{timestamp}} implements MigrationInterf
         name: '{{database}}',
         columns: [
           {
-            name: 'XXX_TABLE_ID_XXX',
+            name: 'id',
             type: 'uuid',
             isPrimary: true
           },
 
           {
-            name: 'COLUMN_NAME',
-            type: 'varchar'
+            name: '{{columnName}}',
+            type: '{{columnType}}'
           },
 
           {

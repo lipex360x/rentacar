@@ -102,83 +102,6 @@
 		]
 	},
 
-  "Migration Create Table Template": {
-    "prefix": "migrationTable",
-    "body": [
-      "import { MigrationInterface, QueryRunner, Table } from 'typeorm'",
-      "",
-      "export default class ${1:MigrationName} implements MigrationInterface {",
-      "  public async up (queryRunner: QueryRunner): Promise<void> {",
-      "    await queryRunner.createTable(",
-      "      new Table({",
-      "        name: '${2:TABLE_NAME}',",
-      "        columns: [",
-      "          {",
-      "            name: '${3:TABLE_SINGLE_NAME}_id',",
-      "            type: 'uuid',",
-      "            isPrimary: true",
-			"          },",
-			"",
-      "          {",
-      "            name: '${4:COLUMN_NAME}',",
-      "            type: '${5|varchar,text,uuid,integer,decimal,boolean|}'",
-      "          },",
-      "",
-      "          {",
-      "            name: 'created_at',",
-      "            type: 'timestamp with time zone',",
-      "            default: 'now()'",
-			"          },",
-			"",
-      "          {",
-      "            name: 'updated_at',",
-      "            type: 'timestamp with time zone',",
-      "            default: 'now()'",
-      "          },",
-      "",
-      "          {",
-      "            name: 'deleted_at',",
-      "            type: 'timestamp with time zone',",
-      "            isNullable: true,",
-      "            default: null",
-      "          }",
-      "        ]",
-      "      })",
-      "    )",
-      "  }",
-      "",
-      "  public async down (queryRunner: QueryRunner): Promise<void> {",
-      "    await queryRunner.dropTable('${2:TABLE_NAME}')",
-      "  }",
-      "}",
-      "",
-		]
-  },
-
-  "Migration Column": {
-		"prefix": "migrationColumn",
-		"body": [
-      "import { MigrationInterface, QueryRunner, TableColumn } from 'typeorm';",
-      "",
-      "export default class ${1:MigrationName}",
-      "  implements MigrationInterface {",
-      "  public async up(queryRunner: QueryRunner): Promise<void> {",
-      "    await queryRunner.addColumn(",
-      "      '${2:Table Name}',",
-      "      new TableColumn({",
-      "        name: '${3:Column Name}',",
-      "        type: '${4|varchar,integer,boolean,decimal|}',",
-      "        isNullable: true,",
-      "      }),",
-      "    );",
-      "  }",
-      "",
-      "  public async down(queryRunner: QueryRunner): Promise<void> {",
-      "    await queryRunner.dropColumn('${2:Table Name}', '${3:Column Name}');",
-      "  }",
-      "}",
-    ]
-  },
 
   "Migration FK Column": {
 		"prefix": "migrationForeignKey",
@@ -443,61 +366,6 @@
       "",
     ]
   },
-  
-  "Service Template": {
-    "prefix": "serviceTemplate",
-    "body": [
-      "import { inject, injectable } from 'tsyringe'",
-      "",
-      "import AppError from '@shared/errors/AppError'",
-      "",
-      "import ENTITY from '@modules/${1:module}'",
-      "import INTERFACE_REPOSITORY from '@modules/${2:module}'",
-      "",
-      "interface Request{",
-      "  ${3:PROP}: ${4:TYPE}",
-      "}",
-      "",
-      "@injectable()",
-      "export default class $TM_FILENAME_BASE {",
-      "",
-      "  constructor (",
-      "    @inject('INJECT_REPOSITORY')",
-      "    private repository: INTERFACE_REPOSITORY",
-      "  ) {}",
-      "",
-      "  async execute ({ props }: Request): Promise<void> {",
-      "    // const repoFunctions = await this.repository.function({})",
-      "    ",
-      "  }",
-      "}",
-      "",
-    ]
-  },
-
-  "Controller Template": {
-    "prefix": "controllerTemplate",
-    "body": [
-      "import { Request, Response } from 'express'",
-      "import { container } from 'tsyringe'",
-      "import { classToClass } from 'class-transformer'",
-      "",
-      "import SERVICE_NAME from '@modules/'",
-      "",
-      "export default class $TM_FILENAME_BASE {",
-      "  async ${1|show,index,create,update,delete|} (request: Request, response: Response): Promise<Response> {",
-      "    const { props } = request.body",
-      "",
-      "    const service = container.resolve(SERVICE_NAME)",
-      "",
-      "    const serviceFunction = await service.execute({})",
-      "",
-      "    return response.json(classToClass(serviceFunction))",
-      "  }",
-      "}",
-      "",
-    ]
-  },
 
   "Router Template": {
     "prefix": "routerTemplate",
@@ -515,37 +383,6 @@
       "export default router",
       ""
     ]
-  },
-
-  "Test Spec Template": {
-    "prefix": "testTemplate",
-    "body": [
-      "import AppError from '@shared/errors/AppError'",
-      "import Faker from 'faker'",
-      "",
-      "import FAKE_REPOSITORY from '@modules/'",
-      "import SERVICE_NAME from './'",
-      "",
-      "let fakeRepository: FAKE_REPOSITORY",
-      "let serviceName: SERVICE_NAME",
-      "",
-      "describe('${1:TEST_NAME}', () => {",
-      "  beforeEach(() => {",
-      "    fakeRepository = new FAKE_REPOSITORY()",
-      "    serviceName = new SERVICE_NAME(fakeRepository)",
-      "  })",
-      "",
-      "  it('should be able to ', async () => {",
-      "",
-      "",
-      "  })",
-      "",
-      "})",
-      "",
-    ]
-  },
-	
+  }	
 	
 }
-
-
