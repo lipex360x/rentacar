@@ -2,18 +2,18 @@ import AppError from '@shared/errors/AppError'
 import Faker from 'faker'
 
 import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUserRepository'
-import UserAuthService from './UserAuthService'
-import UserCreateService from '../Create/UserCreateService'
+import UserCreateService from '@modules/accounts/useCases/User/Create/UserCreateService'
+import SessionService from './SessionService'
 
 let fakeUserRepository: FakeUserRepository
-let userAuthService: UserAuthService
+let sessionService: SessionService
 let userCreateService: UserCreateService
 
-describe('User Auth', () => {
+describe('Session Service', () => {
   beforeEach(() => {
     fakeUserRepository = new FakeUserRepository()
-    userAuthService = new UserAuthService(fakeUserRepository)
     userCreateService = new UserCreateService(fakeUserRepository)
+    sessionService = new SessionService(fakeUserRepository)
   })
 
   it('should be able to check if user is valid', async () => {
@@ -33,7 +33,7 @@ describe('User Auth', () => {
     }
 
     await expect(
-      userAuthService.execute(fakeUser)
+      sessionService.execute(fakeUser)
     ).rejects.toBeInstanceOf(AppError)
 
     fakeUser = {
@@ -42,7 +42,7 @@ describe('User Auth', () => {
     }
 
     await expect(
-      userAuthService.execute(fakeUser)
+      sessionService.execute(fakeUser)
     ).rejects.toBeInstanceOf(AppError)
   })
 
@@ -57,7 +57,7 @@ describe('User Auth', () => {
 
     await userCreateService.execute(user)
 
-    const webtoken = await userAuthService.execute({ email: user.email, password: user.password })
+    const webtoken = await sessionService.execute({ email: user.email, password: user.password })
 
     expect(webtoken).toHaveProperty('token')
   })

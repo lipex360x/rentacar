@@ -19,7 +19,7 @@ interface Response {
 }
 
 @injectable()
-export default class UserAuthService {
+export default class SessionService {
   constructor (
     @inject('UserRepository')
     private repository: IUserRepository
