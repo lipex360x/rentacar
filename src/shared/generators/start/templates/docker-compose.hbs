@@ -1,0 +1,27 @@
+version: "3.7"
+
+services:
+  postgresdb:
+    image: postgres
+    container_name: ${TYPEORM_CONTAINER_NAME}
+    environment:
+      - POSTGRES_USER=${TYPEORM_USERNAME}
+      - POSTGRES_PASSWORD=${TYPEORM_PASSWORD}
+      - POSTGRES_DB=${TYPEORM_DATABASE}
+    volumes:
+      - pgdata:/data/postgres
+    network_mode: host
+
+  # mongodb:
+  #   image: mongo
+  #   container_name: ${MONGODB_CONTAINER_NAME}
+  #   network_mode: host
+
+  # redisdb:
+  #   image: redis:alpine
+  #   container_name: ${REDIS_CONTAINER_NAME}
+  #   network_mode: host
+
+volumes:
+  pgdata:
+    driver: local

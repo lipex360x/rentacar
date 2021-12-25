@@ -1,0 +1,27 @@
+import AppError from '@shared/errors/AppError'
+import Faker from 'faker'
+
+import Fake{{pascalCase moduleName}}Repository from '@modules/{{camelCase moduleName}}/repositories/fakes/Fake{{pascalCase moduleName}}Repository'
+import {{pascalCase moduleName}}{{pascalCase useCaseName}}Service from './{{pascalCase moduleName}}{{pascalCase useCaseName}}Service'
+
+let fake{{camelCase moduleName}}Repository: Fake{{pascalCase moduleName}}Repository
+let {{camelCase moduleName}}{{pascalCase useCaseName}}Service: {{pascalCase moduleName}}{{pascalCase useCaseName}}Service
+
+describe('{{pascalCase moduleName}} {{pascalCase useCaseName}}', () => {
+  beforeEach(() => {
+    fake{{camelCase moduleName}}Repository = new Fake{{pascalCase moduleName}}Repository()
+    {{camelCase moduleName}}{{pascalCase useCaseName}}Service = new {{pascalCase moduleName}}{{pascalCase useCaseName}}Service(fake{{camelCase moduleName}}Repository)
+  })
+
+  it('should be able to XXXXXXXXXXXXX', async () => {
+    const {{camelCase moduleName}}{{pascalCase useCaseName}} = await {{camelCase moduleName}}{{pascalCase useCaseName}}Service.execute()
+
+    expect({{camelCase moduleName}}{{pascalCase useCaseName}}).toHaveProperty('XXXXXXXXXXXXX')
+  })
+
+  it('should not be able to XXXXXXXXXXXXX', async () => {
+    await expect(
+      {{camelCase moduleName}}{{pascalCase useCaseName}}Service.execute()
+    ).rejects.toBeInstanceOf(AppError)
+  })
+})

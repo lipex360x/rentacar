@@ -15,8 +15,14 @@ describe('TEST_NAME ', () => {
 
   it('should be able to create a new {{camelCase name}}', async () => {
     const props = null
-    const test = await {{camelCase name}}CreateService.execute({ props })
+    const {{camelCase name}} = await {{camelCase name}}CreateService.execute({ props })
 
-    expect(test).toHaveProperty('VALUE')
+    expect({{camelCase name}} ).toHaveProperty('XXXXXXXXXXXXX')
+  })
+
+  it('should not be able to XXXXXXXXXXXXX', async () => {
+    await expect(
+      {{camelCase name}}CreateService.execute({ props })
+    ).rejects.toBeInstanceOf(AppError)
   })
 })

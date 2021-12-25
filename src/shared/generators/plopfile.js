@@ -1,9 +1,15 @@
-const moduleGenerator = require('./modules/index')
-const seedGenerator = require('./seeds/index')
-const migrationGenerator = require('./migrations/index')
+const moduleGenerator = require('./modules')
+const useCasesGenerator = require('./useCases')
+const seedGenerator = require('./seeds')
+const migrationGenerator = require('./migrations')
+const generator = require('./_generator')
+const startGenerator = require('./start')
 
 module.exports = function (plop) {
-  plop.setGenerator('Migration', migrationGenerator)
   plop.setGenerator('Modules', moduleGenerator)
+  plop.setGenerator('UseCases', useCasesGenerator)
+  plop.setGenerator('Migration', migrationGenerator)
   plop.setGenerator('Seed', seedGenerator)
+  plop.setGenerator('Generator', generator)
+  plop.setGenerator('Start', startGenerator)
 }

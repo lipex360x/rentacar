@@ -1,17 +1,17 @@
 import { v4 as uuid } from 'uuid'
 import { Factory, Seeder } from 'typeorm-seeding'
 import { Connection } from 'typeorm'
-import { XXXXXX } from '@modules/XXXXX/infra/typeorm/entities/ZZZZZZZ'
+import {{pascalCase category}} from '@modules/{{camelCase category}}/infra/typeorm/entities/{{pascalCase category}}'
 
 export default class {{pascalCase name}} implements Seeder {
   public async run (factory: Factory, connection: Connection): Promise<any> {
     await connection
       .createQueryBuilder()
       .insert()
-      .into(XXXXXX)
+      .into({{pascalCase category}})
       .values([
         {
-          XXXXXX_id: uuid(),
+          id: uuid(),
           props: 'values'
         }
       ])

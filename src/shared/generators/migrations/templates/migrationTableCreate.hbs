@@ -4,7 +4,7 @@ export default class {{pascalCase name}}{{timestamp}} implements MigrationInterf
   public async up (queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'XXX_TABLE_NAME_XXX',
+        name: '{{database}}',
         columns: [
           {
             name: 'XXX_TABLE_ID_XXX',
@@ -41,6 +41,6 @@ export default class {{pascalCase name}}{{timestamp}} implements MigrationInterf
   }
 
   public async down (queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('XXX_TABLE_NAME_XXX')
+    await queryRunner.dropTable('{{database}}')
   }
 }

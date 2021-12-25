@@ -5,9 +5,21 @@ module.exports = {
       type: 'input',
       name: 'name',
       message: 'Type Seed name:',
-      validate: value => {
+      validate: (value) => {
         if (!value) {
           return 'Name is required'
+        }
+        return true
+      }
+    },
+
+    {
+      type: 'input',
+      name: 'category',
+      message: 'Category Name',
+      validate: (value) => {
+        if (!value) {
+          return 'category is required'
         }
         return true
       }

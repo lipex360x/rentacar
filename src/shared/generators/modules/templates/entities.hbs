@@ -6,29 +6,27 @@ import {
   PrimaryColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  BeforeInsert,
   DeleteDateColumn
 } from 'typeorm'
 
 @Entity('{{camelCase name}}s')
 export default class {{pascalCase name}} {
   @PrimaryColumn('uuid')
-  // OBJECT_ID: string;
+    id: string
 
   @Column()
-  data: string;
+    data: string
 
   @CreateDateColumn()
-  created_at: Date;
+    created_at: Date
 
   @UpdateDateColumn()
-  updated_at: Date;
+    updated_at: Date
 
   @DeleteDateColumn()
-  deleted_at: Date;
+    deleted_at: Date
 
-  @BeforeInsert()
-  userProps (): void {
-    this.{{camelCase name}}_id = uuid()
+  constructor() {
+    if (!this.id) this.id = uuid()
   }
 }

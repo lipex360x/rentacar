@@ -1,0 +1,16 @@
+import { Request, Response } from 'express'
+import { container } from 'tsyringe'
+
+import {{pascalCase moduleName}}{{pascalCase useCaseName}}Service from './{{pascalCase moduleName}}{{pascalCase useCaseName}}Service'
+
+export default class {{pascalCase moduleName}}{{pascalCase useCaseName}}Controller {
+  async handle(request: Request, response: Response): Promise<Response> {
+    const { props } = request.body
+
+    const service = container.resolve({{pascalCase moduleName}}{{pascalCase useCaseName}}Service)
+
+    const {{moduleName}}CreateService = await service.execute({ props })
+
+    return response.json({{moduleName}}CreateService)
+  }
+}

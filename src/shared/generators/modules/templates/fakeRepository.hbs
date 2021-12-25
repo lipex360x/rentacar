@@ -10,7 +10,8 @@ export default class Fake{{pascalCase name}}Repository implements I{{pascalCase 
     const entity_data = new {{pascalCase name}}()
 
     Object.assign(entity_data, {
-      // OBJECT_ID: uuid(),
+      id: uuid(),
+      {...}
       data,
       created_at: new Date(),
       updated_at: new Date()
