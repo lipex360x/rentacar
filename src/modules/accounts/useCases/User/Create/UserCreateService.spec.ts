@@ -22,7 +22,7 @@ describe('UserCreateService ', () => {
     }
     const createUser = await userCreateService.execute(user)
 
-    expect(createUser).toHaveProperty('user_id')
+    expect(createUser).toHaveProperty('id')
   })
 
   it('should not be able to create a duplicate user', async () => {

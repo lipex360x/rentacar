@@ -15,7 +15,7 @@ import {
 @Entity('users')
 export default class User {
   @PrimaryColumn('uuid')
-    user_id: string
+    id: string
 
   @Column()
     name: string
@@ -42,7 +42,7 @@ export default class User {
     deleted_at: Date
 
   constructor () {
-    if (!this.user_id) this.user_id = uuid()
+    if (!this.id) this.id = uuid()
   }
 
   @BeforeInsert()

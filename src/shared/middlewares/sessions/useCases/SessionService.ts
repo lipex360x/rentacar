@@ -35,7 +35,7 @@ export default class SessionService {
     if (!passwordMatch) throw new AppError('User or password incorrect')
 
     const token = sign({}, process.env.JWT_TOKEN, {
-      subject: user.user_id,
+      subject: user.id,
       expiresIn: process.env.JWT_EXPIRES
     })
 

@@ -12,7 +12,7 @@ export default class FakeUserRepository implements IUserRepository {
     const passwordCrypted = await bcrypt.hash(password, 8)
 
     Object.assign(user, {
-      user_id: uuid(),
+      id: uuid(),
       name,
       email,
       password: passwordCrypted,
