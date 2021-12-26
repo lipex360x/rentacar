@@ -1,7 +1,7 @@
 import fs from 'fs'
 import csvParse from 'csv-parse'
-import { Category } from '@modules/cars/infra/typeorm/entities/Category'
-import { ICategoriesRepositoryProps } from '@modules/cars/repositories/interfaces/ICategoriesRepository'
+import Category from '@modules/cars/infra/typeorm/entities/Category'
+import ICategoriesRepositoryProps from '@modules/cars/repositories/interfaces/ICategoriesRepository'
 import { inject, injectable } from 'tsyringe'
 
 interface IRequestProps {
@@ -66,4 +66,4 @@ class CategoryImportService {
   }
 }
 
-export { CategoryImportService }
+export default CategoryImportService

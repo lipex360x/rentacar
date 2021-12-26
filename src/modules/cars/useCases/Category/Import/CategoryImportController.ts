@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
-import { CategoryImportService } from './CategoryImportService'
+import CategoryImportService from './CategoryImportService'
 
 class CategoryImportController {
   async handle (request:Request, response:Response): Promise<Response> {
@@ -14,4 +14,4 @@ class CategoryImportController {
   }
 }
 
-export { CategoryImportController }
+export default CategoryImportController

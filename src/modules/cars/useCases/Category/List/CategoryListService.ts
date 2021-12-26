@@ -1,5 +1,5 @@
-import { Category } from '@modules/cars/infra/typeorm/entities/Category'
-import { ICategoriesRepositoryProps } from '@modules/cars/repositories/interfaces/ICategoriesRepository'
+import Category from '@modules/cars/infra/typeorm/entities/Category'
+import ICategoriesRepositoryProps from '@modules/cars/repositories/interfaces/ICategoriesRepository'
 import { inject, injectable } from 'tsyringe'
 
 @injectable()
@@ -13,4 +13,4 @@ class CategoryListService {
   }
 }
 
-export { CategoryListService }
+export default CategoryListService
