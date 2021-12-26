@@ -8,6 +8,8 @@ module.exports = {
   coverageDirectory: 'coverage',
   coveragePathIgnorePatterns: ['/node_modules/'],
   coverageReporters: ['text-summary','lcov'],
+
+  collectCoverageFrom: ['<rootDir>/src/modules/**/useCases/**/**/*.ts'],
   
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/src/' }),
   preset: 'ts-jest',
