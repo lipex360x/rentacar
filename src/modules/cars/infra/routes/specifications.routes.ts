@@ -1,5 +1,5 @@
-import { SpecificationCreateController } from '@modules/cars/useCases/Specification/Create/SpecificationCreateController'
-import { SpecificationListController } from '@modules/cars/useCases/Specification/List/SpecificationListController'
+import SpecificationCreateController from '@modules/cars/useCases/Specification/Create/SpecificationCreateController'
+import SpecificationListController from '@modules/cars/useCases/Specification/List/SpecificationListController'
 import sessionMiddleware from '@shared/middlewares/sessions'
 import { Router } from 'express'
 

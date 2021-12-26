@@ -1,13 +1,13 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
-export default class createSpecification1635817328336 implements MigrationInterface {
+export default class CreateSpecification1635817328336 implements MigrationInterface {
   public async up (queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
         name: 'specifications',
         columns: [
           {
-            name: 'specification_id',
+            name: 'id',
             type: 'uuid',
             isPrimary: true
           },

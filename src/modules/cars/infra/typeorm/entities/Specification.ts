@@ -5,14 +5,13 @@ import {
   PrimaryColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  DeleteDateColumn,
-  BeforeInsert
+  DeleteDateColumn
 } from 'typeorm'
 
 @Entity('specifications')
-export class Specification {
+export default class Specification {
   @PrimaryColumn('uuid')
-    specification_id?: string
+    id?: string
 
   @Column()
     name: string
@@ -29,8 +28,7 @@ export class Specification {
   @DeleteDateColumn()
     deleted_at: Date
 
-  @BeforeInsert()
-  specificationProps (): void {
-    this.specification_id = uuid()
+  constructor () {
+    if (!this.id) this.id = uuid()
   }
 }

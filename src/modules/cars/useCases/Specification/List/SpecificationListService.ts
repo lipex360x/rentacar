@@ -1,5 +1,5 @@
-import { Specification } from '@modules/cars/infra/typeorm/entities/Specification'
-import { ISpecificationsRepository } from '@modules/cars/repositories/interfaces/ISpecificationsRepository'
+import Specification from '@modules/cars/infra/typeorm/entities/Specification'
+import ISpecificationsRepository from '@modules/cars/repositories/interfaces/ISpecificationsRepository'
 import { inject, injectable } from 'tsyringe'
 
 @injectable()
@@ -13,4 +13,4 @@ class SpecificationListService {
   }
 }
 
-export { SpecificationListService }
+export default SpecificationListService
