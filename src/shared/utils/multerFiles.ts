@@ -21,13 +21,9 @@ function uploadFile (folder: string) {
 }
 
 const deleteFile = async (filename: string) => {
-  try {
-    await fs.promises.stat(filename)
-  } catch {
-    return
-  }
+  const file = await fs.promises.stat(filename)
 
-  await fs.promises.unlink(filename)
+  if (file) await fs.promises.unlink(filename)
 }
 
 export { uploadFile, deleteFile }
