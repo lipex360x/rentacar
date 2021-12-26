@@ -9,13 +9,13 @@ interface Request{
 }
 
 @injectable()
-export default class {{pascalCase moduleName}}{{pascalCase useCaseName}}Service {
-  constructor(
+export default class {{pascalCase useCaseName}}Service {
+  constructor (
     @inject('{{pascalCase moduleName}}Repository')
     private repository: I{{pascalCase moduleName}}Repository
   ) {}
 
-  async execute({ data }: Request): Promise<{{pascalCase moduleName}}> {
+  async execute ({ data }: Request): Promise<{{pascalCase moduleName}}> {
     // To Do
   }
 }

@@ -1,13 +1,13 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 
-import {{pascalCase name}}CreateService from './{{pascalCase name}}CreateService'
+import UpdateUserAvatarService from './UpdateUserAvatarService'
 
-export default class {{pascalCase name}}CreateController {
+export default class UpdateUserAvatarController {
   async handle (request: Request, response: Response): Promise<Response> {
     const { props } = request.body
 
-    const service = container.resolve({{pascalCase name}}CreateService)
+    const service = container.resolve(UpdateUserAvatarService)
 
     const serviceResponse = await service.execute({ props })
 
