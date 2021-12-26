@@ -24,7 +24,7 @@ export default class UpdateUserAvatarService {
   async execute ({ id, avatar_file }: Request): Promise<Response> {
     const user = await this.repository.findById({ id })
 
-    await deleteFile(`./tmp/avatar/${user.avatar}`)
+    await deleteFile({ fileName: `./tmp/avatar/${user.avatar}` })
 
     user.avatar = avatar_file
 

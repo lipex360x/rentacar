@@ -6,8 +6,6 @@ class CategoryImportController {
   async handle (request:Request, response:Response): Promise<Response> {
     const { file } = request
 
-    console.log(file)
-
     const service = container.resolve(CategoryImportService)
 
     await service.execute({ file })

@@ -30,5 +30,5 @@ module.exports = {
     '/src/shared/*/'
   ],
   
-  coverageReporters: ['lcov']
+  coverageReporters: ['text-summary', 'lcov']
 }

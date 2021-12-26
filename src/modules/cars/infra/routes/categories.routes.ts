@@ -5,11 +5,11 @@ import CategoryCreateController from '@modules/cars/useCases/Category/Create/Cat
 import CategoryImportController from '@modules/cars/useCases/Category/Import/CategoryImport.controller'
 import CategoryListController from '@modules/cars/useCases/Category/List/CategoryList.controller'
 
+import { uploadFile } from '@shared/utils/multerFiles'
+
 const categoriesRoutes = Router()
 
-const upload = multer({
-  dest: './tmp'
-})
+const upload = multer(uploadFile({ folder: './tmp' }))
 
 const createController = new CategoryCreateController()
 const importController = new CategoryImportController()

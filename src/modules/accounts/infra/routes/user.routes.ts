@@ -5,14 +5,14 @@ import CreateUser from '@modules/accounts/useCases/User/Create/UserCreate.contro
 import UpdateUserAvatar from '@modules/accounts/useCases/User/UpdateUserAvatar/UpdateUserAvatar.controller'
 import sessionMiddleware from '@shared/middlewares/sessions'
 
-import { uploadFile as uploadConfig } from '@shared/utils/multerFiles'
+import { uploadFile } from '@shared/utils/multerFiles'
 
 const router = Router()
 
 const createUserController = new CreateUser()
 const updateUserAvatarController = new UpdateUserAvatar()
 
-const upload = multer(uploadConfig('./tmp/avatar'))
+const upload = multer(uploadFile({ folder: './tmp/avatar' }))
 
 router.post('/', createUserController.handle)
 

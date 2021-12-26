@@ -6,15 +6,16 @@ interface WriteCsvProps {
   path: string
   data: any[]
   delimiter?: ',' | ';'
-  headers: boolean
+  headers?: boolean
 }
 
 interface ReadCsvProps {
   path: string
   delimiter?: ',' | ';'
+  firstLine?: boolean
 }
 
-async function writeCsv ({ path, data, delimiter = ';', headers = true }:WriteCsvProps) {
+async function writeCsv ({ path, data, delimiter = ';', headers = true }:WriteCsvProps): Promise<boolean> {
   const options = { headers, delimiter }
 
   return new Promise((resolve, reject) => {
@@ -24,13 +25,12 @@ async function writeCsv ({ path, data, delimiter = ';', headers = true }:WriteCs
         reject(err)
       })
       .on('finish', () => {
-        console.log('Done writing.')
         resolve(true)
       })
   })
 }
 
-async function readCsv ({ path, delimiter = ';' }:ReadCsvProps): Promise<any[]> {
+async function readCsv ({ path, delimiter = ';', firstLine = true }:ReadCsvProps): Promise<any[]> {
   return new Promise((resolve, reject) => {
     const data = []
 
@@ -40,10 +40,18 @@ async function readCsv ({ path, delimiter = ';' }:ReadCsvProps): Promise<any[]> 
 
     stream.pipe(parseFile)
 
+    let count = 0
+
     parseFile
       .on('data', async (line) => {
+        if (!firstLine && count === 0) {
+          count++
+          return
+        }
+
         const [name, description] = line
         data.push({ name, description })
+        count++
       })
       .on('end', () => { resolve(data) })
       .on('error', (error) => { reject(error) })
