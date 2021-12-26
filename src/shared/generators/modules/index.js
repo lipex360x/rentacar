@@ -16,7 +16,7 @@ module.exports = {
     // INFRA: http
     {
       type: 'add',
-      path: '../../modules/{{camelCase name}}/infra/http/routes/{{camelCase name}}.routes.ts',
+      path: '../../modules/{{camelCase name}}/infra/routes/{{camelCase name}}.routes.ts',
       templateFile: './modules/templates/routes.hbs'
     },
 
@@ -52,17 +52,17 @@ module.exports = {
     // SERVICES
     {
       type: 'add',
-      path: '../../modules/{{camelCase name}}/useCases/{{pascalCase name}}/Create/{{pascalCase name}}CreateController.ts',
+      path: '../../modules/{{camelCase name}}/useCases/{{pascalCase name}}/Create/{{pascalCase name}}Create.controller.ts',
       templateFile: './modules/templates/controller.hbs'
     },
     {
       type: 'add',
-      path: '../../modules/{{camelCase name}}/useCases/{{pascalCase name}}/Create/{{pascalCase name}}CreateService.ts',
+      path: '../../modules/{{camelCase name}}/useCases/{{pascalCase name}}/Create/{{pascalCase name}}Create.service.ts',
       templateFile: './modules/templates/service.hbs'
     },
     {
       type: 'add',
-      path: '../../modules/{{camelCase name}}/useCases/{{pascalCase name}}/Create/{{pascalCase name}}CreateService.spec.ts',
+      path: '../../modules/{{camelCase name}}/useCases/{{pascalCase name}}/Create/{{pascalCase name}}Create.spec.ts',
       templateFile: './modules/templates/service.spec.hbs'
     }
   ]

@@ -2,7 +2,7 @@ import AppError from '@shared/errors/AppError'
 import Faker from 'faker'
 
 import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUserRepository'
-import UserCreateService from '@modules/accounts/useCases/User/Create/UserCreateService'
+import UserCreateService from '@modules/accounts/useCases/User/Create/UserCreate.service'
 import SessionService from './SessionService'
 
 let fakeUserRepository: FakeUserRepository

@@ -1,7 +1,7 @@
 import AppError from '@shared/errors/AppError'
 
 import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUserRepository'
-import UserCreateService from './UserCreateService'
+import UserCreateService from './UserCreate.service'
 
 let fakeuserRepository: FakeUserRepository
 let userCreateService: UserCreateService

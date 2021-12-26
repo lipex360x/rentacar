@@ -20,7 +20,7 @@ interface Response {
 }
 
 @injectable()
-export default class CreateUserService {
+export default class UserCreateService {
   constructor (
     @inject('UserRepository')
     private repository: IUserRepository

@@ -1,7 +1,7 @@
 import { container } from 'tsyringe'
 import { Request, Response } from 'express'
 
-import SpecificationCreateService from './SpecificationCreateService'
+import SpecificationCreateService from './SpecificationCreate.service'
 
 class SpecificationCreateController {
   async handle (request: Request, response: Response): Promise<Response> {

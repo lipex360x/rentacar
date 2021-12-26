@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
-import CategoryListService from './CategoryListService'
+import CategoryListService from './CategoryList.service'
 
 class CategoryListController {
   async handle (request: Request, response: Response): Promise<Response> {

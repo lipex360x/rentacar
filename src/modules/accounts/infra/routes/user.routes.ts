@@ -1,16 +1,16 @@
 import { Router } from 'express'
 import multer from 'multer'
 
-import CreateUserController from '@modules/accounts/useCases/User/Create/UserCreateController'
-import UpdateUserAvatarController from '@modules/accounts/useCases/User/UpdateUserAvatar/UpdateUserAvatarController'
+import CreateUser from '@modules/accounts/useCases/User/Create/UserCreate.controller'
+import UpdateUserAvatar from '@modules/accounts/useCases/User/UpdateUserAvatar/UpdateUserAvatar.controller'
 import sessionMiddleware from '@shared/middlewares/sessions'
 
 import { uploadFile as uploadConfig } from '@shared/utils/multerFiles'
 
 const router = Router()
 
-const createUserController = new CreateUserController()
-const updateUserAvatarController = new UpdateUserAvatarController()
+const createUserController = new CreateUser()
+const updateUserAvatarController = new UpdateUserAvatar()
 
 const upload = multer(uploadConfig('./tmp/avatar'))
 

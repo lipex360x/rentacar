@@ -35,17 +35,17 @@ module.exports = {
   actions: (data) => {
     const controller = {
       path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase moduleName}}/{{pascalCase useCaseName}}',
-      name: '{{pascalCase useCaseName}}Controller.ts'
+      name: '{{pascalCase useCaseName}}.controller.ts'
     }
 
     const service = {
       path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase moduleName}}/{{pascalCase useCaseName}}',
-      name: '{{pascalCase useCaseName}}Service.ts'
+      name: '{{pascalCase useCaseName}}.service.ts'
     }
 
     const test = {
       path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase moduleName}}/{{pascalCase useCaseName}}',
-      name: '{{pascalCase useCaseName}}Service.spec.ts'
+      name: '{{pascalCase useCaseName}}.spec.ts'
     }
 
     const action = [

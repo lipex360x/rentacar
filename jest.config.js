@@ -6,7 +6,10 @@ module.exports = {
 
   clearMocks: true,
   
-  // collectCoverageFrom: ['<rootDir>/src/modules/**/useCases/**/**/*.ts'],
+  collectCoverageFrom: [
+    '<rootDir>/src/modules/**/useCases/**/**/*.ts',
+    '!<rootDir>/src/modules/**/useCases/**/**/*.controller.ts',
+  ],
   
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/src/' }),
   
@@ -19,22 +22,13 @@ module.exports = {
   testPathIgnorePatterns: ['/node_modules/', '/src/shared/utils/'],
 
   collectCoverage: true,
-  
-  coverageProvider: "v8",
-  
+   
   coverageDirectory: 'coverage',
   
   coveragePathIgnorePatterns: [
     '/node_modules/', 
-    '/src/shared/utils/', 
-    '/src/shared/*/',
-
-    '/src/modules/accounts/infra/*',
-    '/src/modules/accounts/repositories/*',
-
-    '/src/modules/cars/infra/*',
-    '/src/modules/cars/repositories/*',
+    '/src/shared/*/'
   ],
   
-  coverageReporters: ['text-summary','lcov']
+  coverageReporters: ['lcov']
 }

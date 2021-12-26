@@ -1,8 +1,8 @@
 import Faker from 'faker'
 
 import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUserRepository'
-import UserCreateService from '../Create/UserCreateService'
-import UpdateUserAvatarService from './UpdateUserAvatarService'
+import UserCreateService from '../Create/UserCreate.service'
+import UpdateUserAvatarService from './UpdateUserAvatar.service'
 
 let fakeUserRepository: FakeUserRepository
 let updateUserAvatarService: UpdateUserAvatarService

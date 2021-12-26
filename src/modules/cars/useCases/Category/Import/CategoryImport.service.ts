@@ -41,7 +41,9 @@ class CategoryImportService {
     })
   }
 
-  async execute ({ file }:IRequestProps): Promise<void> {
+  async execute ({ file }:IRequestProps): Promise<Number> {
+    console.log(file)
+
     const categories = await this.loadFile({ file })
 
     let firstLine = true
@@ -63,6 +65,8 @@ class CategoryImportService {
 
       if (!getCategory) await this.repository.create(setCategory)
     }
+
+    return categories.length
   }
 }
 

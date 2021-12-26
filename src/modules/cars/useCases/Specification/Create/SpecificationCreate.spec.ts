@@ -2,7 +2,7 @@ import AppError from '@shared/errors/AppError'
 import Faker from 'faker'
 
 import FakeSpecificationRepository from '@modules/cars/repositories/fakes/FakeSpecificationRepository'
-import SpecificationCreateService from './SpecificationCreateService'
+import SpecificationCreateService from './SpecificationCreate.service'
 
 let fakeSpecificationRepository: FakeSpecificationRepository
 let specificationCreateService: SpecificationCreateService

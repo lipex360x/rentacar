@@ -1,10 +1,12 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
-import CategoryImportService from './CategoryImportService'
+import CategoryImportService from './CategoryImport.service'
 
 class CategoryImportController {
   async handle (request:Request, response:Response): Promise<Response> {
     const { file } = request
+
+    console.log(file)
 
     const service = container.resolve(CategoryImportService)
 

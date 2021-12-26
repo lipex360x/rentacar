@@ -2,7 +2,7 @@ import AppError from '@shared/errors/AppError'
 import Faker from 'faker'
 
 import FakeCategoryRepository from '@modules/cars/repositories/fakes/FakeCategoryRepository'
-import CategoryCreateService from './CategoryCreateService'
+import CategoryCreateService from './CategoryCreate.service'
 
 let fakeCategoryRepository: FakeCategoryRepository
 let categoryCreateService: CategoryCreateService
