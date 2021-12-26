@@ -4,7 +4,7 @@ import swagger from 'swagger-ui-express'
 import { categoriesRoutes } from '@modules/cars/infra/routes/categories.routes'
 import { specificationsRoutes } from '@modules/cars/infra/routes/specifications.routes'
 
-import userRoutes from '@modules/accounts/infra/http/routes/user.routes'
+import userRoutes from '@modules/accounts/infra/routes/user.routes'
 import sessionRoutes from '@shared/middlewares/sessions/routes/session.routes'
 
 import swaggerFile from './swagger.json'
