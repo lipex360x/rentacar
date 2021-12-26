@@ -5,12 +5,12 @@
 // const capitalize = require('../_utils/capitalize')
 
 module.exports = {
-  description: 'Generate a {{ name }}',
+  description: 'Generate a Middlewares',
   prompts: [
     {
       type: 'input',
       name: 'name',
-      message: 'Text',
+      message: 'Middleware Name',
       validate: (value) => {
         if (!value) {
           return 'Value is required'
@@ -24,16 +24,16 @@ module.exports = {
 
   actions: (data) => {
     const file = {
-      path: `../../{{filepath}}`,
-      name: data.name
+      name: data.name,
+      path: `../../shared/middlewares/${data.name}`
     }
 
     const action = [
       {
         type: 'add',
-        path: `${file.path}/${file.name}.{{extension}}`,
+        path: `${file.path}/index.ts`,
         data: { file },
-        templateFile: './{{name}}/templates/{{template}}.hbs'
+        templateFile: './middlewares/templates/index.hbs'
       },
 
       function (data) {

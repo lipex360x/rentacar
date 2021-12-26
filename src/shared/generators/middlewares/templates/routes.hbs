@@ -1,0 +1,11 @@
+import { Router } from 'express'
+
+import {{pascalCase name}}Controller from '../useCases/{{pascalCase name}}Controller'
+
+const router = Router()
+
+const {{name}}Controller = new {{pascalCase name}}Controller()
+
+router.post('/', {{name}}Controller.handle)
+
+export default router

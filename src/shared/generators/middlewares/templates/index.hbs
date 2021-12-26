@@ -1,0 +1,13 @@
+import AppError from '@shared/errors/AppError'
+import { NextFunction, Request, Response } from 'express'
+
+export default function {{name}}Middleware (request:Request, response:Response, next:NextFunction): void {
+  const { } = request.headers
+
+  try {
+    // rules
+    return next()
+  } catch {
+    throw new AppError('Middleware Error Message')
+  }
+}

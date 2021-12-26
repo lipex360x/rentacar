@@ -98,47 +98,6 @@ module.exports = {
 
   ],
 
-  // prompts: () => {
-  //   const prompt = [
-  //     {
-  //       type: 'list',
-  //       name: 'type',
-  //       message: 'Select a migration type',
-  //       default: 'TableCreate',
-  //       choices: () => [
-  //         { name: 'Create Table', value: 'TableCreate' },
-  //         { name: 'Add Column', value: 'TableAddColumn' },
-  //         { name: 'Drop Column', value: 'TableDropColumn' }
-  //       ]
-  //     },
-
-  //     {
-  //       type: 'input',
-  //       name: 'name',
-  //       message: 'Type migration name:',
-  //       validate: (value) => {
-  //         if (!value) {
-  //           return 'Name is required'
-  //         }
-  //         return true
-  //       }
-  //     },
-
-  //     {
-  //       type: 'input',
-  //       name: 'database',
-  //       message: 'Type table name:',
-  //       validate: (value) => {
-  //         if (!value) {
-  //           return 'Table Name is required'
-  //         }
-  //         return true
-  //       }
-  //     }
-  //   ]
-  //   return prompt
-  // },
-
   actions: (data) => {
     const migration = `migration${data.type}`
 
