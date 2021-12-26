@@ -30,7 +30,10 @@ module.exports = {
     '/src/shared/*/',
 
     '/src/modules/accounts/infra/*',
-    '/src/modules/accounts/repositories/*'
+    '/src/modules/accounts/repositories/*',
+
+    '/src/modules/cars/infra/*',
+    '/src/modules/cars/repositories/*',
   ],
   
   coverageReporters: ['text-summary','lcov']
