@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe'
 
 import IUserRepository from '@modules/accounts/repositories/interfaces/IUserRepository'
 
-import deleteFile from '@shared/utils/deleteFile'
+import { deleteFile } from '@shared/utils/multerFiles'
 
 interface Request {
   id: string
