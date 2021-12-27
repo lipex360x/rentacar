@@ -71,7 +71,7 @@ module.exports = {
       const createFile = {
         type: 'add',
         path: `${file.path}/${file.name}`,
-        templateFile: `./modules/templates/${file.template}`,
+        templateFile: `./useCases/templates/${file.template}`,
         force: true
       }
 
