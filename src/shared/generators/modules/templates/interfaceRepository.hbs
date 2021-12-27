@@ -1,9 +1,9 @@
-import {{pascalCase name}} from '@modules/{{camelCase name}}/infra/typeorm/entities/{{pascalCase name}}'
+import {{pascalCase moduleName}} from '@modules/{{camelCase moduleName}}/infra/typeorm/entities/{{pascalCase moduleName}}'
 
 export interface CreateProps {
   data: string
 }
 
-export default interface I{{pascalCase name}}Repository {
-  create(data: CreateProps): Promise<{{pascalCase name}}>
+export default interface I{{pascalCase moduleName}}Repository {
+  create(data: CreateProps): Promise<{{pascalCase moduleName}}>
 }

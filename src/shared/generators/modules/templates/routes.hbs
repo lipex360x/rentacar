@@ -1,11 +1,11 @@
 import { Router } from 'express'
 
-import {{pascalCase name}}CreateController from '@modules/{{camelCase name}}/useCases/{{pascalCase name}}/Create/{{pascalCase name}}Create.controller'
+import {{pascalCase useCaseName}}{{pascalCase actionName}}Controller from '@modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}/{{pascalCase useCaseName}}{{pascalCase actionName}}.controller'
 
 const router = Router()
 
-const {{name}}CreateController = new {{pascalCase name}}CreateController()
+const {{camelCase useCaseName}}{{pascalCase actionName}}Controller = new {{pascalCase useCaseName}}{{pascalCase actionName}}Controller()
 
-router.post('/', {{name}}CreateController.handle)
+router.post('/', {{camelCase useCaseName}}{{pascalCase actionName}}Controller.handle)
 
 export default router

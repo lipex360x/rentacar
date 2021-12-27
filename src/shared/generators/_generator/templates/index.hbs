@@ -26,20 +26,30 @@ module.exports = {
     const file = {
       path: `../../{{filepath}}`,
       name: data.name
+      template: '{{template}}.hbs'
     }
 
-    const action = [
-      {
-        type: 'add',
-        path: `${file.path}/${file.name}.{{extension}}`,
-        data: { file },
-        templateFile: './{{name}}/templates/{{template}}.hbs'
-      },
+    // Create Files
+    const action = []
 
-      function (data) {
-        return `File ${data.name} created`
+    files.forEach(file => {
+      const createFile = {
+        type: 'add',
+        path: `${file.path}/${file.name}`,
+        templateFile: `./modules/templates/${file.template}`
       }
-    ]
+
+      action.push(createFile)
+    })
+
+    // Message
+    const message = () => {
+      return `Module ${data.moduleName} created`
+    }
+    action.push(message)
+
     return action
   }
 }
+
+

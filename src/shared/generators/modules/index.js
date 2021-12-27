@@ -1,69 +1,144 @@
 module.exports = {
   description: 'Create a Module',
-  prompts: [{
-    type: 'input',
-    name: 'name',
-    message: 'Type module name:',
-    validate: value => {
-      if (!value) {
-        return 'Name is required'
+  prompts: [
+    {
+      type: 'input',
+      name: 'moduleName',
+      message: 'Type module Name:',
+      validate: value => {
+        if (!value) {
+          return 'Name is required'
+        }
+        return true
       }
-      return true
+    },
+
+    {
+      type: 'input',
+      name: 'useCaseName',
+      message: 'UseCase Name',
+      validate: (value) => {
+        if (!value) {
+          return 'Value is required'
+        }
+        return true
+      }
+    },
+
+    {
+      type: 'input',
+      name: 'actionName',
+      message: 'Action Name',
+      validate: (value) => {
+        if (!value) {
+          return 'Value is required'
+        }
+        return true
+      }
     }
-  }],
+  ],
 
-  actions: [
-    // INFRA: http
-    {
-      type: 'add',
-      path: '../../modules/{{camelCase name}}/infra/routes/{{camelCase name}}.routes.ts',
-      templateFile: './modules/templates/routes.hbs'
-    },
+  actions: (data) => {
+    const files = [
+      // INFRA: Routes
+      {
+        path: '../../modules/{{camelCase moduleName}}/infra/routes',
+        name: '{{camelCase moduleName}}.routes.ts',
+        template: 'routes.hbs'
+      },
 
-    // INFRA: typeORM
-    {
-      type: 'add',
-      path: '../../modules/{{camelCase name}}/infra/typeorm/entities/{{pascalCase name}}.ts',
-      templateFile: './modules/templates/entities.hbs'
-    },
-    {
-      type: 'add',
-      path: '../../modules/{{camelCase name}}/infra/typeorm/repositories/{{pascalCase name}}Repository.ts',
-      templateFile: './modules/templates/repository.hbs'
-    },
+      // INFRA: TypeORM
+      {
+        path: '../../modules/{{camelCase moduleName}}/infra/typeorm/entities',
+        name: '{{pascalCase moduleName}}.ts',
+        template: 'entities.hbs'
+      },
 
-    // REPOSITORIES
-    {
-      type: 'add',
-      path: '../../modules/{{camelCase name}}/repositories/index.ts',
-      templateFile: './modules/templates/indexContainer.hbs'
-    },
-    {
-      type: 'add',
-      path: '../../modules/{{camelCase name}}/repositories/fakes/Fake{{pascalCase name}}Repository.ts',
-      templateFile: './modules/templates/fakeRepository.hbs'
-    },
-    {
-      type: 'add',
-      path: '../../modules/{{camelCase name}}/repositories/interfaces/I{{pascalCase name}}Repository.ts',
-      templateFile: './modules/templates/interfaceRepository.hbs'
-    },
+      {
+        path: '../../modules/{{camelCase moduleName}}/infra/typeorm/repositories',
+        name: '{{pascalCase moduleName}}Repository.ts',
+        template: 'repository.hbs'
+      },
 
-    // SERVICES
-    {
-      type: 'add',
-      path: '../../modules/{{camelCase name}}/useCases/{{pascalCase name}}/Create/{{pascalCase name}}Create.controller.ts',
-      templateFile: './modules/templates/controller.hbs'
-    },
-    {
-      type: 'add',
-      path: '../../modules/{{camelCase name}}/useCases/{{pascalCase name}}/Create/{{pascalCase name}}Create.service.ts',
-      templateFile: './modules/templates/service.hbs'
-    },
-    {
-      type: 'add',
-      path: '../../modules/{{camelCase name}}/useCases/{{pascalCase name}}/Create/{{pascalCase name}}Create.spec.ts',
-      templateFile: './modules/templates/service.spec.hbs'
+      // REPOSITORIES
+      {
+        path: '../../modules/{{camelCase moduleName}}/repositories',
+        name: 'index.ts',
+        template: 'indexContainer.hbs'
+      },
+
+      {
+        path: '../../modules/{{camelCase moduleName}}/repositories/fakes',
+        name: 'Fake{{pascalCase moduleName}}Repository.ts',
+        template: 'fakeRepository.hbs'
+      },
+
+      {
+        path: '../../modules/{{camelCase moduleName}}/repositories/interfaces',
+        name: 'I{{pascalCase moduleName}}Repository.ts',
+        template: 'interfaceRepository.hbs'
+      },
+
+      // USECASES
+      {
+        path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
+        name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.controller.ts',
+        template: 'controller.hbs'
+      },
+
+      {
+        path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
+        name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.service.ts',
+        template: 'service.hbs'
+      },
+
+      {
+        path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
+        name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.spec.ts',
+        template: 'service.spec.hbs'
+      }
+
+    ]
+
+    // Create Files
+    const action = []
+
+    files.forEach(file => {
+      const createFile = {
+        type: 'add',
+        path: `${file.path}/${file.name}`,
+        templateFile: `./modules/templates/${file.template}`
+      }
+
+      action.push(createFile)
+    })
+
+    // Message
+    const message = () => {
+      return `Module ${data.moduleName} created`
     }
-  ]
+    action.push(message)
+
+    return action
+  }
+
+  // actions: [
+
+  //   // SERVICES
+  //   {
+  //     type: 'add',
+  //     path: '../../modules/{{camelCase name}}/useCases/{{pascalCase name}}/Create/{{pascalCase name}}Create.controller.ts',
+  //     templateFile: './modules/templates/controller.hbs'
+  //   },
+  //   {
+  //     type: 'add',
+  //     path: '../../modules/{{camelCase name}}/useCases/{{pascalCase name}}/Create/{{pascalCase name}}Create.service.ts',
+  //     templateFile: './modules/templates/service.hbs'
+  //   },
+  //   {
+  //     type: 'add',
+  //     path: '../../modules/{{camelCase name}}/useCases/{{pascalCase name}}/Create/{{pascalCase name}}Create.spec.ts',
+  //     templateFile: './modules/templates/service.spec.hbs'
+  //   }
+  // ]
 }

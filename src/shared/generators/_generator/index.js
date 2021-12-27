@@ -33,13 +33,6 @@ module.exports = {
       name: 'filepath',
       message: 'Set Filepath',
       default: 'XXXXXXX'
-    },
-
-    {
-      type: 'input',
-      name: 'extension',
-      message: 'File Extension Create',
-      default: 'ts'
     }
   ],
 
