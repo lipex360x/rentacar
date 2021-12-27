@@ -14,26 +14,24 @@ describe('Category Create', () => {
   })
 
   it('should be able to create a new Category', async () => {
-    const newCategory = {
+    const category = await categoryCreateService.execute({
       name: Faker.lorem.word(),
       description: Faker.lorem.words(3)
-    }
-
-    const category = await categoryCreateService.execute(newCategory)
+    })
 
     expect(category).toHaveProperty('id')
   })
 
   it('should not be able to create a duplicate category', async () => {
-    const newCategory = {
+    const category = {
       name: Faker.lorem.word(),
       description: Faker.lorem.words(3)
     }
 
-    await categoryCreateService.execute(newCategory)
+    await categoryCreateService.execute(category)
 
     await expect(
-      categoryCreateService.execute(newCategory)
+      categoryCreateService.execute(category)
     ).rejects.toBeInstanceOf(AppError)
   })
 })

@@ -1,20 +1,19 @@
-import AppError from '@shared/errors/AppError'
 import Faker from 'faker'
 
 import FakeCarsRepository from '@modules/cars/repositories/fakes/FakeCarsRepository'
-import CarCreateService from './CarCreate.service'
+import CarListService from './CarList.service'
 
 let fakecarsRepository: FakeCarsRepository
-let carCreateService: CarCreateService
+let carListService: CarListService
 
-describe('Cars Car Create', () => {
+describe('Cars Car List', () => {
   beforeEach(() => {
     fakecarsRepository = new FakeCarsRepository()
-    carCreateService = new CarCreateService(fakecarsRepository)
+    carListService = new CarListService(fakecarsRepository)
   })
 
-  it('should be able to create a new car', async () => {
-    const createCar = await carCreateService.execute({
+  it('should be able to list all available cars', async () => {
+    await fakecarsRepository.create({
       brand: Faker.name.firstName(1),
       model: Faker.name.firstName(2),
       license_plate: Faker.random.word(),
@@ -24,11 +23,7 @@ describe('Cars Car Create', () => {
       category_id: Faker.datatype.uuid()
     })
 
-    expect(createCar).toHaveProperty('id')
-  })
-
-  it('should be able to create a new car with available true by default', async () => {
-    const createCar = await carCreateService.execute({
+    await fakecarsRepository.create({
       brand: Faker.name.firstName(1),
       model: Faker.name.firstName(2),
       license_plate: Faker.random.word(),
@@ -38,11 +33,7 @@ describe('Cars Car Create', () => {
       category_id: Faker.datatype.uuid()
     })
 
-    expect(createCar.available).toBe(true)
-  })
-
-  it('should not be able to create a car with exists licence plate', async () => {
-    const setCar = {
+    await fakecarsRepository.create({
       brand: Faker.name.firstName(1),
       model: Faker.name.firstName(2),
       license_plate: Faker.random.word(),
@@ -50,12 +41,10 @@ describe('Cars Car Create', () => {
       daily_rate: Faker.datatype.float(2),
       fine_amount: Faker.datatype.float(2),
       category_id: Faker.datatype.uuid()
-    }
+    })
 
-    await carCreateService.execute(setCar)
+    const getCars = await carListService.execute()
 
-    await expect(
-      carCreateService.execute(setCar)
-    ).rejects.toBeInstanceOf(AppError)
+    expect(getCars.length).toEqual(3)
   })
 })

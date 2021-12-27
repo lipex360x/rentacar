@@ -14,12 +14,10 @@ describe('Create Specification', () => {
   })
 
   it('should be able to create a new Specification', async () => {
-    const newSpecification = {
+    const specification = await specificationCreateService.execute({
       name: Faker.lorem.word(),
       description: Faker.lorem.words(3)
-    }
-
-    const specification = await specificationCreateService.execute(newSpecification)
+    })
 
     expect(specification).toHaveProperty('id')
   })
