@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 
-import SessionService from './SessionService'
+import SessionService from './Session.service'
 
 export default class SessionController {
   async handle (request: Request, response: Response): Promise<Response> {

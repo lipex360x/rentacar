@@ -9,7 +9,6 @@
 
 * Somente usuários administradores podem cadastrar
 * Não deve ser possível cadastrar um carro com placa já existente
-* Não deve ser possível alterar a placa de um carro que já foi locado
 * O carro deve ser cadastradado como disponível por padrão
 
 # Listagem de Carros

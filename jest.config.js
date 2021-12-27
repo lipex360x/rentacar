@@ -9,6 +9,9 @@ module.exports = {
   collectCoverageFrom: [
     '<rootDir>/src/modules/**/useCases/**/**/*.ts',
     '!<rootDir>/src/modules/**/useCases/**/**/*.controller.ts',
+    
+    '<rootDir>/src/shared/middlewares/**/useCases/**/*.ts',
+    '!<rootDir>/src/shared/middlewares/**/useCases/**/*.controller.ts',
   ],
   
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/src/' }),
@@ -25,10 +28,7 @@ module.exports = {
    
   coverageDirectory: 'coverage',
   
-  coveragePathIgnorePatterns: [
-    '/node_modules/', 
-    '/src/shared/*/'
-  ],
+  coveragePathIgnorePatterns: ['/node_modules/'],
   
   coverageReporters: ['text-summary', 'lcov']
 }

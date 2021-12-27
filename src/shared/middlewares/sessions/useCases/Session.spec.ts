@@ -3,7 +3,7 @@ import Faker from 'faker'
 
 import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUserRepository'
 import UserCreateService from '@modules/accounts/useCases/User/Create/UserCreate.service'
-import SessionService from './SessionService'
+import SessionService from './Session.service'
 
 let fakeUserRepository: FakeUserRepository
 let sessionService: SessionService

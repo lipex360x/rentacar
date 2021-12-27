@@ -17,17 +17,17 @@ describe('Category Create', () => {
 
   it('should be able to list categories', async () => {
     await categoryCreateService.execute({
-      name: Faker.lorem.word(),
-      description: Faker.lorem.words(3)
+      name: Faker.lorem.word(1),
+      description: Faker.lorem.words(1)
     })
 
     await categoryCreateService.execute({
-      name: Faker.lorem.word(),
-      description: Faker.lorem.words(3)
+      name: Faker.lorem.word(2),
+      description: Faker.lorem.words(2)
     })
 
     await categoryCreateService.execute({
-      name: Faker.lorem.word(),
+      name: Faker.lorem.word(3),
       description: Faker.lorem.words(3)
     })
 

@@ -38,14 +38,14 @@ export default class CreateCars1640620496753 implements MigrationInterface {
           },
 
           {
-            name: 'available',
-            type: 'boolean',
-            default: true
+            name: 'fine_amount',
+            type: 'numeric'
           },
 
           {
-            name: 'fine_amount',
-            type: 'numeric'
+            name: 'available',
+            type: 'boolean',
+            default: true
           },
 
           {
