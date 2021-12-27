@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable eqeqeq */
 
-// const capitalize = require('../_utils/capitalize')
+const capitalize = require('../_utils/capitalize')
 
 module.exports = {
   description: 'Generate a {{ name }}',
@@ -44,7 +44,7 @@ module.exports = {
 
     // Message
     const message = () => {
-      return `Module ${data.moduleName} created`
+      return `Module ${capitalize(data.moduleName)} created`
     }
     action.push(message)
 

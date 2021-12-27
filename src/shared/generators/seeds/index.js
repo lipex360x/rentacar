@@ -1,10 +1,22 @@
+const capitalize = require('../_utils/capitalize')
+const getModules = require('../_utils/getModules')
+
+const modules = getModules('./src/modules')
+
 module.exports = {
   description: 'Create a Seed',
   prompts: [
     {
+      type: 'list',
+      name: 'moduleName',
+      message: 'Select a Module',
+      choices: modules
+    },
+
+    {
       type: 'input',
-      name: 'name',
-      message: 'Type Seed name:',
+      name: 'entity',
+      message: 'Entity Name:',
       validate: (value) => {
         if (!value) {
           return 'Name is required'
@@ -15,21 +27,46 @@ module.exports = {
 
     {
       type: 'input',
-      name: 'category',
-      message: 'Category Name',
+      name: 'name',
+      message: 'Seed Name:',
       validate: (value) => {
         if (!value) {
-          return 'category is required'
+          return 'Name is required'
         }
         return true
       }
     }
+
   ],
-  actions: [
-    {
-      type: 'add',
-      path: '../../shared/infra/typeorm/seeds/{{pascalCase name}}.ts',
-      templateFile: './seeds/templates/seed.hbs'
+
+  actions: (data) => {
+    const files = [
+      {
+        path: '../../shared/infra/typeorm/seeds',
+        name: '{{pascalCase name}}.ts',
+        template: 'seed.hbs'
+      }
+
+    ]
+    // Create Files
+    const action = []
+
+    files.forEach(file => {
+      const createFile = {
+        type: 'add',
+        path: `${file.path}/${file.name}`,
+        templateFile: `./seeds/templates/${file.template}`
+      }
+
+      action.push(createFile)
+    })
+
+    // Message
+    const message = () => {
+      return `Seed ${capitalize(data.name)} created`
     }
-  ]
+    action.push(message)
+
+    return action
+  }
 }

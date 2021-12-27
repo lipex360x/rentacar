@@ -3,15 +3,7 @@
 /* eslint-disable eqeqeq */
 
 const capitalize = require('../_utils/capitalize')
-
-const fs = require('fs')
-
-const getModules = (dir) => fs.readdirSync(dir, {
-  withFileTypes: true
-}).reduce((a, c) => {
-  c.isDirectory() && a.push(c.name)
-  return a
-}, [])
+const getModules = require('../_utils/getModules')
 
 const modules = getModules('./src/modules')
 
