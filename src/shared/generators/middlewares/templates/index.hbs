@@ -1,11 +1,14 @@
 import AppError from '@shared/errors/AppError'
 import { NextFunction, Request, Response } from 'express'
 
-export default function {{name}}Middleware (request:Request, response:Response, next:NextFunction): void {
+export default async function {{name}}Middleware (request:Request, response:Response, next:NextFunction): Promise<void> {
   const { } = request.headers
 
   try {
     // rules
+
+    // if(false) throw new Error()
+
     return next()
   } catch {
     throw new AppError('Middleware Error Message')

@@ -15,7 +15,7 @@ export default class CarsRepository implements ICarsRepository {
 
     await this.repository.save(car)
 
-    throw new Error('Method not implemented.')
+    return car
   }
 
   async findByLicencePlate ({ license_plate }: FindByLicencePlateProps): Promise<Car> {
