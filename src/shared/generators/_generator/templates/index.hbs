@@ -36,7 +36,8 @@ module.exports = {
       const createFile = {
         type: 'add',
         path: `${file.path}/${file.name}`,
-        templateFile: `./modules/templates/${file.template}`
+        templateFile: `./modules/templates/${file.template}`,
+        force: false
       }
 
       action.push(createFile)

@@ -71,7 +71,8 @@ module.exports = {
       const createFile = {
         type: 'add',
         path: `${file.path}/${file.name}`,
-        templateFile: `./modules/templates/${file.template}`
+        templateFile: `./modules/templates/${file.template}`,
+        force: true
       }
 
       action.push(createFile)
@@ -79,7 +80,7 @@ module.exports = {
 
     // Message
     const message = () => {
-      return `UseCase ${capitalize(data.useCaseName)} created`
+      return `UseCase ${capitalize(data.moduleName)}/${capitalize(data.useCaseName)}/${capitalize(data.actionName)} created`
     }
     action.push(message)
 
