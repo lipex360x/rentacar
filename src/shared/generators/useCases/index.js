@@ -2,21 +2,28 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable eqeqeq */
 
-// const capitalize = require('../_utils/capitalize')
+const capitalize = require('../_utils/capitalize')
+
+const fs = require('fs')
+
+const getModules = (dir) => fs.readdirSync(dir, {
+  withFileTypes: true
+}).reduce((a, c) => {
+  c.isDirectory() && a.push(c.name)
+  return a
+}, [])
+
+const modules = getModules('./src/modules')
 
 module.exports = {
   description: 'Generate a useCases',
+
   prompts: [
     {
-      type: 'input',
+      type: 'list',
       name: 'moduleName',
-      message: 'Module name',
-      validate: (value) => {
-        if (!value) {
-          return 'Value is required'
-        }
-        return true
-      }
+      message: 'Select a Module',
+      choices: modules
     },
 
     {
@@ -46,44 +53,44 @@ module.exports = {
   ],
 
   actions: (data) => {
-    const controller = {
-      path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
-      name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.controller.ts'
-    }
-
-    const service = {
-      path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
-      name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.service.ts'
-    }
-
-    const test = {
-      path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
-      name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.spec.ts'
-    }
-
-    const action = [
+    const files = [
       {
-        type: 'add',
-        path: `${controller.path}/${controller.name}`,
-        templateFile: './useCases/templates/controller.hbs'
+        path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
+        name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.controller.ts',
+        template: 'controller.hbs'
       },
 
       {
-        type: 'add',
-        path: `${service.path}/${service.name}`,
-        templateFile: './useCases/templates/service.hbs'
+        path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
+        name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.service.ts',
+        template: 'service.hbs'
       },
 
       {
-        type: 'add',
-        path: `${test.path}/${test.name}`,
-        templateFile: './useCases/templates/service.spec.hbs'
-      },
-
-      function (data) {
-        return `useCase ${data.moduleName}/${data.useCaseName} created`
+        path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
+        name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.spec.ts',
+        template: 'service.spec.hbs'
       }
     ]
+    // Create Files
+    const action = []
+
+    files.forEach(file => {
+      const createFile = {
+        type: 'add',
+        path: `${file.path}/${file.name}`,
+        templateFile: `./modules/templates/${file.template}`
+      }
+
+      action.push(createFile)
+    })
+
+    // Message
+    const message = () => {
+      return `UseCase ${capitalize(data.useCaseName)} created`
+    }
+    action.push(message)
+
     return action
   }
 }

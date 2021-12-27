@@ -121,24 +121,4 @@ module.exports = {
 
     return action
   }
-
-  // actions: [
-
-  //   // SERVICES
-  //   {
-  //     type: 'add',
-  //     path: '../../modules/{{camelCase name}}/useCases/{{pascalCase name}}/Create/{{pascalCase name}}Create.controller.ts',
-  //     templateFile: './modules/templates/controller.hbs'
-  //   },
-  //   {
-  //     type: 'add',
-  //     path: '../../modules/{{camelCase name}}/useCases/{{pascalCase name}}/Create/{{pascalCase name}}Create.service.ts',
-  //     templateFile: './modules/templates/service.hbs'
-  //   },
-  //   {
-  //     type: 'add',
-  //     path: '../../modules/{{camelCase name}}/useCases/{{pascalCase name}}/Create/{{pascalCase name}}Create.spec.ts',
-  //     templateFile: './modules/templates/service.spec.hbs'
-  //   }
-  // ]
 }
