@@ -15,7 +15,7 @@ implements MigrationInterface {
     await queryRunner.createForeignKey(
       '{{database}}',
       new TableForeignKey({
-        name: '{{database}}_to_{{tableReference}}',
+        name: 'FK_{{tableReference}}_to_{{database}}',
         columnNames: ['{{columnName}}'],
 
         referencedTableName: '{{tableReference}}',
@@ -28,7 +28,7 @@ implements MigrationInterface {
   }
 
   public async down (queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('{{database}}', '{{database}}_to_{{tableReference}}')
+    await queryRunner.dropForeignKey('{{database}}', 'FK_{{tableReference}}_to_{{database}}')
     await queryRunner.dropColumn('{{database}}', '{{columnName}}')
   }
 }
