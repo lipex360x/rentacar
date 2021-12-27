@@ -29,23 +29,36 @@ module.exports = {
         }
         return true
       }
+    },
+
+    {
+      type: 'input',
+      name: 'actionName',
+      message: 'Action Name',
+      validate: (value) => {
+        if (!value) {
+          return 'Value is required'
+        }
+        return true
+      }
     }
+
   ],
 
   actions: (data) => {
     const controller = {
-      path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase moduleName}}/{{pascalCase useCaseName}}',
-      name: '{{pascalCase useCaseName}}.controller.ts'
+      path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
+      name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.controller.ts'
     }
 
     const service = {
-      path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase moduleName}}/{{pascalCase useCaseName}}',
-      name: '{{pascalCase useCaseName}}.service.ts'
+      path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
+      name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.service.ts'
     }
 
     const test = {
-      path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase moduleName}}/{{pascalCase useCaseName}}',
-      name: '{{pascalCase useCaseName}}.spec.ts'
+      path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
+      name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.spec.ts'
     }
 
     const action = [

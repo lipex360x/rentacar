@@ -9,7 +9,7 @@ interface Request{
 }
 
 @injectable()
-export default class {{pascalCase useCaseName}}Service {
+export default class {{pascalCase useCaseName}}{{pascalCase actionName}}Service {
   constructor (
     @inject('{{pascalCase moduleName}}Repository')
     private repository: I{{pascalCase moduleName}}Repository
