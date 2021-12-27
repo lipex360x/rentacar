@@ -21,4 +21,4 @@ categoriesRoutes.get('/', listController.handle)
 
 categoriesRoutes.post('/import', upload.single('file'), importController.handle)
 
-export { categoriesRoutes }
+export default categoriesRoutes

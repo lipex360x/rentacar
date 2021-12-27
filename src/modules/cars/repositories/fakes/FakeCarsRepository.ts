@@ -1,5 +1,5 @@
 import Car from '@modules/cars/infra/typeorm/entities/Car'
-import ICarsRepository, { CreateProps, FindByLicencePlateProps } from '../interfaces/ICarsRepository'
+import ICarsRepository, { CreateProps, FindByLicencePlateProps } from '@modules/cars/repositories/interfaces/ICarsRepository'
 
 export default class FakeCarsRepository implements ICarsRepository {
   private repository: Car[] = []

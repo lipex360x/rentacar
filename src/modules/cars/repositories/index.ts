@@ -1,8 +1,13 @@
 import { container } from 'tsyringe'
-import ICategoriesRepositoryProps from '@modules/cars/repositories/interfaces/ICategoriesRepository'
-import CategoriesRepository from '@modules/cars/infra/typeorm/repositories/CategoriesRepository'
-import ISpecificationsRepository from '@modules/cars/repositories/interfaces/ISpecificationsRepository'
-import SpecificationsRepository from '@modules/cars/infra/typeorm/repositories/SpecificationsRepository'
+
+import ICategoriesRepositoryProps from './interfaces/ICategoriesRepository'
+import CategoriesRepository from '../infra/typeorm/repositories/CategoriesRepository'
+
+import ISpecificationsRepository from './interfaces/ISpecificationsRepository'
+import SpecificationsRepository from '../infra/typeorm/repositories/SpecificationsRepository'
+
+import ICarRepository from './interfaces/ICarsRepository'
+import CarsRepository from '../infra/typeorm/repositories/CarsRepository'
 
 container.registerSingleton<ICategoriesRepositoryProps>(
   'CategoriesRepository',
@@ -12,4 +17,9 @@ container.registerSingleton<ICategoriesRepositoryProps>(
 container.registerSingleton<ISpecificationsRepository>(
   'SpecificationsRepository',
   SpecificationsRepository
+)
+
+container.registerSingleton<ICarRepository>(
+  'CarsRepository',
+  CarsRepository
 )

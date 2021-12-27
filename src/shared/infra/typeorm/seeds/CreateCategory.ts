@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid'
 import { Factory, Seeder } from 'typeorm-seeding'
 import { Connection } from 'typeorm'
-import { Category } from '@modules/cars/infra/typeorm/entities/Category'
+import Category from '@modules/cars/infra/typeorm/entities/Category'
 
 export default class CreateCategory implements Seeder {
   public async run (factory: Factory, connection: Connection): Promise<any> {
@@ -10,7 +10,7 @@ export default class CreateCategory implements Seeder {
       .insert()
       .into(Category)
       .values([
-        { category_id: uuid(), name: 'Teste Seed', description: 'Description Seed' }
+        { id: uuid(), name: 'Teste Seed', description: 'Description Seed' }
       ])
       .execute()
   }

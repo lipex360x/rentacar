@@ -5,8 +5,12 @@ import {
   PrimaryColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  DeleteDateColumn
+  DeleteDateColumn,
+  JoinColumn,
+  ManyToOne
 } from 'typeorm'
+
+import Category from './Category'
 
 @Entity('cars')
 export default class Car {
@@ -32,7 +36,14 @@ export default class Car {
     fine_amount: number
 
   @Column()
-    available?: boolean
+    category_id: string
+
+  @ManyToOne(() => Category)
+  @JoinColumn({ name: 'category_id' })
+    category?: Category
+
+  @Column()
+    available: boolean
 
   @CreateDateColumn()
     created_at: Date
