@@ -2,6 +2,7 @@ import Car from '@modules/cars/infra/typeorm/entities/Car'
 import Specification from '@modules/cars/infra/typeorm/entities/Specification'
 
 export interface CreateProps {
+  id?: string
   brand: string
   model: string
   license_plate: string
@@ -11,7 +12,6 @@ export interface CreateProps {
   category_id: string,
   specifications?: Specification[]
   available?: boolean,
-  id?: string
 }
 
 export interface FindByLicencePlateProps {

@@ -11,6 +11,7 @@ export default class CarsRepository implements ICarsRepository {
   }
 
   async create ({
+    id,
     brand,
     model,
     license_plate,
@@ -18,10 +19,10 @@ export default class CarsRepository implements ICarsRepository {
     daily_rate,
     fine_amount,
     category_id,
-    specifications,
-    id
+    specifications
   }: CreateProps): Promise<Car> {
     const car = this.repository.create({
+      id,
       brand,
       model,
       license_plate,
@@ -29,8 +30,7 @@ export default class CarsRepository implements ICarsRepository {
       daily_rate,
       fine_amount,
       category_id,
-      specifications,
-      id
+      specifications
     })
 
     await this.repository.save(car)

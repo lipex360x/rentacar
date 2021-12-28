@@ -5,6 +5,7 @@ export default class FakeCarsRepository implements ICarsRepository {
   private repository: Car[] = []
 
   async create ({
+    id,
     brand,
     model,
     license_plate,
@@ -13,8 +14,7 @@ export default class FakeCarsRepository implements ICarsRepository {
     fine_amount,
     category_id,
     available = true,
-    specifications,
-    id
+    specifications
   }:CreateProps): Promise<Car> {
     const car = new Car()
 
