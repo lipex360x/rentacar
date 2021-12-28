@@ -97,10 +97,22 @@ module.exports = {
       default: 'id'
     },
 
+    // ##### Create Module #####
     {
       when: function (response) {
         const type = response.type
         if (type === 'tableCreate') return type
+      },
+      type: 'confirm',
+      name: 'createModule',
+      message: 'Generate a Basic Module? (without useCase)',
+      default: false
+    },
+
+    {
+      when: function (response) {
+        const type = response.type
+        if (type === 'tableCreate' && response.createModule) return type
       },
       type: 'input',
       name: 'moduleName',
@@ -116,7 +128,7 @@ module.exports = {
     {
       when: function (response) {
         const type = response.type
-        if (type === 'tableCreate') return type
+        if (type === 'tableCreate' && response.createModule) return type
       },
       type: 'input',
       name: 'entityName',
@@ -132,7 +144,7 @@ module.exports = {
   ],
 
   actions: (data) => {
-    const files = [
+    let files = [
       {
         path: '../../shared/infra/typeorm/migrations',
         name: '{{timestamp}}-{{pascalCase name}}.ts',
@@ -175,7 +187,7 @@ module.exports = {
       }
     ]
 
-    if (data.type === 'tableCreate') console.log(createModule)
+    if (data.type === 'tableCreate' && data.createModule) files = files.concat(createModule)
 
     // Create Files
     const action = []
