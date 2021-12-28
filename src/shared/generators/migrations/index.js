@@ -4,7 +4,7 @@ module.exports = {
     {
       type: 'list',
       name: 'type',
-      message: 'Select a migration type',
+      message: 'Migration Type',
       default: 'TableCreate',
       choices: () => [
         { name: 'New Table', value: 'tableCreate' },
@@ -18,7 +18,7 @@ module.exports = {
     {
       type: 'input',
       name: 'name',
-      message: 'Type migration name:',
+      message: 'Migration Name:',
       validate: (value) => {
         if (!value) {
           return 'Name is required'
@@ -29,8 +29,8 @@ module.exports = {
 
     {
       type: 'input',
-      name: 'database',
-      message: 'Type table name:',
+      name: 'tableName',
+      message: 'Table Name:',
       validate: (value) => {
         if (!value) {
           return 'Table Name is required'
@@ -42,7 +42,7 @@ module.exports = {
     {
       type: 'input',
       name: 'columnName',
-      message: 'Type a Column Name',
+      message: 'Column Name:',
       validate: (value) => {
         if (!value) {
           return 'Column Name is required'
@@ -58,7 +58,7 @@ module.exports = {
       },
       type: 'list',
       name: 'columnType',
-      message: 'Column Type',
+      message: 'Column Type:',
       choices: () => [
         { name: 'varchar', value: 'varchar' },
         { name: 'integer', value: 'integer' },
@@ -77,7 +77,7 @@ module.exports = {
       },
       type: 'input',
       name: 'tableReference',
-      message: 'Type Table Reference Name',
+      message: 'Table Reference Name:',
       validate: (value) => {
         if (!value) {
           return 'Name is required'
@@ -93,8 +93,40 @@ module.exports = {
       },
       type: 'input',
       name: 'tableColumnReference',
-      message: 'Type Table Column Reference Name',
+      message: 'Table Column Reference Name:',
       default: 'id'
+    },
+
+    {
+      when: function (response) {
+        const type = response.type
+        if (type === 'tableCreate') return type
+      },
+      type: 'input',
+      name: 'moduleName',
+      message: 'Module Name:',
+      validate: value => {
+        if (!value) {
+          return 'Name is required'
+        }
+        return true
+      }
+    },
+
+    {
+      when: function (response) {
+        const type = response.type
+        if (type === 'tableCreate') return type
+      },
+      type: 'input',
+      name: 'entityName',
+      message: 'Entity Name:',
+      validate: value => {
+        if (!value) {
+          return 'Name is required'
+        }
+        return true
+      }
     }
 
   ],
@@ -105,9 +137,45 @@ module.exports = {
         path: '../../shared/infra/typeorm/migrations',
         name: '{{timestamp}}-{{pascalCase name}}.ts',
         data: { timestamp: new Date().getTime() },
-        template: `${data.type}.hbs`
+        template: `./migrations/templates/${data.type}.hbs`
       }
     ]
+
+    const createModule = [
+      // INFRA: TypeORM
+      {
+        path: '../../modules/{{camelCase moduleName}}/infra/typeorm/entities',
+        name: '{{pascalCase entityName}}.ts',
+        template: './modules/templates/entity.hbs'
+      },
+
+      {
+        path: '../../modules/{{camelCase moduleName}}/infra/typeorm/repositories',
+        name: '{{pascalCase moduleName}}Repository.ts',
+        template: './modules/templates/repository.hbs'
+      },
+
+      // REPOSITORIES
+      {
+        path: '../../modules/{{camelCase moduleName}}/repositories',
+        name: 'index.ts',
+        template: './modules/templates/indexContainer.hbs'
+      },
+
+      {
+        path: '../../modules/{{camelCase moduleName}}/repositories/fakes',
+        name: 'Fake{{pascalCase moduleName}}Repository.ts',
+        template: './modules/templates/fakeRepository.hbs'
+      },
+
+      {
+        path: '../../modules/{{camelCase moduleName}}/repositories/interfaces',
+        name: 'I{{pascalCase moduleName}}Repository.ts',
+        template: './modules/templates/interfaceRepository.hbs'
+      }
+    ]
+
+    if (data.type === 'tableCreate') console.log(createModule)
 
     // Create Files
     const action = []
@@ -117,7 +185,8 @@ module.exports = {
         type: 'add',
         path: `${file.path}/${file.name}`,
         data: file.data,
-        templateFile: `./migrations/templates/${file.template}`
+        templateFile: file.template,
+        force: true
       }
 
       action.push(createFile)
@@ -130,16 +199,6 @@ module.exports = {
     action.push(message)
 
     return action
-
-    // const actions = [
-    //   {
-    //     type: 'add',
-    //     path: '../../shared/infra/typeorm/migrations/{{timestamp}}-{{pascalCase name}}.ts',
-    //     data: { timestamp: new Date().getTime() },
-    //     templateFile: `./migrations/templates/${migration}.hbs`
-    //   }
-    // ]
-    // return actions
   }
 
 }

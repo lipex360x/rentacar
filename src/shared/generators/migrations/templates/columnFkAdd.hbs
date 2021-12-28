@@ -4,7 +4,7 @@ export default class {{pascalCase name}}{{timestamp}}
 implements MigrationInterface {
   public async up (queryRunner: QueryRunner): Promise<void> {
     await queryRunner.addColumn(
-      '{{database}}',
+      '{{tableName}}',
       new TableColumn({
         name: '{{columnName}}',
         type: 'uuid',
@@ -13,9 +13,9 @@ implements MigrationInterface {
     )
 
     await queryRunner.createForeignKey(
-      '{{database}}',
+      '{{tableName}}',
       new TableForeignKey({
-        name: 'FK_{{tableReference}}_to_{{database}}',
+        name: 'FK{{pascalCase tableReference}}{{pascalCase tableName}}',
         columnNames: ['{{columnName}}'],
 
         referencedTableName: '{{tableReference}}',
@@ -28,7 +28,7 @@ implements MigrationInterface {
   }
 
   public async down (queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('{{database}}', 'FK_{{tableReference}}_to_{{database}}')
-    await queryRunner.dropColumn('{{database}}', '{{columnName}}')
+    await queryRunner.dropForeignKey('{{tableName}}', 'FK{{pascalCase tableReference}}{{pascalCase tableName}}')
+    await queryRunner.dropColumn('{{tableName}}', '{{columnName}}')
   }
 }

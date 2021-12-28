@@ -4,7 +4,7 @@ export default class {{pascalCase name}}{{timestamp}} implements MigrationInterf
   public async up (queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: '{{database}}',
+        name: '{{tableName}}',
         columns: [
           {
             name: '{{columnName}}',
@@ -28,9 +28,9 @@ export default class {{pascalCase name}}{{timestamp}} implements MigrationInterf
     )
 
     await queryRunner.createForeignKey(
-      '{{database}}',
+      '{{tableName}}',
       new TableForeignKey({
-        name: 'FK_{{tableReference}}_to_{{database}}',
+        name: 'FK{{pascalCase tableReference}}{{pascalCase tableName}}',
         columnNames: ['{{columnName}}'],
 
         referencedTableName: '{{tableReference}}',
@@ -43,7 +43,7 @@ export default class {{pascalCase name}}{{timestamp}} implements MigrationInterf
   }
 
   public async down (queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('{{database}}', 'FK_{{tableReference}}_to_{{database}}')
-    await queryRunner.dropTable('{{database}}')
+    await queryRunner.dropForeignKey('{{tableName}}', 'FK{{pascalCase tableReference}}{{pascalCase tableName}}')
+    await queryRunner.dropTable('{{tableName}}')
   }
 }
