@@ -1,16 +1,16 @@
 import { Repository, getRepository } from 'typeorm'
 
-import {{pascalCase moduleName}} from '@modules/{{camelCase moduleName}}/infra/typeorm/entities/{{pascalCase moduleName}}'
+import {{pascalCase entityName}} from '@modules/{{camelCase moduleName}}/infra/typeorm/entities/{{pascalCase entityName}}'
 import I{{pascalCase moduleName}}Repository, { CreateProps } from '@modules/{{camelCase moduleName}}/repositories/interfaces/I{{pascalCase moduleName}}Repository'
 
 export default class {{pascalCase moduleName}}Repository implements I{{pascalCase moduleName}}Repository {
-  private repository: Repository<{{pascalCase moduleName}}>
+  private repository: Repository<{{pascalCase entityName}}>
 
   constructor () {
-    this.repository = getRepository({{pascalCase moduleName}})
+    this.repository = getRepository({{pascalCase entityName}})
   }
 
-  async create ({ data }: CreateProps): Promise<{{pascalCase moduleName}}> {
+  async create ({ data }: CreateProps): Promise<{{pascalCase entityName}}> {
     //  TO DO
   }
 }

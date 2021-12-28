@@ -111,7 +111,7 @@
     "  Column,",
     "  PrimaryColumn,",
     "  CreateDateColumn,",
-    "  UpdateDateColumn",
+    "  UpdateDateColumn,",
     "  DeleteDateColumn",
     "} from 'typeorm'",
     "",

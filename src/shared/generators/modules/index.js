@@ -4,7 +4,31 @@ module.exports = {
     {
       type: 'input',
       name: 'moduleName',
-      message: 'Type module Name:',
+      message: 'Module Name:',
+      validate: value => {
+        if (!value) {
+          return 'Name is required'
+        }
+        return true
+      }
+    },
+
+    {
+      type: 'input',
+      name: 'tableName',
+      message: 'Table Name:',
+      validate: value => {
+        if (!value) {
+          return 'Name is required'
+        }
+        return true
+      }
+    },
+
+    {
+      type: 'input',
+      name: 'entityName',
+      message: 'Entity Name:',
       validate: value => {
         if (!value) {
           return 'Name is required'
@@ -50,8 +74,9 @@ module.exports = {
       // INFRA: TypeORM
       {
         path: '../../modules/{{camelCase moduleName}}/infra/typeorm/entities',
-        name: '{{pascalCase moduleName}}.ts',
-        template: 'entities.hbs'
+        name: '{{pascalCase entityName}}.ts',
+        data: { tableName: '{{tableName}}' },
+        template: 'entity.hbs'
       },
 
       {
@@ -107,7 +132,9 @@ module.exports = {
       const createFile = {
         type: 'add',
         path: `${file.path}/${file.name}`,
-        templateFile: `./modules/templates/${file.template}`
+        data: file.data,
+        templateFile: `./modules/templates/${file.template}`,
+        force: true
       }
 
       action.push(createFile)

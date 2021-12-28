@@ -9,8 +9,8 @@ import {
   DeleteDateColumn
 } from 'typeorm'
 
-@Entity('{{camelCase moduleName}}s')
-export default class {{pascalCase moduleName}} {
+@Entity('{{camelCase tableName}}')
+export default class {{pascalCase entityName}} {
   @PrimaryColumn('uuid')
     id: string
 
