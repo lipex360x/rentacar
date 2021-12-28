@@ -40,7 +40,7 @@ export default class Car {
 
   @ManyToOne(() => Category)
   @JoinColumn({ name: 'category_id' })
-    category?: Category
+    category: Category
 
   @Column()
     available: boolean
