@@ -46,7 +46,6 @@ module.exports = {
         name: '{{pascalCase name}}.ts',
         template: 'seed.hbs'
       }
-
     ]
     // Create Files
     const action = []

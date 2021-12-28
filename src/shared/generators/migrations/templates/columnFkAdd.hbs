@@ -7,8 +7,7 @@ implements MigrationInterface {
       '{{database}}',
       new TableColumn({
         name: '{{columnName}}',
-        type: 'uuid',
-        isNullable: true
+        type: 'uuid'
       })
     )
 
@@ -21,8 +20,8 @@ implements MigrationInterface {
         referencedTableName: '{{tableReference}}',
         referencedColumnNames: ['{{tableColumnReference}}'],
 
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
+        onDelete: 'SET NULL',
+        onUpdate: 'SET NULL'
       })
     )
   }
