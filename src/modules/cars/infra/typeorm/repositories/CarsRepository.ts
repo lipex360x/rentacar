@@ -1,7 +1,7 @@
 import { Repository, getRepository } from 'typeorm'
 
 import Car from '@modules/cars/infra/typeorm/entities/Car'
-import ICarsRepository, { CreateProps, FindAvailableProps, FindByLicencePlateProps } from '@modules/cars/repositories/interfaces/ICarsRepository'
+import ICarsRepository, { CreateProps, FindAvailableProps, FindById, FindByLicencePlateProps } from '@modules/cars/repositories/interfaces/ICarsRepository'
 
 export default class CarsRepository implements ICarsRepository {
   private repository: Repository<Car>
@@ -10,8 +10,28 @@ export default class CarsRepository implements ICarsRepository {
     this.repository = getRepository(Car)
   }
 
-  async create ({ brand, model, license_plate, description, daily_rate, fine_amount, category_id }: CreateProps): Promise<Car> {
-    const car = this.repository.create({ brand, model, license_plate, description, daily_rate, fine_amount, category_id })
+  async create ({
+    brand,
+    model,
+    license_plate,
+    description,
+    daily_rate,
+    fine_amount,
+    category_id,
+    specifications,
+    id
+  }: CreateProps): Promise<Car> {
+    const car = this.repository.create({
+      brand,
+      model,
+      license_plate,
+      description,
+      daily_rate,
+      fine_amount,
+      category_id,
+      specifications,
+      id
+    })
 
     await this.repository.save(car)
 
@@ -36,5 +56,11 @@ export default class CarsRepository implements ICarsRepository {
     const cars = await query.getMany()
 
     return cars
+  }
+
+  async findById ({ id }: FindById): Promise<Car> {
+    const getCar = await this.repository.findOne(id)
+
+    return getCar
   }
 }

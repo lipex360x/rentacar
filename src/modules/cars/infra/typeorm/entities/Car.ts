@@ -7,10 +7,13 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
   JoinColumn,
-  ManyToOne
+  ManyToOne,
+  ManyToMany,
+  JoinTable
 } from 'typeorm'
 
 import Category from './Category'
+import Specification from './Specification'
 
 @Entity('cars')
 export default class Car {
@@ -41,6 +44,14 @@ export default class Car {
   @ManyToOne(() => Category)
   @JoinColumn({ name: 'category_id' })
     category: Category
+
+    @ManyToMany(() => Specification)
+    @JoinTable({
+      name: 'specifications_cars',
+      joinColumns: [{ name: 'car_id' }],
+      inverseJoinColumns: [{ name: 'specification_id' }]
+    })
+      specifications: Specification[]
 
   @Column()
     available: boolean

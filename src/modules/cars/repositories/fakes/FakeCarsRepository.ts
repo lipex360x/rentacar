@@ -1,13 +1,25 @@
 import Car from '@modules/cars/infra/typeorm/entities/Car'
-import ICarsRepository, { CreateProps, FindAvailableProps, FindByLicencePlateProps } from '@modules/cars/repositories/interfaces/ICarsRepository'
+import ICarsRepository, { CreateProps, FindAvailableProps, FindById, FindByLicencePlateProps } from '@modules/cars/repositories/interfaces/ICarsRepository'
 
 export default class FakeCarsRepository implements ICarsRepository {
   private repository: Car[] = []
 
-  async create ({ brand, model, license_plate, description, daily_rate, fine_amount, category_id, available = true }:CreateProps): Promise<Car> {
+  async create ({
+    brand,
+    model,
+    license_plate,
+    description,
+    daily_rate,
+    fine_amount,
+    category_id,
+    available = true,
+    specifications,
+    id
+  }:CreateProps): Promise<Car> {
     const car = new Car()
 
     Object.assign(car, {
+      id,
       brand,
       model,
       license_plate,
@@ -15,6 +27,7 @@ export default class FakeCarsRepository implements ICarsRepository {
       daily_rate,
       fine_amount,
       available,
+      specifications,
       category_id,
       created_at: new Date(),
       updated_at: new Date()
@@ -45,5 +58,11 @@ export default class FakeCarsRepository implements ICarsRepository {
     })
 
     return carsFiltered
+  }
+
+  async findById ({ id }: FindById): Promise<Car> {
+    const car = this.repository.find(car => car.id === id)
+
+    return car
   }
 }

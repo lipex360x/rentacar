@@ -8,12 +8,14 @@ export default class FkSpecificationsCars1640655700976 implements MigrationInter
         columns: [
           {
             name: 'specification_id',
-            type: 'uuid'
+            type: 'uuid',
+            isPrimary: true
           },
 
           {
             name: 'car_id',
-            type: 'uuid'
+            type: 'uuid',
+            isPrimary: true
           },
 
           {

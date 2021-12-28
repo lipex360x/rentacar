@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid'
 
 import Specification from '@modules/cars/infra/typeorm/entities/Specification'
-import ISpecificationsRepository, { ICreateProps, IFindByNameProps } from '../interfaces/ISpecificationsRepository'
+import ISpecificationsRepository, { FindByIdsProps, ICreateProps, IFindByNameProps } from '../interfaces/ISpecificationsRepository'
 
 export default class FakeSpecificationRepository implements ISpecificationsRepository {
   private repository: Specification[] = []
@@ -30,5 +30,11 @@ export default class FakeSpecificationRepository implements ISpecificationsRepos
 
   async list (): Promise<Specification[]> {
     return this.repository
+  }
+
+  async findByIds ({ ids }: FindByIdsProps): Promise<Specification[]> {
+    const allSpecifications = this.repository.filter(specification => ids.includes(specification.id))
+
+    return allSpecifications
   }
 }

@@ -7,7 +7,8 @@ implements MigrationInterface {
       '{{database}}',
       new TableColumn({
         name: '{{columnName}}',
-        type: 'uuid'
+        type: 'uuid',
+        isPrimary: true
       })
     )
 

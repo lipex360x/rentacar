@@ -140,24 +140,37 @@
     ]
   },
 
-  "Many to One Relation": {
+  "Many to One Relations": {
     "prefix": "manyToOneTemplate",
     "body": [
-      "@ManyToOne(() => ${1:ONE_ENTITY}, ${2:nickname} => ${2:nickname}.${TM_FILENAME_BASE/(.*)/${1:/downcase}/})",
-      "@JoinColumn({ name: '${3:Primary_Column_ONE_ENTITY}_id' })",
-      "${2:nickname}: ${1:ONE_ENTITY}",
-      "",
-      "@Column('uuid')",
-      "${3:Primary_Column_ONE_ENTITY}_id: string;",
+      "@ManyToOne(() => ${1:ENTITY})",
+      "@JoinColumn({ name: '${2:table_name}_id' })",
+      "  ${2:table_name}: ${1:ENTITY}",
       "",
     ]
   },
 
-  "One to Many Relation": {
+  "One to Many Relations": {
     "prefix": "oneToManyTemplate",
     "body": [
-      "@OneToMany(() => ${1:MANY_ENTITY}, ${2:nickname} => ${2:nickname}.${TM_FILENAME_BASE/(.*)/${1:/downcase}/}, {})",
-      "${2:nickname}: ${1:MANY_ENTITY}[]",
+      "@OneToMany(() => ${1:ENTITY})",
+      "@JoinColumn({ name: '${2:table_name}_id' })",
+      "  ${2:table_name}: ${1:ENTITY}[]",
+      "",
+    ]
+  },
+
+  "Many to Many Relations": {
+    "prefix": "manyToManyTemplate",
+    "body": [
+      "@ManyToMany(() => ${1:ENTITY})",
+      "@JoinTable({",
+      "  name: '${2:table_MtM_name}',",
+      "  joinColumns: [{ name: '${3:this_id_MtM}' }],",
+      "  inverseJoinColumns: [{ name: '${4:entity_MtM_name}_id' }]",
+      "",
+      "})",
+      "  ${1:ENTITY}SS: ${1:ENTITY}[]",
       "",
     ]
   },
@@ -185,29 +198,6 @@
     ]
   },
 
-
-  "Seed TypeORM Template": {
-    "prefix": "seedTemplate",
-    "body": [
-      "import { v4 as uuid } from 'uuid'",
-      "import { Factory, Seeder } from 'typeorm-seeding'",
-      "import { Connection } from 'typeorm'",
-      "import ENTITY from '@modules/'",
-      "",
-      "export default class $TM_FILENAME_BASE implements Seeder {",
-      "  public async run (factory: Factory, connection: Connection): Promise<any> {",
-      "    await connection",
-      "      .createQueryBuilder()",
-      "      .insert()",
-      "      .into(ENTITY)",
-      "      .values([",
-      "        { _id: uuid(), property: 'value' },",
-      "      ])",
-      "      .execute()",
-      "  }",
-      "}",
-    ]
-  },
 
   "Interface Template": {
     "prefix": "interfaceTemplate",
