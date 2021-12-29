@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable eqeqeq */
 
-const capitalize = require('../_utils/capitalize')
+const { capitalize } = require('../_utils/textTransform')
 const getModules = require('../_utils/getModules')
 
 const modules = getModules('./src/modules')

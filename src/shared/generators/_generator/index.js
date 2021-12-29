@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-const capitalize = require('../_utils/capitalize')
+const { capitalize } = require('../_utils/textTransform')
 
 module.exports = {
   description: 'Plop generate Generators',
