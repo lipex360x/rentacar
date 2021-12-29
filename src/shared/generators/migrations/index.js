@@ -1,3 +1,5 @@
+const { textToPascal } = require('../_utils/textTransform')
+
 module.exports = {
   description: 'Create a Migration',
   prompts: [
@@ -162,7 +164,8 @@ module.exports = {
 
       {
         path: '../../modules/{{camelCase moduleName}}/infra/typeorm/repositories',
-        name: '{{pascalCase moduleName}}Repository.ts',
+        data: { pascalName: textToPascal(data.tableName) },
+        name: '{{pascalName}}Repository.ts',
         template: './modules/templates/repository.hbs'
       },
 
@@ -175,14 +178,18 @@ module.exports = {
 
       {
         path: '../../modules/{{camelCase moduleName}}/repositories/fakes',
-        name: 'Fake{{pascalCase moduleName}}Repository.ts',
-        template: './modules/templates/fakeRepository.hbs'
+        data: { pascalName: textToPascal(data.tableName) },
+        name: 'Fake{{pascalName}}Repository.ts',
+        template: './modules/templates/fakeRepository.hbs',
+        force: true
       },
 
       {
         path: '../../modules/{{camelCase moduleName}}/repositories/interfaces',
-        name: 'I{{pascalCase moduleName}}Repository.ts',
-        template: './modules/templates/interfaceRepository.hbs'
+        data: { pascalName: textToPascal(data.tableName) },
+        name: 'I{{pascalName}}Repository.ts',
+        template: './modules/templates/interfaceRepository.hbs',
+        force: true
       }
     ]
 
@@ -197,7 +204,7 @@ module.exports = {
         path: `${file.path}/${file.name}`,
         data: file.data,
         templateFile: file.template,
-        force: true
+        force: !!file.force
       }
 
       action.push(createFile)
