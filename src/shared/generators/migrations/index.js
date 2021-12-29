@@ -5,7 +5,6 @@ module.exports = {
       type: 'list',
       name: 'type',
       message: 'Migration Type',
-      default: 'TableCreate',
       choices: () => [
         { name: 'New Table', value: 'tableCreate' },
         { name: 'New FK Table (ManyToMany)', value: 'tableFkCreate' },
