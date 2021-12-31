@@ -1,13 +1,1 @@
-import { container } from 'tsyringe'
-
-import I{{pascalCase moduleName}}Repository from '@modules/{{camelCase moduleName}}/repositories/interfaces/I{{pascalCase moduleName}}Repository'
-import {{pascalCase moduleName}}Repository from '@modules/{{camelCase moduleName}}/infra/typeorm/repositories/{{pascalCase moduleName}}Repository'
-
-const provider = {
-  {{camelCase moduleName}}: {{pascalCase moduleName}}Repository
-}
-
-container.registerSingleton<I{{pascalCase moduleName}}Repository>(
-  '{{pascalCase moduleName}}Repository',
-  provider.{{camelCase moduleName}}
-)
+import './containers/{{pascalTableName}}Repository.container'

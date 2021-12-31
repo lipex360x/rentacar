@@ -1,3 +1,5 @@
+const { textToPascal } = require('../_utils/textTransform')
+
 module.exports = {
   description: 'Create a Module',
   prompts: [
@@ -5,6 +7,9 @@ module.exports = {
       type: 'input',
       name: 'moduleName',
       message: 'Module Name:',
+
+      default: 'teste',
+
       validate: value => {
         if (!value) {
           return 'Name is required'
@@ -17,6 +22,9 @@ module.exports = {
       type: 'input',
       name: 'tableName',
       message: 'Table Name:',
+
+      default: 'testes',
+
       validate: value => {
         if (!value) {
           return 'Name is required'
@@ -29,6 +37,9 @@ module.exports = {
       type: 'input',
       name: 'entityName',
       message: 'Entity Name:',
+
+      default: 'teste',
+
       validate: value => {
         if (!value) {
           return 'Name is required'
@@ -41,6 +52,9 @@ module.exports = {
       type: 'input',
       name: 'useCaseName',
       message: 'UseCase Name',
+
+      default: 'teste',
+
       validate: (value) => {
         if (!value) {
           return 'Value is required'
@@ -53,6 +67,9 @@ module.exports = {
       type: 'input',
       name: 'actionName',
       message: 'Action Name',
+
+      default: 'create',
+
       validate: (value) => {
         if (!value) {
           return 'Value is required'
@@ -63,61 +80,90 @@ module.exports = {
   ],
 
   actions: (data) => {
+    const pascalTableName = textToPascal(data.tableName)
+
     const files = [
-      // INFRA: Routes
+      /* --------- INFRA --------- */
+
+      // Routes
       {
+        data: {},
         path: '../../modules/{{camelCase moduleName}}/infra/routes',
         name: '{{camelCase moduleName}}.routes.ts',
         template: 'routes.hbs'
       },
 
-      // INFRA: TypeORM
+      // Entity
       {
+        data: {},
         path: '../../modules/{{camelCase moduleName}}/infra/typeorm/entities',
-        name: '{{pascalCase entityName}}.ts',
-        data: { tableName: '{{tableName}}' },
+        name: '{{pascalCase entityName}}.entity.ts',
         template: 'entity.hbs'
       },
 
+      // Repository
       {
+        data: { pascalTableName },
         path: '../../modules/{{camelCase moduleName}}/infra/typeorm/repositories',
-        name: '{{pascalCase moduleName}}Repository.ts',
+        name: `${pascalTableName}.repository.ts`,
         template: 'repository.hbs'
       },
 
-      // REPOSITORIES
+      /* --------- REPOSITORIES --------- */
+
+      // Fake
       {
+        data: { pascalTableName },
+        path: '../../modules/{{camelCase moduleName}}/repositories/fakes',
+        name: `Fake${pascalTableName}.repository.ts`,
+        template: 'fakeRepository.hbs'
+      },
+
+      // Interface
+      {
+        data: { pascalTableName },
+        path: '../../modules/{{camelCase moduleName}}/repositories/interfaces',
+        name: `I${pascalTableName}.interface.ts`,
+        template: 'interfaceRepository.hbs'
+      },
+
+      // Container
+      {
+        data: { pascalTableName },
+        path: '../../modules/{{camelCase moduleName}}/repositories/containers',
+        name: `${pascalTableName}Repository.container.ts`,
+        template: 'container.hbs'
+      },
+
+      // Repo Index
+      {
+        data: { pascalTableName },
         path: '../../modules/{{camelCase moduleName}}/repositories',
         name: 'index.ts',
         template: 'indexContainer.hbs'
       },
 
-      {
-        path: '../../modules/{{camelCase moduleName}}/repositories/fakes',
-        name: 'Fake{{pascalCase moduleName}}Repository.ts',
-        template: 'fakeRepository.hbs'
-      },
+      /* --------- USE CASES --------- */
 
+      // Controller
       {
-        path: '../../modules/{{camelCase moduleName}}/repositories/interfaces',
-        name: 'I{{pascalCase moduleName}}Repository.ts',
-        template: 'interfaceRepository.hbs'
-      },
-
-      // USECASES
-      {
+        data: {},
         path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
         name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.controller.ts',
         template: 'controller.hbs'
       },
 
+      // Service
       {
+        data: { pascalTableName },
         path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
         name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.service.ts',
         template: 'service.hbs'
       },
 
+      // Tests
       {
+        data: { pascalTableName },
         path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
         name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.spec.ts',
         template: 'service.spec.hbs'

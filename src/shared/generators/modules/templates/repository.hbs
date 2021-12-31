@@ -1,9 +1,9 @@
 import { Repository, getRepository } from 'typeorm'
 
-import {{pascalCase entityName}} from '@modules/{{camelCase moduleName}}/infra/typeorm/entities/{{pascalCase entityName}}'
-import I{{pascalCase moduleName}}Repository, { CreateProps } from '@modules/{{camelCase moduleName}}/repositories/interfaces/I{{pascalCase moduleName}}Repository'
+import {{pascalCase entityName}} from '@modules/{{camelCase moduleName}}/infra/typeorm/entities/{{pascalCase entityName}}.entity'
+import I{{pascalTableName}}, { CreateProps } from '@modules/{{camelCase moduleName}}/repositories/interfaces/I{{pascalTableName}}.interface'
 
-export default class {{pascalCase moduleName}}Repository implements I{{pascalCase moduleName}}Repository {
+export default class {{pascalTableName}}Repository implements I{{pascalTableName}} {
   private repository: Repository<{{pascalCase entityName}}>
 
   constructor () {

@@ -1,8 +1,8 @@
 import { inject, injectable } from 'tsyringe'
 // import AppError from '@shared/errors/AppError'
 
-import {{pascalCase entityName}} from '@modules/{{camelCase moduleName}}/infra/typeorm/entities/{{pascalCase entityName}}'
-import I{{pascalCase moduleName}}Repository from '@modules/{{camelCase moduleName}}/repositories/interfaces/I{{pascalCase moduleName}}Repository'
+import {{pascalCase entityName}} from '@modules/{{camelCase moduleName}}/infra/typeorm/entities/{{pascalCase entityName}}.entity'
+import I{{pascalTableName}} from '@modules/{{camelCase moduleName}}/repositories/interfaces/I{{pascalTableName}}.interface'
 
 interface Request{
   data: string
@@ -11,8 +11,8 @@ interface Request{
 @injectable()
 export default class {{pascalCase useCaseName}}{{pascalCase actionName}}Service {
   constructor (
-    @inject('{{pascalCase moduleName}}Repository')
-    private repository: I{{pascalCase moduleName}}Repository
+    @inject('{{pascalTableName}}Repository')
+    private repository: I{{pascalTableName}}
   ) {}
 
   async execute ({ data }: Request): Promise<{{pascalCase entityName}}> {
