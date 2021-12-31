@@ -2,7 +2,7 @@ import AppError from '@shared/errors/AppError'
 import { NextFunction, Request, Response } from 'express'
 
 export default async function {{name}}Middleware (request:Request, response:Response, next:NextFunction): Promise<void> {
-  const { } = request.headers
+  const { data } = request.headers
 
   try {
     // rules

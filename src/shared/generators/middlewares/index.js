@@ -23,23 +23,39 @@ module.exports = {
   ],
 
   actions: (data) => {
-    const file = {
-      name: data.name,
-      path: `../../shared/middlewares/${data.name}`
-    }
+    const pathTemplate = './middlewares/templates'
 
-    const action = [
+    const files = [
       {
-        type: 'add',
-        path: `${file.path}/index.ts`,
-        data: { file },
-        templateFile: './middlewares/templates/index.hbs'
-      },
-
-      function (data) {
-        return `File ${data.name} created`
+        data: {},
+        path: '../../shared/middlewares/{{name}}',
+        name: 'index.ts',
+        template: 'middleware.hbs',
+        force: false
       }
     ]
+
+    // Create Files
+    const action = []
+
+    files.forEach(file => {
+      const createFile = {
+        type: 'add',
+        path: `${file.path}/${file.name}`,
+        data: file.data,
+        templateFile: `${pathTemplate}/${file.template}`,
+        force: !!file.force
+      }
+
+      action.push(createFile)
+    })
+
+    // Message
+    const message = () => {
+      return `Middleware ${data.moduleName} created`
+    }
+    action.push(message)
+
     return action
   }
 }

@@ -64,6 +64,7 @@ module.exports = {
         template: 'service.spec.hbs'
       }
     ]
+
     // Create Files
     const action = []
 
