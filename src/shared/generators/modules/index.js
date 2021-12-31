@@ -7,9 +7,7 @@ module.exports = {
       type: 'input',
       name: 'moduleName',
       message: 'Module Name:',
-
       default: 'teste',
-
       validate: value => {
         if (!value) {
           return 'Name is required'
@@ -22,9 +20,7 @@ module.exports = {
       type: 'input',
       name: 'tableName',
       message: 'Table Name:',
-
       default: 'testes',
-
       validate: value => {
         if (!value) {
           return 'Name is required'
@@ -37,9 +33,7 @@ module.exports = {
       type: 'input',
       name: 'entityName',
       message: 'Entity Name:',
-
       default: 'teste',
-
       validate: value => {
         if (!value) {
           return 'Name is required'
@@ -52,9 +46,7 @@ module.exports = {
       type: 'input',
       name: 'useCaseName',
       message: 'UseCase Name',
-
       default: 'teste',
-
       validate: (value) => {
         if (!value) {
           return 'Value is required'
@@ -67,9 +59,7 @@ module.exports = {
       type: 'input',
       name: 'actionName',
       message: 'Action Name',
-
       default: 'create',
-
       validate: (value) => {
         if (!value) {
           return 'Value is required'
@@ -81,6 +71,7 @@ module.exports = {
 
   actions: (data) => {
     const pascalTableName = textToPascal(data.tableName)
+    const pathTemplate = './modules/templates'
 
     const files = [
       /* --------- INFRA --------- */
@@ -179,8 +170,8 @@ module.exports = {
         type: 'add',
         path: `${file.path}/${file.name}`,
         data: file.data,
-        templateFile: `./modules/templates/${file.template}`,
-        force: true
+        templateFile: `${pathTemplate}/${file.template}`,
+        force: !!file.force
       }
 
       action.push(createFile)
