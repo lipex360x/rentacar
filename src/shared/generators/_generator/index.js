@@ -2,58 +2,64 @@
 const { capitalize } = require('../_utils/textTransform')
 
 module.exports = {
-  description: 'Plop generate Generators',
+  description: 'Create Plop Generator',
   prompts: [
     {
       type: 'input',
       name: 'name',
-      message: 'Type Generator Name',
+      message: 'Generator Name',
+      default: 'teste',
       validate: (value) => {
         if (!value) {
-          return 'Generator Name is required'
+          return 'Value is required'
         }
         return true
       }
-    },
-
-    {
-      type: 'input',
-      name: 'template',
-      message: 'Type Handlebars Template Name',
-      validate: (value) => {
-        if (!value) {
-          return 'Template Name is required'
-        }
-        return true
-      }
-    },
-
-    {
-      type: 'input',
-      name: 'filepath',
-      message: 'Set Filepath',
-      default: 'XXXXXXX'
     }
   ],
 
   actions: (data) => {
-    const action = [
+    const generatorName = capitalize(data.name)
+    const pathTemplate = './_generator/templates'
+
+    const files = [
       {
-        type: 'add',
-        path: './{{lowerCase name}}/index.js',
-        templateFile: './_generator/templates/index.hbs'
+        data: { generatorName },
+        path: './{{lowerCase name}}',
+        name: 'index.js',
+        template: 'index.hbs',
+        force: true
       },
 
       {
-        type: 'add',
-        data: { name: capitalize(data.name) },
-        path: './{{lowerCase name}}/templates/{{template}}.hbs'
-      },
-
-      function (data) {
-        return `Generator ${data.name} created`
+        data: {},
+        path: './{{lowerCase name}}/templates',
+        name: '{{lowerCase name}}.hbs',
+        template: 'template.hbs',
+        force: true
       }
     ]
+
+    // Create Files
+    const action = []
+
+    files.forEach(file => {
+      const createFile = {
+        type: 'add',
+        path: `${file.path}/${file.name}`,
+        data: file.data,
+        templateFile: `${pathTemplate}/${file.template}`,
+        force: !!file.force
+      }
+
+      action.push(createFile)
+    })
+
+    // Message
+    const message = () => {
+      return `Generator ${data.moduleName} created`
+    }
+    action.push(message)
 
     return action
   }

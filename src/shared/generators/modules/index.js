@@ -7,7 +7,7 @@ module.exports = {
       type: 'input',
       name: 'moduleName',
       message: 'Module Name:',
-      default: 'teste',
+      // default: 'teste',
       validate: value => {
         if (!value) {
           return 'Name is required'
@@ -20,7 +20,7 @@ module.exports = {
       type: 'input',
       name: 'tableName',
       message: 'Table Name:',
-      default: 'testes',
+      // default: 'testes',
       validate: value => {
         if (!value) {
           return 'Name is required'
@@ -33,7 +33,7 @@ module.exports = {
       type: 'input',
       name: 'entityName',
       message: 'Entity Name:',
-      default: 'teste',
+      // default: 'teste',
       validate: value => {
         if (!value) {
           return 'Name is required'
@@ -46,7 +46,7 @@ module.exports = {
       type: 'input',
       name: 'useCaseName',
       message: 'UseCase Name',
-      default: 'teste',
+      // default: 'teste',
       validate: (value) => {
         if (!value) {
           return 'Value is required'
@@ -59,7 +59,7 @@ module.exports = {
       type: 'input',
       name: 'actionName',
       message: 'Action Name',
-      default: 'create',
+      // default: 'create',
       validate: (value) => {
         if (!value) {
           return 'Value is required'
@@ -81,7 +81,8 @@ module.exports = {
         data: {},
         path: '../../modules/{{camelCase moduleName}}/infra/routes',
         name: '{{camelCase moduleName}}.routes.ts',
-        template: 'routes.hbs'
+        template: 'routes.hbs',
+        force: true
       },
 
       // Entity
@@ -89,7 +90,8 @@ module.exports = {
         data: {},
         path: '../../modules/{{camelCase moduleName}}/infra/typeorm/entities',
         name: '{{pascalCase entityName}}.entity.ts',
-        template: 'entity.hbs'
+        template: 'entity.hbs',
+        force: false
       },
 
       // Repository
@@ -97,7 +99,8 @@ module.exports = {
         data: { pascalTableName },
         path: '../../modules/{{camelCase moduleName}}/infra/typeorm/repositories',
         name: `${pascalTableName}.repository.ts`,
-        template: 'repository.hbs'
+        template: 'repository.hbs',
+        force: false
       },
 
       /* --------- REPOSITORIES --------- */
@@ -107,7 +110,8 @@ module.exports = {
         data: { pascalTableName },
         path: '../../modules/{{camelCase moduleName}}/repositories/fakes',
         name: `Fake${pascalTableName}.repository.ts`,
-        template: 'fakeRepository.hbs'
+        template: 'fakeRepository.hbs',
+        force: false
       },
 
       // Interface
@@ -115,7 +119,8 @@ module.exports = {
         data: { pascalTableName },
         path: '../../modules/{{camelCase moduleName}}/repositories/interfaces',
         name: `I${pascalTableName}.interface.ts`,
-        template: 'interfaceRepository.hbs'
+        template: 'interfaceRepository.hbs',
+        force: false
       },
 
       // Container
@@ -123,7 +128,8 @@ module.exports = {
         data: { pascalTableName },
         path: '../../modules/{{camelCase moduleName}}/repositories/containers',
         name: `${pascalTableName}Repository.container.ts`,
-        template: 'container.hbs'
+        template: 'container.hbs',
+        force: false
       },
 
       // Repo Index
@@ -131,7 +137,8 @@ module.exports = {
         data: { pascalTableName },
         path: '../../modules/{{camelCase moduleName}}/repositories',
         name: 'index.ts',
-        template: 'indexContainer.hbs'
+        template: 'indexContainer.hbs',
+        force: false
       },
 
       /* --------- USE CASES --------- */
@@ -141,7 +148,8 @@ module.exports = {
         data: {},
         path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
         name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.controller.ts',
-        template: 'controller.hbs'
+        template: 'controller.hbs',
+        force: false
       },
 
       // Service
@@ -149,7 +157,8 @@ module.exports = {
         data: { pascalTableName },
         path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
         name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.service.ts',
-        template: 'service.hbs'
+        template: 'service.hbs',
+        force: false
       },
 
       // Tests
@@ -157,9 +166,9 @@ module.exports = {
         data: { pascalTableName },
         path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
         name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.spec.ts',
-        template: 'service.spec.hbs'
+        template: 'service.spec.hbs',
+        force: false
       }
-
     ]
 
     // Create Files

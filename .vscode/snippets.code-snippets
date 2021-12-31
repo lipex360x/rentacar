@@ -268,7 +268,7 @@
 
       
   "Index Container Template": {
-    "prefix": "indexContainerTemplate",
+    "prefix": "containerTemplate",
     "body": [
       "import { container } from 'tsyringe'",
       "",
@@ -332,5 +332,37 @@
       "",
     ]
   },
+
+  "Plop Files Template": {
+    "prefix": "plopFilesTemplate",
+    "body": [
+      "{",
+      "  data: {},",
+      "  path: '../../xxx',",
+      "  name: 'fileName.ts',",
+      "  template: 'teste.hbs',",
+      "  force: false",
+      "}",
+    ]
+  },
+
+  "Plop Prompt Template": {
+    "prefix": "plopPromptTemplate",
+    "body": [
+      "{",
+      "  type: 'input',",
+      "  name: '${1:NAME}',",
+      "  message: '${2:Text}',",
+      "  default: 'Default_Value',",
+      "  validate: (value) => {",
+      "    if (!value) {",
+      "      return 'Value is required'",
+      "    }",
+      "    return true",
+      "  }",
+      "}"
+    ]
+  },
+  
 	
 }

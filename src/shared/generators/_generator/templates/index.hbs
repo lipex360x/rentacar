@@ -2,15 +2,16 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable eqeqeq */
 
-const { capitalize } = require('../_utils/textTransform')
+// const { capitalize } = require('../_utils/textTransform')
 
 module.exports = {
-  description: 'Generate a {{ name }}',
+  description: 'Generate a {{pascalCase name }}',
   prompts: [
     {
       type: 'input',
-      name: 'name',
-      message: 'Text',
+      name: 'fileName',
+      message: 'File Name',
+      // default: 'test',
       validate: (value) => {
         if (!value) {
           return 'Value is required'
@@ -19,15 +20,23 @@ module.exports = {
       }
     }
 
-    // snippet: promptTemplate
+    // snippet: plopPromptTemplate
   ],
 
   actions: (data) => {
-    const file = {
-      path: `../../{{filepath}}`,
-      name: data.name
-      template: '{{template}}.hbs'
-    }
+    const pathTemplate = './{{ name }}/templates'
+
+    const files = [
+      {
+        data: {},
+        path: '../../xxx',
+        name: 'fileName.ts',
+        template: '{{ name }}.hbs',
+        force: false
+      }
+
+      // snippet: plopFilesTemplate
+    ]
 
     // Create Files
     const action = []
@@ -36,8 +45,9 @@ module.exports = {
       const createFile = {
         type: 'add',
         path: `${file.path}/${file.name}`,
-        templateFile: `./modules/templates/${file.template}`,
-        force: false
+        data: file.data,
+        templateFile: `${pathTemplate}/${file.template}`,
+        force: !!file.force
       }
 
       action.push(createFile)
@@ -45,12 +55,10 @@ module.exports = {
 
     // Message
     const message = () => {
-      return `Module ${capitalize(data.moduleName)} created`
+      return `Module ${data.moduleName} created`
     }
     action.push(message)
 
     return action
   }
 }
-
-
