@@ -51,9 +51,7 @@ module.exports = {
     })
 
     // Message
-    const message = () => {
-      return `Middleware ${data.moduleName} created`
-    }
+    const message = () => `Middleware ${data.moduleName} created`
     action.push(message)
 
     return action

@@ -56,9 +56,7 @@ module.exports = {
     })
 
     // Message
-    const message = () => {
-      return `Generator ${data.moduleName} created`
-    }
+    const message = () => `Generator ${data.moduleName} created`
     action.push(message)
 
     return action

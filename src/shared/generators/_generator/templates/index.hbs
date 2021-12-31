@@ -13,9 +13,8 @@ module.exports = {
       message: 'File Name',
       // default: 'test',
       validate: (value) => {
-        if (!value) {
-          return 'Value is required'
-        }
+        if (!value) return 'Value is required'
+        
         return true
       }
     }
@@ -54,9 +53,7 @@ module.exports = {
     })
 
     // Message
-    const message = () => {
-      return `Module ${data.moduleName} created`
-    }
+    const message = () => `Module ${data.moduleName} created`
     action.push(message)
 
     return action

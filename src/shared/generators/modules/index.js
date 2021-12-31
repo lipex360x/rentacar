@@ -187,9 +187,7 @@ module.exports = {
     })
 
     // Message
-    const message = () => {
-      return `Module ${data.moduleName} created`
-    }
+    const message = () => `Module ${data.moduleName} created`
     action.push(message)
 
     return action

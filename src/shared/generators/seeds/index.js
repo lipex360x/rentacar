@@ -18,9 +18,8 @@ module.exports = {
       name: 'entity',
       message: 'Entity Name:',
       validate: (value) => {
-        if (!value) {
-          return 'Name is required'
-        }
+        if (!value) return 'Name is required'
+
         return true
       }
     },
@@ -30,9 +29,8 @@ module.exports = {
       name: 'name',
       message: 'Seed Name:',
       validate: (value) => {
-        if (!value) {
-          return 'Name is required'
-        }
+        if (!value) return 'Value is required'
+
         return true
       }
     }
@@ -40,8 +38,11 @@ module.exports = {
   ],
 
   actions: (data) => {
+    const pathTemplate = './seeds/templates/'
+
     const files = [
       {
+        data: {},
         path: '../../shared/infra/typeorm/seeds',
         name: '{{pascalCase name}}.ts',
         template: 'seed.hbs'
@@ -54,16 +55,17 @@ module.exports = {
       const createFile = {
         type: 'add',
         path: `${file.path}/${file.name}`,
-        templateFile: `./seeds/templates/${file.template}`
+        data: file.data,
+        templateFile: `${pathTemplate}/${file.template}`,
+        force: !!file.force
       }
 
       action.push(createFile)
     })
 
     // Message
-    const message = () => {
-      return `Seed ${capitalize(data.name)} created`
-    }
+    const message = () => `Seed ${capitalize(data.name)} created`
+
     action.push(message)
 
     return action

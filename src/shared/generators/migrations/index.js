@@ -180,16 +180,14 @@ module.exports = {
         path: '../../modules/{{camelCase moduleName}}/repositories/fakes',
         data: { pascalName: textToPascal(data.tableName) },
         name: 'Fake{{pascalName}}Repository.ts',
-        template: './modules/templates/fakeRepository.hbs',
-        force: true
+        template: './modules/templates/fakeRepository.hbs'
       },
 
       {
         path: '../../modules/{{camelCase moduleName}}/repositories/interfaces',
         data: { pascalName: textToPascal(data.tableName) },
         name: 'I{{pascalName}}Repository.ts',
-        template: './modules/templates/interfaceRepository.hbs',
-        force: true
+        template: './modules/templates/interfaceRepository.hbs'
       }
     ]
 
@@ -211,9 +209,7 @@ module.exports = {
     })
 
     // Message
-    const message = () => {
-      return `Migration ${data.name} created`
-    }
+    const message = () => `Migration ${data.name} created`
     action.push(message)
 
     return action
