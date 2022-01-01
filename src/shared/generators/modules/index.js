@@ -80,7 +80,7 @@ module.exports = {
       {
         data: {},
         path: '../../modules/{{camelCase moduleName}}/infra/routes',
-        name: '{{camelCase moduleName}}.routes.ts',
+        name: '{{camelCase useCaseName}}.routes.ts',
         template: 'routes.hbs',
         force: true
       },

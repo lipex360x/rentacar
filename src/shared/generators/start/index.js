@@ -1,4 +1,4 @@
-const Faker = require('faker')
+const { generateId } = require('../_utils/textTransform')
 
 module.exports = {
   description: 'Start Project (Just once)',
@@ -9,7 +9,19 @@ module.exports = {
       message: 'Project Name',
       validate: (value) => {
         if (!value) {
-          return 'Project Name is required'
+          return 'Value is required'
+        }
+        return true
+      }
+    },
+
+    {
+      type: 'input',
+      name: 'apiPort',
+      message: 'API Port',
+      validate: (value) => {
+        if (!value) {
+          return 'Value is required'
         }
         return true
       }
@@ -21,7 +33,7 @@ module.exports = {
       message: 'Postgres user name',
       validate: (value) => {
         if (!value) {
-          return 'Postgres user name is required'
+          return 'Value is required'
         }
         return true
       }
@@ -33,7 +45,7 @@ module.exports = {
       message: 'Postgres password',
       validate: (value) => {
         if (!value) {
-          return 'Postgres password is required'
+          return 'Value is required'
         }
         return true
       }
@@ -45,7 +57,7 @@ module.exports = {
       message: 'Postgres database name',
       validate: (value) => {
         if (!value) {
-          return 'Postgres database name is required'
+          return 'Value is required'
         }
         return true
       }
@@ -57,16 +69,9 @@ module.exports = {
       {
         type: 'add',
         path: '../../../.env',
-        data: { jwtToken: Faker.finance.bitcoinAddress(), jwtExpires: '7d' },
+        data: { jwtToken: generateId(), jwtExpires: '7d' },
         templateFile: './start/templates/env.hbs'
-      },
-
-      {
-        type: 'add',
-        path: '../../../docker-compose.yml',
-        templateFile: './start/templates/docker-compose.hbs'
       }
-
     ]
 
     return action
