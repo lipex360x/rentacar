@@ -9,13 +9,16 @@ import {
   DeleteDateColumn
 } from 'typeorm'
 
-@Entity('{{tableName}}')
-export default class {{pascalCase entityName}} {
+@Entity('cars_images')
+export default class CarImage {
   @PrimaryColumn('uuid')
     id: string
 
   @Column()
-    data: string
+    image: string
+
+  @Column()
+    car_id: string
 
   @CreateDateColumn()
     created_at: Date
