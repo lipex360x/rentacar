@@ -1,3 +1,4 @@
+import { v4 as uuid } from 'uuid'
 import Car from '@modules/cars/infra/typeorm/entities/Car'
 import ICarsRepository, { CreateProps, FindAvailableProps, FindById, FindByLicencePlateProps } from '@modules/cars/repositories/interfaces/ICarsRepository'
 
@@ -19,7 +20,7 @@ export default class FakeCarsRepository implements ICarsRepository {
     const car = new Car()
 
     Object.assign(car, {
-      id,
+      id: id || uuid(),
       brand,
       model,
       license_plate,

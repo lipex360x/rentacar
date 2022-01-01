@@ -17,8 +17,7 @@ describe('UserCreateService ', () => {
       name: 'John Doe',
       email: 'john@mail.com',
       password: 'john1234',
-      driver_license: '12345678',
-      isAdmin: false
+      driver_license: '12345678'
     }
     const createUser = await userCreateService.execute(user)
 
@@ -30,8 +29,7 @@ describe('UserCreateService ', () => {
       name: 'John Doe',
       email: 'john@mail.com',
       password: 'john1234',
-      driver_license: '12345678',
-      isAdmin: false
+      driver_license: '12345678'
     }
 
     await fakeuserRepository.create(user)

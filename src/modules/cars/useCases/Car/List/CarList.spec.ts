@@ -73,7 +73,7 @@ describe('Cars Car List', () => {
 
     await fakecarsRepository.create({
       brand: Faker.name.firstName(1),
-      model: Faker.name.firstName(2),
+      model: Faker.name.firstName(4),
       license_plate: Faker.random.word(),
       description: Faker.lorem.words(4),
       daily_rate: Faker.datatype.float(2),

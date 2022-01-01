@@ -7,7 +7,7 @@ import IUserRepository, { CreateProps, FindByEmailProps, FindByIdProps } from '.
 export default class FakeUserRepository implements IUserRepository {
   private repository: User[] = []
 
-  async create ({ name, email, password, isAdmin, driver_license }:CreateProps): Promise<User> {
+  async create ({ name, email, password, isAdmin, driver_license, isLessee }:CreateProps): Promise<User> {
     const user = new User()
     const passwordCrypted = await bcrypt.hash(password, 8)
 
@@ -18,6 +18,7 @@ export default class FakeUserRepository implements IUserRepository {
       password: passwordCrypted,
       isAdmin,
       driver_license,
+      isLessee,
       created_at: new Date(),
       updated_at: new Date()
     })

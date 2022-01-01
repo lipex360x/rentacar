@@ -102,6 +102,23 @@
 		]
 	},
 
+  "Table FK Template": {
+    "prefix": "tableFkTemplate",
+    "body": [
+      "{",
+      "  name: '${1:FkName}',",
+      "  columnNames: ['${2:LocalTableColumn}'],",
+      "",
+      "  referencedTableName: '${3:tableRef}',",
+      "  referencedColumnNames: ['${4:idTableRef}'],",
+      "",
+      "  onDelete: 'SET NULL',",
+      "  onUpdate: 'SET NULL'",
+      "}",
+    ]
+  },
+  
+
   "Entity Template": {
     "prefix": "entityTemplate",
     "body": [

@@ -1,5 +1,4 @@
 import { v4 as uuid } from 'uuid'
-import bcrypt from 'bcryptjs'
 
 import {
   Entity,
@@ -7,36 +6,31 @@ import {
   PrimaryColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  BeforeInsert,
-  BeforeUpdate,
   DeleteDateColumn
 } from 'typeorm'
 
-@Entity('users')
-export default class User {
+@Entity('rentails')
+export default class Rentail {
   @PrimaryColumn('uuid')
     id: string
 
   @Column()
-    name: string
+    car_id: string
 
   @Column()
-    password: string
+    user_id: string
 
   @Column()
-    email: string
+    start_date: Date
 
   @Column()
-    driver_license: string
+    end_date: Date
 
   @Column()
-    isAdmin: boolean
+    expected_return_date: Date
 
   @Column()
-    isLessee: boolean
-
-  @Column()
-    avatar: string
+    total: number
 
   @CreateDateColumn()
     created_at: Date
@@ -49,11 +43,5 @@ export default class User {
 
   constructor () {
     if (!this.id) this.id = uuid()
-  }
-
-  @BeforeInsert()
-  @BeforeUpdate()
-  async hashPassword (): Promise<void> {
-    this.password = await bcrypt.hash(this.password, 8)
   }
 }

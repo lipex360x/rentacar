@@ -65,6 +65,7 @@ module.exports = {
         { name: 'integer', value: 'integer' },
         { name: 'float', value: 'float' },
         { name: 'uuid', value: 'uuid' },
+        { name: 'boolean', value: 'boolean' },
         { name: 'timestamp', value: 'timestamp with time zone' }
       ]
     },

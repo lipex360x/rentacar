@@ -7,6 +7,7 @@ export interface CreateProps {
   password: string,
   driver_license: string,
   isAdmin?: boolean
+  isLessee?: boolean
   avatar?: string
 }
 
