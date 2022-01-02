@@ -1,4 +1,7 @@
 import 'reflect-metadata'
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+
 import AppError from '@shared/errors/AppError'
 import Faker from 'faker'
 
@@ -8,12 +11,16 @@ import FakeRentailsRepository from '@modules/rentails/repositories/fakes/FakeRen
 import FakeCarsRepository from '@modules/cars/repositories/fakes/FakeCarsRepository'
 import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUserRepository'
 
+dayjs.extend(utc)
+
 let rentailCreateService: RentailCreateService
 let fakerentailsRepository: FakeRentailsRepository
 let fakecarsRepository: FakeCarsRepository
 let fakeUserRepository: FakeUserRepository
 
 describe('Rentails Rentail Create', () => {
+  const dayAdd24Hours = dayjs().add(1, 'day').toDate()
+
   beforeEach(() => {
     fakerentailsRepository = new FakeRentailsRepository()
     fakecarsRepository = new FakeCarsRepository()
@@ -28,7 +35,7 @@ describe('Rentails Rentail Create', () => {
 
   it('should not be able to Create a new rentail to invalid car', async () => {
     await expect(
-      rentailCreateService.execute({ user_id: 'user_id', car_id: 'invalida_car_id', expected_return_date: new Date() })
+      rentailCreateService.execute({ user_id: 'user_id', car_id: 'invalid_car_id', expected_return_date: new Date() })
     ).rejects.toBeInstanceOf(AppError)
   })
 
@@ -77,7 +84,38 @@ describe('Rentails Rentail Create', () => {
     })
 
     await expect(
-      rentailCreateService.execute({ car_id: car.id, user_id: user.id, expected_return_date: new Date() })
+      rentailCreateService.execute({
+        car_id: car.id,
+        user_id: user.id,
+        expected_return_date: new Date()
+      })
+    ).rejects.toBeInstanceOf(AppError)
+  })
+
+  it('should not be able to Create a new rentail to an invalid date', async () => {
+    const car = await fakecarsRepository.create({
+      brand: Faker.name.firstName(1),
+      model: Faker.name.firstName(2),
+      license_plate: Faker.random.word(),
+      description: Faker.lorem.words(4),
+      daily_rate: Faker.datatype.float(2),
+      fine_amount: Faker.datatype.float(2),
+      category_id: Faker.datatype.uuid()
+    })
+
+    const user = await fakeUserRepository.create({
+      name: Faker.name.firstName(),
+      email: Faker.internet.email(),
+      password: Faker.internet.password(),
+      driver_license: Faker.datatype.string(8)
+    })
+
+    await expect(
+      rentailCreateService.execute({
+        car_id: car.id,
+        user_id: user.id,
+        expected_return_date: dayjs().add(5, 'hours').toDate()
+      })
     ).rejects.toBeInstanceOf(AppError)
   })
 
@@ -102,7 +140,7 @@ describe('Rentails Rentail Create', () => {
     const rentails = await rentailCreateService.execute({
       user_id: user.id,
       car_id: car.id,
-      expected_return_date: new Date()
+      expected_return_date: dayAdd24Hours
     })
 
     expect(rentails.rentail).toHaveProperty('id')
