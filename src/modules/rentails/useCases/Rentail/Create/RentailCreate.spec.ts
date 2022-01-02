@@ -8,7 +8,7 @@ import RentailCreateService from './RentailCreate.service'
 import FakeRentailsRepository from '@modules/rentails/repositories/fakes/FakeRentails.repository'
 import FakeCarsRepository from '@modules/cars/repositories/fakes/FakeCarsRepository'
 import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUserRepository'
-import DayjsDateProvider from '@shared/providers/DateProvider/implementations/Dayjs'
+import DayjsDateProvider from '@shared/providers/DateProvider/implementations/Dayjs.implementation'
 
 let rentailCreateService: RentailCreateService
 let fakerentailsRepository: FakeRentailsRepository

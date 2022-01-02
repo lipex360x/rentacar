@@ -46,7 +46,8 @@ module.exports = {
         path: `${file.path}/${file.name}`,
         data: file.data,
         templateFile: `${pathTemplate}/${file.template}`,
-        force: !!file.force
+        // force: !!file.force
+        force: true
       }
 
       action.push(createFile)

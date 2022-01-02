@@ -1,1 +1,1 @@
-import './DateProvider/containers/Dayjs.container'
+import './DateProvider/containers/Date.container'

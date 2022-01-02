@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid'
 import Rentail from '@modules/rentails/infra/typeorm/entities/Rentail.entity'
 import IRentails, { CreateProps } from '@modules/rentails/repositories/interfaces/IRentails.interface'
-import IDateProvider from '@shared/providers/DateProvider/interface/IDateProvider'
+import IDateProvider from '@shared/providers/DateProvider/interface/IDate.interface'
 
 export default class FakeRentailsRepository implements IRentails {
   private repository: Rentail[] = []

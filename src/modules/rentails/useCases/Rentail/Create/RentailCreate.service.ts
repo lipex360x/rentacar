@@ -8,7 +8,7 @@ import ICars from '@modules/cars/repositories/interfaces/ICarsRepository'
 import IUsersRepository from '@modules/accounts/repositories/interfaces/IUserRepository'
 import User from '@modules/accounts/infra/typeorm/entities/User'
 import Car from '@modules/cars/infra/typeorm/entities/Car'
-import IDateProvider from '@shared/providers/DateProvider/interface/IDateProvider'
+import IDateProvider from '@shared/providers/DateProvider/interface/IDate.interface'
 
 interface Request {
   user_id: string
