@@ -25,9 +25,7 @@ export default class FakeUserRepository implements IUserRepository {
   }
 
   async findById ({ id }: FindByIdProps): Promise<User> {
-    const getUser = this.repository.find(user => user.id === id)
-
-    return getUser
+    return this.repository.find(user => user.id === id)
   }
 
   async findAll (): Promise<User[]> {

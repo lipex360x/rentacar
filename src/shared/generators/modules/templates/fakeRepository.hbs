@@ -25,9 +25,7 @@ export default class Fake{{pascalCase moduleName}}Repository implements I{{pasca
   }
 
   async findById ({ id }: FindByIdProps): Promise<{{pascalCase entityName}}> {
-    const {{camelCase entityName}} = this.repository.find(find{{pascalCase entityName}} => find{{pascalCase entityName}}.id === id)
-
-    return {{camelCase entityName}}
+    return this.repository.find(find{{pascalCase entityName}} => find{{pascalCase entityName}}.id === id)
   }
 
   async findAll (): Promise<{{pascalCase entityName}}[]> {

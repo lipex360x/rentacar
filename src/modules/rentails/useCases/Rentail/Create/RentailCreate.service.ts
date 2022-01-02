@@ -6,7 +6,6 @@ import Rentail from '@modules/rentails/infra/typeorm/entities/Rentail.entity'
 import IRentails from '@modules/rentails/repositories/interfaces/IRentails.interface'
 import ICars from '@modules/cars/repositories/interfaces/ICarsRepository'
 import IUsersRepository from '@modules/accounts/repositories/interfaces/IUserRepository'
-import User from '@modules/accounts/infra/typeorm/entities/User'
 import Car from '@modules/cars/infra/typeorm/entities/Car'
 import IDateProvider from '@shared/providers/DateProvider/interface/IDate.interface'
 
@@ -18,7 +17,11 @@ interface Request {
 
 interface Response {
   rentail: Rentail
-  user: User
+  user: {
+    id: string,
+    name: string,
+    isLessee: boolean
+  }
   car: Car
 }
 
@@ -42,23 +45,27 @@ export default class RentailCreateService {
   async execute ({ user_id, car_id, expected_return_date }: Request): Promise<Response> {
     const minimumHours = 24
 
-    // check available car
+    // check if car is available
     const car = await this.carsRepository.findById({ id: car_id })
 
     if (!car) throw new AppError('This car is not valid')
 
     if (!car.available) throw new AppError('This car is unavailable')
 
-    // check valid user
+    // check if user is valid
     const user = await this.usersRepository.findById({ id: user_id })
 
     if (user.isLessee) throw new AppError('This user is already a lessee')
 
-    // check valid date
+    // check if date is valid
     const dateNow = this.dateProvider.dateNow()
-    const compareDate = this.dateProvider.compareInHours(dateNow, expected_return_date)
+    const compareHours = this.dateProvider.compareDates({
+      start_date: dateNow,
+      end_date: expected_return_date,
+      unit: 'hour'
+    })
 
-    if (compareDate < minimumHours) throw new AppError('Invalid return time')
+    if (compareHours < minimumHours) throw new AppError('Invalid return time')
 
     // create rental
     const rentail = await this.repository.create({ user_id, car_id, expected_return_date })
@@ -71,6 +78,14 @@ export default class RentailCreateService {
     car.available = false
     const updatedCar = await this.carsRepository.update({ car })
 
-    return { rentail, user: updatedUser, car: updatedCar }
+    return {
+      rentail,
+      car: updatedCar,
+      user: {
+        id: updatedUser.id,
+        name: updatedUser.name,
+        isLessee: updatedUser.isLessee
+      }
+    }
   }
 }

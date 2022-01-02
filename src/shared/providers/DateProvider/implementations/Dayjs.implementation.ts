@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
-import IDateProvider from '../interface/IDate.interface'
+import IDateProvider, { ConvertProps, AddSubtractProps, CompareDatesProps } from '../interface/IDate.interface'
 
 dayjs.extend(utc)
 
@@ -9,27 +9,23 @@ class DayjsDateProvider implements IDateProvider {
     return dayjs().toDate()
   }
 
-  addDays (days: number): Date {
-    return dayjs().add(days, 'd').toDate()
-  }
-
-  addHours (hours: number): Date {
-    return dayjs().add(hours, 'h').toDate()
-  }
-
-  addMinutes (minutes: number): Date {
-    return dayjs().add(minutes, 'm').toDate()
-  }
-
-  convertToUTC (date: Date): string {
+  convertToUTC ({ date }: ConvertProps): string {
     return dayjs(date).utc().local().format()
   }
 
-  compareInHours (start_date: Date, end_date: Date): number {
-    const start_date_utc = this.convertToUTC(start_date)
-    const end_date_utc = this.convertToUTC(end_date)
+  addTime ({ time, unit }: AddSubtractProps): Date {
+    return dayjs().add(time, unit).toDate()
+  }
 
-    return dayjs(end_date_utc).diff(start_date_utc, 'hours')
+  subtractTime ({ time, unit }: AddSubtractProps): Date {
+    return dayjs().subtract(time, unit).toDate()
+  }
+
+  compareDates ({ start_date, end_date, unit }: CompareDatesProps): number {
+    const start_date_utc = this.convertToUTC({ date: start_date })
+    const end_date_utc = this.convertToUTC({ date: end_date })
+
+    return dayjs(end_date_utc).diff(start_date_utc, unit)
   }
 }
 

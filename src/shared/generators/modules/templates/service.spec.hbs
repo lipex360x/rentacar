@@ -18,16 +18,6 @@ describe('{{pascalCase moduleName}} {{pascalCase useCaseName}} {{pascalCase acti
     {{camelCase useCaseName}}{{pascalCase actionName}}Service = new {{pascalCase useCaseName}}{{pascalCase actionName}}Service(fake{{pascalTableName}}Repository)
   })
 
-  it('should be able to {{pascalCase actionName}} XXXXXXXXXXXXX', async () => {
-    const data = {
-      value: Faker.lorem.words(3)
-    }
-
-    const {{camelCase moduleName}} = await {{camelCase useCaseName}}{{pascalCase actionName}}Service.execute({ data })
-
-    expect({{camelCase moduleName}}).toHaveProperty('XXXXXXXXXXXXX')
-  })
-
   it('should not be able to {{pascalCase actionName}} XXXXXXXXXXXXX', async () => {
     const data = {
       value: Faker.lorem.words(3)
@@ -37,4 +27,15 @@ describe('{{pascalCase moduleName}} {{pascalCase useCaseName}} {{pascalCase acti
       {{camelCase useCaseName}}{{pascalCase actionName}}Service.execute({ data })
     ).rejects.toBeInstanceOf(AppError)
   })
+
+  // it('should be able to {{pascalCase actionName}} XXXXXXXXXXXXX', async () => {
+  //   const data = {
+  //     value: Faker.lorem.words(3)
+  //   }
+
+  //   const {{camelCase moduleName}} = await {{camelCase useCaseName}}{{pascalCase actionName}}Service.execute({ data })
+
+  //  expect({{camelCase moduleName}}).toHaveProperty('XXXXXXXXXXXXX')
+  // })
+
 })

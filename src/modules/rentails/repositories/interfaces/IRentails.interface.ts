@@ -6,6 +6,17 @@ export interface CreateProps {
   expected_return_date: Date
 }
 
+export interface UpdateProps {
+  rentail: Rentail
+}
+
+export interface FindByIdProps {
+  id: string
+}
+
 export default interface IRentails {
   create(data: CreateProps): Promise<Rentail>
+  findById(data: FindByIdProps): Promise<Rentail>
+  findAll(): Promise<Rentail[]>
+  update(data: UpdateProps): Promise<Rentail>
 }

@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe'
-// import AppError from '@shared/errors/AppError'
+import AppError from '@shared/errors/AppError'
 
 import {{pascalCase entityName}} from '@modules/{{camelCase moduleName}}/infra/typeorm/entities/{{pascalCase entityName}}.entity'
 import I{{pascalTableName}} from '@modules/{{camelCase moduleName}}/repositories/interfaces/I{{pascalTableName}}.interface'
@@ -17,5 +17,7 @@ export default class {{pascalCase useCaseName}}{{pascalCase actionName}}Service 
 
   async execute ({ data }: Request): Promise<{{pascalCase entityName}}> {
     // To Do
+
+    if (!true) throw new AppError('App Error')
   }
 }

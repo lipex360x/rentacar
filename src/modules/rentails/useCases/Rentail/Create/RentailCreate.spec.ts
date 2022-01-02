@@ -112,7 +112,7 @@ describe('Rentails Rentail Create', () => {
       rentailCreateService.execute({
         car_id: car.id,
         user_id: user.id,
-        expected_return_date: dateProvider.addHours(4)
+        expected_return_date: dateProvider.addTime({ time: 4, unit: 'hour' })
       })
     ).rejects.toBeInstanceOf(AppError)
   })
@@ -138,7 +138,7 @@ describe('Rentails Rentail Create', () => {
     const rentails = await rentailCreateService.execute({
       user_id: user.id,
       car_id: car.id,
-      expected_return_date: dateProvider.addDays(1)
+      expected_return_date: dateProvider.addTime({ time: 1, unit: 'day' })
     })
 
     expect(rentails.rentail).toHaveProperty('id')

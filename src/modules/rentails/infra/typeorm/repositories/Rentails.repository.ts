@@ -1,7 +1,7 @@
 import { Repository, getRepository } from 'typeorm'
 
 import Rentail from '@modules/rentails/infra/typeorm/entities/Rentail.entity'
-import IRentails, { CreateProps } from '@modules/rentails/repositories/interfaces/IRentails.interface'
+import IRentails, { CreateProps, FindByIdProps, UpdateProps } from '@modules/rentails/repositories/interfaces/IRentails.interface'
 
 export default class RentailsRepository implements IRentails {
   private repository: Repository<Rentail>
@@ -16,5 +16,23 @@ export default class RentailsRepository implements IRentails {
     await this.repository.save(rentail)
 
     return rentail
+  }
+
+  async findById ({ id }: FindByIdProps): Promise<Rentail> {
+    return this.repository.findOne({ id })
+  }
+
+  async findAll (): Promise<Rentail[]> {
+    return this.repository.find()
+  }
+
+  async update ({ rentail }: UpdateProps): Promise<Rentail> {
+    let findRentail = await this.repository.findOne(rentail.id)
+
+    findRentail = { ...rentail }
+
+    await this.repository.save(findRentail)
+
+    return findRentail
   }
 }
