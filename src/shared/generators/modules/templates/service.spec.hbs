@@ -4,14 +4,18 @@ import Faker from 'faker'
 
 import Fake{{pascalTableName}}Repository from '@modules/{{camelCase moduleName}}/repositories/fakes/Fake{{pascalTableName}}.repository'
 import {{pascalCase useCaseName}}{{pascalCase actionName}}Service from './{{pascalCase useCaseName}}{{pascalCase actionName}}.service'
+import DayjsDateProvider from '@shared/providers/DateProvider/implementations/Dayjs.implementation'
 
-let fake{{camelCase moduleName}}Repository: Fake{{pascalTableName}}Repository
+let fake{{pascalTableName}}Repository: Fake{{pascalTableName}}Repository
 let {{camelCase useCaseName}}{{pascalCase actionName}}Service: {{pascalCase useCaseName}}{{pascalCase actionName}}Service
+let dateProvider: DayjsDateProvider
 
 describe('{{pascalCase moduleName}} {{pascalCase useCaseName}} {{pascalCase actionName}}', () => {
   beforeEach(() => {
-    fake{{camelCase moduleName}}Repository = new Fake{{pascalTableName}}Repository()
-    {{camelCase useCaseName}}{{pascalCase actionName}}Service = new {{pascalCase useCaseName}}{{pascalCase actionName}}Service(fake{{camelCase moduleName}}Repository)
+    dateProvider = new DayjsDateProvider()
+
+    fake{{pascalTableName}}Repository = new Fake{{pascalTableName}}Repository(dateProvider)
+    {{camelCase useCaseName}}{{pascalCase actionName}}Service = new {{pascalCase useCaseName}}{{pascalCase actionName}}Service(fake{{pascalTableName}}Repository)
   })
 
   it('should be able to {{pascalCase actionName}} XXXXXXXXXXXXX', async () => {
@@ -28,7 +32,7 @@ describe('{{pascalCase moduleName}} {{pascalCase useCaseName}} {{pascalCase acti
     const data = {
       value: Faker.lorem.words(3)
     }
-    
+
     await expect(
       {{camelCase useCaseName}}{{pascalCase actionName}}Service.execute({ data })
     ).rejects.toBeInstanceOf(AppError)

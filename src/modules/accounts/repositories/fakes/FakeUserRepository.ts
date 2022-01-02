@@ -1,5 +1,3 @@
-import { v4 as uuid } from 'uuid'
-
 import User from '@modules/accounts/infra/typeorm/entities/User'
 import IUserRepository, { CreateProps, FindByEmailProps, FindByIdProps, UpdateProps } from '../interfaces/IUserRepository'
 
@@ -10,7 +8,7 @@ export default class FakeUserRepository implements IUserRepository {
     const user = new User()
 
     Object.assign(user, {
-      id: uuid(),
+      ...user,
       name,
       email,
       password,
@@ -36,7 +34,7 @@ export default class FakeUserRepository implements IUserRepository {
     return this.repository
   }
 
-  async update ({ user } : UpdateProps): Promise<User> {
+  async update ({ user }: UpdateProps): Promise<User> {
     const getIndex = this.repository.findIndex((getUser) => getUser.id === user.id)
 
     this.repository[getIndex] = user

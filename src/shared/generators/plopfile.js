@@ -8,8 +8,8 @@ const generator = require('./_generator')
 const startGenerator = require('./start')
 
 module.exports = function (plop) {
-  plop.setGenerator('Modules', moduleGenerator)
-  plop.setGenerator('UseCases', useCasesGenerator)
+  plop.setGenerator('Module', moduleGenerator)
+  plop.setGenerator('UseCase', useCasesGenerator)
   plop.setGenerator('Migration', migrationGenerator)
   plop.setGenerator('Seed', seedGenerator)
   plop.setGenerator('Middleware', middlewareGenerator)

@@ -18,25 +18,27 @@ export default class UserRepository implements IUserRepository {
     return user
   }
 
+  async findById ({ id }: FindByIdProps): Promise<User> {
+    return this.repository.findOne({ id })
+  }
+
+  async findAll (): Promise<User[]> {
+    return this.repository.find()
+  }
+
   async update ({ user } : UpdateProps): Promise<User> {
-    let getUser = await this.repository.findOne(user.id)
+    let findUser = await this.repository.findOne(user.id)
 
-    getUser = { ...user }
+    findUser = { ...user }
 
-    await this.repository.save(getUser)
+    await this.repository.save(findUser)
 
-    return getUser
+    return findUser
   }
 
   async findByEmail ({ email }: FindByEmailProps): Promise<User> {
-    const getUser = this.repository.findOne({ email })
+    const findUser = this.repository.findOne({ email })
 
-    return getUser
-  }
-
-  async findById ({ id }: FindByIdProps): Promise<User> {
-    const getUser = this.repository.findOne({ id })
-
-    return getUser
+    return findUser
   }
 }

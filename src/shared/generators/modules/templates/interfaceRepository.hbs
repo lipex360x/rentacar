@@ -4,6 +4,17 @@ export interface CreateProps {
   data: string
 }
 
+export interface FindByIdProps {
+  id: string
+}
+
+export interface UpdateProps {
+  {{camelCase entityName}}: {{pascalCase entityName}}
+}
+
 export default interface I{{pascalTableName}} {
   create(data: CreateProps): Promise<{{pascalCase entityName}}>
+  findById(data: FindByIdProps): Promise<{{pascalCase entityName}}>
+  findAll(): Promise<{{pascalCase entityName}}[]>
+  update(data: UpdateProps): Promise<{{pascalCase entityName}}>
 }

@@ -1,19 +1,43 @@
 import {{pascalCase entityName}} from '@modules/{{camelCase moduleName}}/infra/typeorm/entities/{{pascalCase entityName}}.entity'
-import I{{pascalTableName}}, { CreateProps } from '@modules/{{camelCase moduleName}}/repositories/interfaces/I{{pascalTableName}}.interface'
+import I{{pascalTableName}}, { CreateProps, FindByIdProps, UpdateProps } from '@modules/{{camelCase moduleName}}/repositories/interfaces/I{{pascalTableName}}.interface'
+import IDateProvider from '@shared/providers/DateProvider/interface/IDate.interface'
 
 export default class Fake{{pascalCase moduleName}}Repository implements I{{pascalTableName}} {
   private repository: {{pascalCase entityName}}[] = []
+
+  constructor (
+    private dateProvider: IDateProvider
+  ) {}
 
   async create ({ data }:CreateProps): Promise<{{pascalCase entityName}}> {
     const {{camelCase entityName}} = new {{pascalCase entityName}}()
 
     Object.assign({{camelCase entityName}}, {
+      ...{{camelCase entityName}},
       data,
-      created_at: new Date(),
-      updated_at: new Date()
+      created_at: this.dateProvider.dateNow(),
+      updated_at: this.dateProvider.dateNow()
     })
 
     this.repository.push({{camelCase entityName}})
+
+    return {{camelCase entityName}}
+  }
+
+  async findById ({ id }: FindByIdProps): Promise<{{pascalCase entityName}}> {
+    const {{camelCase entityName}} = this.repository.find(find{{pascalCase entityName}} => find{{pascalCase entityName}}.id === id)
+
+    return {{camelCase entityName}}
+  }
+
+  async findAll (): Promise<{{pascalCase entityName}}[]> {
+    return this.repository
+  }
+
+  async update ({ {{camelCase entityName}} }: UpdateProps): Promise<{{pascalCase entityName}}> {
+    const index = this.repository.findIndex(find{{pascalCase entityName}} => find{{pascalCase entityName}}.id === {{camelCase entityName}}.id)
+
+    this.repository[index] = {{camelCase entityName}}
 
     return {{camelCase entityName}}
   }
