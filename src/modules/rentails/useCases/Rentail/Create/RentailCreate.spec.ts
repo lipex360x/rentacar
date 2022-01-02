@@ -1,6 +1,4 @@
 import 'reflect-metadata'
-import dayjs from 'dayjs'
-import utc from 'dayjs/plugin/utc'
 
 import AppError from '@shared/errors/AppError'
 import Faker from 'faker'
@@ -10,23 +8,23 @@ import RentailCreateService from './RentailCreate.service'
 import FakeRentailsRepository from '@modules/rentails/repositories/fakes/FakeRentails.repository'
 import FakeCarsRepository from '@modules/cars/repositories/fakes/FakeCarsRepository'
 import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUserRepository'
-
-dayjs.extend(utc)
+import DayjsDateProvider from '@shared/providers/DateProvider/implementations/DayjsDateProvider'
 
 let rentailCreateService: RentailCreateService
 let fakerentailsRepository: FakeRentailsRepository
 let fakecarsRepository: FakeCarsRepository
 let fakeUserRepository: FakeUserRepository
+let dateProvider: DayjsDateProvider
 
 describe('Rentails Rentail Create', () => {
-  const dayAdd24Hours = dayjs().add(1, 'day').toDate()
-
   beforeEach(() => {
     fakerentailsRepository = new FakeRentailsRepository()
     fakecarsRepository = new FakeCarsRepository()
     fakeUserRepository = new FakeUserRepository()
+    dateProvider = new DayjsDateProvider()
 
     rentailCreateService = new RentailCreateService(
+      dateProvider,
       fakerentailsRepository,
       fakecarsRepository,
       fakeUserRepository
@@ -114,7 +112,7 @@ describe('Rentails Rentail Create', () => {
       rentailCreateService.execute({
         car_id: car.id,
         user_id: user.id,
-        expected_return_date: dayjs().add(5, 'hours').toDate()
+        expected_return_date: dateProvider.addHours(4)
       })
     ).rejects.toBeInstanceOf(AppError)
   })
@@ -140,7 +138,7 @@ describe('Rentails Rentail Create', () => {
     const rentails = await rentailCreateService.execute({
       user_id: user.id,
       car_id: car.id,
-      expected_return_date: dayAdd24Hours
+      expected_return_date: dateProvider.addDays(1)
     })
 
     expect(rentails.rentail).toHaveProperty('id')

@@ -1,6 +1,4 @@
 import { inject, injectable } from 'tsyringe'
-import utc from 'dayjs/plugin/utc'
-import dayjs from 'dayjs'
 
 import AppError from '@shared/errors/AppError'
 
@@ -10,8 +8,7 @@ import ICars from '@modules/cars/repositories/interfaces/ICarsRepository'
 import IUsersRepository from '@modules/accounts/repositories/interfaces/IUserRepository'
 import User from '@modules/accounts/infra/typeorm/entities/User'
 import Car from '@modules/cars/infra/typeorm/entities/Car'
-
-dayjs.extend(utc)
+import IDateProvider from '@shared/providers/DateProvider/interface/IDateProvider'
 
 interface Request {
   user_id: string
@@ -28,6 +25,8 @@ interface Response {
 @injectable()
 export default class RentailCreateService {
   constructor (
+    private dateProvider: IDateProvider,
+
     @inject('RentailsRepository')
     private repository: IRentails,
 
@@ -36,6 +35,7 @@ export default class RentailCreateService {
 
     @inject('UserRepository')
     private usersRepository: IUsersRepository
+
   ) {}
 
   async execute ({ user_id, car_id, expected_return_date }: Request): Promise<Response> {
@@ -54,10 +54,8 @@ export default class RentailCreateService {
     if (user.isLessee) throw new AppError('This user is already a lessee')
 
     // check valid date
-    const expectedDateFormatted = dayjs(expected_return_date).utc().local().format()
-    const dateNow = dayjs().utc().local().format()
-
-    const compareDate = dayjs(expectedDateFormatted).diff(dateNow, 'hours')
+    const dateNow = this.dateProvider.dateNow()
+    const compareDate = this.dateProvider.compareInHours(dateNow, expected_return_date)
 
     if (compareDate < minimumHours) throw new AppError('Invalid return time')
 
