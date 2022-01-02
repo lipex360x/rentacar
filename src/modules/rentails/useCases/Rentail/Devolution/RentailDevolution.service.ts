@@ -42,7 +42,7 @@ export default class RentailDevolutionService {
     const minimumDaily = 1
     const rentail = await this.repository.findById({ id })
 
-    if (!rentail) throw new AppError('App Error')
+    if (!rentail) throw new AppError('Rentail not found')
 
     const car = await this.carsRepository.findById({ id: rentail.car_id })
     const user = await this.usersRepository.findById({ id: rentail.user_id })

@@ -6,8 +6,11 @@ import {
   PrimaryColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  DeleteDateColumn
+  DeleteDateColumn,
+  ManyToOne,
+  JoinColumn
 } from 'typeorm'
+import Car from '@modules/cars/infra/typeorm/entities/Car'
 
 @Entity('rentails')
 export default class Rentail {
@@ -28,6 +31,10 @@ export default class Rentail {
 
   @Column()
     expected_return_date: Date
+
+  @ManyToOne(() => Car)
+  @JoinColumn({ name: 'car_id' })
+    car: Car
 
   @Column()
     total: number

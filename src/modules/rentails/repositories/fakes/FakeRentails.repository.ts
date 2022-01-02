@@ -1,5 +1,5 @@
 import Rentail from '@modules/rentails/infra/typeorm/entities/Rentail.entity'
-import IRentails, { CreateProps, FindByIdProps, UpdateProps } from '@modules/rentails/repositories/interfaces/IRentails.interface'
+import IRentails, { CreateProps, FindByIdProps, FindByUserIdProps, UpdateProps } from '@modules/rentails/repositories/interfaces/IRentails.interface'
 import IDateProvider from '@shared/providers/DateProvider/interface/IDate.interface'
 
 export default class FakeRentailsRepository implements IRentails {
@@ -41,5 +41,9 @@ export default class FakeRentailsRepository implements IRentails {
     this.repository[getIndex] = rentail
 
     return rentail
+  }
+
+  async findByUserId ({ user_id }: FindByUserIdProps): Promise<Rentail[]> {
+    return this.repository.filter(rentail => rentail.user_id === user_id)
   }
 }

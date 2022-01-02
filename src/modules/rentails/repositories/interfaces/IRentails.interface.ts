@@ -14,9 +14,14 @@ export interface FindByIdProps {
   id: string
 }
 
+export interface FindByUserIdProps {
+  user_id: string
+}
+
 export default interface IRentails {
   create(data: CreateProps): Promise<Rentail>
   findById(data: FindByIdProps): Promise<Rentail>
   findAll(): Promise<Rentail[]>
   update(data: UpdateProps): Promise<Rentail>
+  findByUserId(data: FindByUserIdProps): Promise<Rentail[]>
 }
