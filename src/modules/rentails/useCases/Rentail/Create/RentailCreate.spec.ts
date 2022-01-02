@@ -99,8 +99,14 @@ describe('Rentails Rentail Create', () => {
       driver_license: Faker.datatype.string(8)
     })
 
-    const rentails = await rentailCreateService.execute({ user_id: user.id, car_id: car.id, expected_return_date: new Date() })
+    const rentails = await rentailCreateService.execute({
+      user_id: user.id,
+      car_id: car.id,
+      expected_return_date: new Date()
+    })
 
-    expect(rentails).toHaveProperty('id')
+    expect(rentails.rentail).toHaveProperty('id')
+    expect(rentails.user.isLessee).toBe(true)
+    expect(rentails.car.available).toBe(false)
   })
 })
