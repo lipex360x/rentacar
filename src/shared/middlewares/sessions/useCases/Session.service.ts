@@ -1,9 +1,9 @@
 import { inject, injectable } from 'tsyringe'
-import { compare } from 'bcryptjs'
 import AppError from '@shared/errors/AppError'
 import { sign } from 'jsonwebtoken'
 
 import IUserRepository from '@modules/accounts/repositories/interfaces/IUserRepository'
+import IHashProvider from '@shared/providers/HashProvider/interface/IHash.interface'
 
 interface Request{
   email: string
@@ -21,6 +21,9 @@ interface Response {
 @injectable()
 export default class SessionService {
   constructor (
+    @inject('HashProvider')
+    private hashProvider: IHashProvider,
+
     @inject('UserRepository')
     private repository: IUserRepository
   ) {}
@@ -30,7 +33,7 @@ export default class SessionService {
 
     if (!user) throw new AppError('User or password incorrect')
 
-    const passwordMatch = await compare(password, user.password)
+    const passwordMatch = await this.hashProvider.compareHash(password, user.password)
 
     if (!passwordMatch) throw new AppError('User or password incorrect')
 

@@ -11,7 +11,7 @@ module.exports = {
       type: 'input',
       name: 'providerName',
       message: 'Provider Name',
-      default: 'hash',
+      // default: 'hash',
       validate: (value) => {
         if (!value) return 'Value is required'
 
@@ -23,7 +23,7 @@ module.exports = {
       type: 'input',
       name: 'implementationName',
       message: 'Implementation Name',
-      default: 'bcrypt',
+      // default: 'bcrypt',
       validate: (value) => {
         if (!value) return 'Value is required'
 
@@ -74,8 +74,7 @@ module.exports = {
         path: `${file.path}/${file.name}`,
         data: file.data,
         templateFile: `${pathTemplate}/${file.template}`,
-        // force: !!file.force
-        force: true
+        force: !!file.force
       }
 
       action.push(createFile)

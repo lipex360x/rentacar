@@ -2,6 +2,7 @@ import { inject, injectable } from 'tsyringe'
 import AppError from '@shared/errors/AppError'
 
 import IUserRepository from '@modules/accounts/repositories/interfaces/IUserRepository'
+import IHashProvider from '@shared/providers/HashProvider/interface/IHash.interface'
 
 interface Request{
   name: string
@@ -22,6 +23,9 @@ interface Response {
 @injectable()
 export default class UserCreateService {
   constructor (
+    @inject('HashProvider')
+    private hashProvider: IHashProvider,
+
     @inject('UserRepository')
     private repository: IUserRepository
   ) {}
@@ -31,7 +35,15 @@ export default class UserCreateService {
 
     if (getUser) throw new AppError('This user is already exists')
 
-    const user = await this.repository.create({ name, email, password, driver_license, isAdmin })
+    const hashedPassword = await this.hashProvider.generateHash(password)
+
+    const user = await this.repository.create({
+      name,
+      email,
+      password: hashedPassword,
+      driver_license,
+      isAdmin
+    })
 
     const response: Response = {
       id: user.id,

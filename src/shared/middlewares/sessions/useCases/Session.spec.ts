@@ -3,17 +3,21 @@ import Faker from 'faker'
 
 import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUserRepository'
 import UserCreateService from '@modules/accounts/useCases/User/Create/UserCreate.service'
+import HashProvider from '@shared/providers/HashProvider/implementations/Bcrypt.implementation'
+
 import SessionService from './Session.service'
 
 let fakeUserRepository: FakeUserRepository
 let sessionService: SessionService
 let userCreateService: UserCreateService
+let hashProvider: HashProvider
 
 describe('Session Service', () => {
   beforeEach(() => {
+    hashProvider = new HashProvider()
     fakeUserRepository = new FakeUserRepository()
-    userCreateService = new UserCreateService(fakeUserRepository)
-    sessionService = new SessionService(fakeUserRepository)
+    userCreateService = new UserCreateService(hashProvider, fakeUserRepository)
+    sessionService = new SessionService(hashProvider, fakeUserRepository)
   })
 
   it('should be able to check if user is valid', async () => {
@@ -57,8 +61,8 @@ describe('Session Service', () => {
 
     await userCreateService.execute(user)
 
-    const webtoken = await sessionService.execute({ email: user.email, password: user.password })
+    const webToken = await sessionService.execute({ email: user.email, password: user.password })
 
-    expect(webtoken).toHaveProperty('token')
+    expect(webToken).toHaveProperty('token')
   })
 })

@@ -1,5 +1,4 @@
 import { v4 as uuid } from 'uuid'
-import bcrypt from 'bcryptjs'
 
 import {
   Entity,
@@ -7,8 +6,6 @@ import {
   PrimaryColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  BeforeInsert,
-  BeforeUpdate,
   DeleteDateColumn
 } from 'typeorm'
 
@@ -49,11 +46,5 @@ export default class User {
 
   constructor () {
     if (!this.id) this.id = uuid()
-  }
-
-  @BeforeInsert()
-  @BeforeUpdate()
-  async hashPassword (): Promise<void> {
-    this.password = await bcrypt.hash(this.password, 8)
   }
 }

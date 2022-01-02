@@ -1,15 +1,19 @@
 import AppError from '@shared/errors/AppError'
 
 import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUserRepository'
+import HashProvider from '@shared/providers/HashProvider/implementations/Bcrypt.implementation'
+
 import UserCreateService from './UserCreate.service'
 
-let fakeuserRepository: FakeUserRepository
+let fakeUserRepository: FakeUserRepository
 let userCreateService: UserCreateService
+let hashProvider: HashProvider
 
 describe('UserCreateService ', () => {
   beforeEach(() => {
-    fakeuserRepository = new FakeUserRepository()
-    userCreateService = new UserCreateService(fakeuserRepository)
+    hashProvider = new HashProvider()
+    fakeUserRepository = new FakeUserRepository()
+    userCreateService = new UserCreateService(hashProvider, fakeUserRepository)
   })
 
   it('should be able to create a new user', async () => {
@@ -32,7 +36,7 @@ describe('UserCreateService ', () => {
       driver_license: '12345678'
     }
 
-    await fakeuserRepository.create(user)
+    await fakeUserRepository.create(user)
 
     await expect(
       userCreateService.execute(user)
