@@ -10,7 +10,11 @@ export default class RentailsRepository implements IRentails {
     this.repository = getRepository(Rentail)
   }
 
-  async create ({ data }: CreateProps): Promise<Rentail> {
-    //  TO DO
+  async create ({ user_id, car_id, expected_return_date }: CreateProps): Promise<Rentail> {
+    const rentail = this.repository.create({ user_id, car_id, expected_return_date })
+
+    await this.repository.save(rentail)
+
+    return rentail
   }
 }

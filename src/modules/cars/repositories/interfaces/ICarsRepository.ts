@@ -14,7 +14,11 @@ export interface CreateProps {
   available?: boolean,
 }
 
-export interface FindByLicencePlateProps {
+export interface UpdateProps {
+  car: Car
+}
+
+export interface FindByLicensePlateProps {
   license_plate: string
 }
 
@@ -30,7 +34,8 @@ export interface FindById {
 
 export default interface ICarRepository {
   create(data: CreateProps): Promise<Car>
-  findByLicencePlate(data: FindByLicencePlateProps): Promise<Car>
+  update(data: UpdateProps): Promise<Car>
+  findByLicensePlate(data: FindByLicensePlateProps): Promise<Car>
   findAvailable(data: FindAvailableProps): Promise<Car[]>
   findById(data: FindById): Promise<Car>
 }

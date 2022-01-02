@@ -1,7 +1,7 @@
 import { Repository, getRepository } from 'typeorm'
 
 import Car from '@modules/cars/infra/typeorm/entities/Car'
-import ICarsRepository, { CreateProps, FindAvailableProps, FindById, FindByLicencePlateProps } from '@modules/cars/repositories/interfaces/ICarsRepository'
+import ICarsRepository, { CreateProps, FindAvailableProps, FindById, FindByLicensePlateProps, UpdateProps } from '@modules/cars/repositories/interfaces/ICarsRepository'
 
 export default class CarsRepository implements ICarsRepository {
   private repository: Repository<Car>
@@ -38,7 +38,17 @@ export default class CarsRepository implements ICarsRepository {
     return car
   }
 
-  async findByLicencePlate ({ license_plate }: FindByLicencePlateProps): Promise<Car> {
+  async update ({ car } : UpdateProps): Promise<Car> {
+    let getCar = await this.repository.findOne(car.id)
+
+    getCar = { ...car }
+
+    await this.repository.save(getCar)
+
+    return car
+  }
+
+  async findByLicensePlate ({ license_plate }: FindByLicensePlateProps): Promise<Car> {
     const getCar = await this.repository.findOne({ license_plate })
 
     return getCar

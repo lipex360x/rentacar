@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid'
 import Car from '@modules/cars/infra/typeorm/entities/Car'
-import ICarsRepository, { CreateProps, FindAvailableProps, FindById, FindByLicencePlateProps } from '@modules/cars/repositories/interfaces/ICarsRepository'
+import ICarsRepository, { CreateProps, FindAvailableProps, FindById, FindByLicensePlateProps, UpdateProps } from '@modules/cars/repositories/interfaces/ICarsRepository'
 
 export default class FakeCarsRepository implements ICarsRepository {
   private repository: Car[] = []
@@ -39,7 +39,15 @@ export default class FakeCarsRepository implements ICarsRepository {
     return car
   }
 
-  async findByLicencePlate ({ license_plate }: FindByLicencePlateProps): Promise<Car> {
+  async update ({ car } : UpdateProps): Promise<Car> {
+    const getIndex = this.repository.findIndex((getCar) => getCar.id === car.id)
+
+    this.repository[getIndex] = car
+
+    return car
+  }
+
+  async findByLicensePlate ({ license_plate }: FindByLicensePlateProps): Promise<Car> {
     const car = this.repository.find(car => car.license_plate === license_plate)
 
     return car

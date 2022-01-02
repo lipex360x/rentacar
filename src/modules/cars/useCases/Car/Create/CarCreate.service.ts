@@ -22,7 +22,7 @@ export default class CarCreateService {
   ) {}
 
   async execute ({ brand, model, license_plate, description, daily_rate, fine_amount, category_id }: Request): Promise<Car> {
-    const getCar = await this.repository.findByLicencePlate({ license_plate })
+    const getCar = await this.repository.findByLicensePlate({ license_plate })
 
     if (getCar) throw new AppError('Cars is already exists!')
 

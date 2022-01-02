@@ -30,7 +30,8 @@ export default class CreateRentail1641061281311 implements MigrationInterface {
 
           {
             name: 'end_date',
-            type: 'timestamp with time zone'
+            type: 'timestamp with time zone',
+            isNullable: true
           },
 
           {
@@ -40,7 +41,8 @@ export default class CreateRentail1641061281311 implements MigrationInterface {
 
           {
             name: 'total',
-            type: 'float'
+            type: 'float',
+            isNullable: true
           },
 
           {

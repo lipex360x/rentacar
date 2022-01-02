@@ -25,6 +25,7 @@ interface Response {
 @injectable()
 export default class RentailCreateService {
   constructor (
+    @inject('DateProvider')
     private dateProvider: IDateProvider,
 
     @inject('RentailsRepository')
@@ -64,12 +65,12 @@ export default class RentailCreateService {
 
     // set user lessee
     user.isLessee = true
-    const updateUser = await this.usersRepository.create(user)
+    const updatedUser = await this.usersRepository.create(user)
 
     // set car unavailable
     car.available = false
-    const updateCar = await this.carsRepository.create(car)
+    const updatedCar = await this.carsRepository.update({ car })
 
-    return { rentail, user: updateUser, car: updateCar }
+    return { rentail, user: updatedUser, car: updatedCar }
   }
 }

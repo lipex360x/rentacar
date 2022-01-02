@@ -41,7 +41,7 @@ describe('Cars Car Create', () => {
     expect(createCar.available).toBe(true)
   })
 
-  it('should not be able to create a car with exists licence plate', async () => {
+  it('should not be able to create a car with exists license plate', async () => {
     const setCar = {
       brand: Faker.name.firstName(1),
       model: Faker.name.firstName(2),
