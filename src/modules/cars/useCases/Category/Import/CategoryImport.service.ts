@@ -2,8 +2,8 @@ import Category from '@modules/cars/infra/typeorm/entities/Category'
 import ICategoriesRepositoryProps from '@modules/cars/repositories/interfaces/ICategoriesRepository'
 import { inject, injectable } from 'tsyringe'
 
-import { readCsv } from '@shared/utils/csvFiles'
 import { deleteFile } from '@shared/utils/multerFiles'
+import ICsvProvider from '@shared/providers/CsvProvider/interface/ICsv.interface'
 
 interface IRequestProps {
   file: Express.Multer.File
@@ -12,11 +12,14 @@ interface IRequestProps {
 @injectable()
 class CategoryImportService {
   constructor (
+    @inject('CsvProvider')
+    private csvProvider: ICsvProvider,
+
     @inject('CategoriesRepository')
     private repository: ICategoriesRepositoryProps) {}
 
   async execute ({ file }:IRequestProps): Promise<Number> {
-    const categories = await readCsv({ path: file.path, delimiter: ';', firstLine: false })
+    const categories = await this.csvProvider.read({ path: file.path, delimiter: ';', firstLine: false })
 
     await deleteFile({ fileName: `./tmp/${file.filename}` })
 

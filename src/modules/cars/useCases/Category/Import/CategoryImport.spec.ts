@@ -1,17 +1,18 @@
 import Faker from 'faker'
 
-import { writeCsv } from '@shared/utils/csvFiles'
-
 import FakeCategoryRepository from '@modules/cars/repositories/fakes/FakeCategoryRepository'
 import CategoryImportService from './CategoryImport.service'
+import FastCsvProvider from '@shared/providers/CsvProvider/implementations/FastCsv.implementation'
 
 let fakeCategoryRepository: FakeCategoryRepository
 let categoryImportService: CategoryImportService
+let csvProvider: FastCsvProvider
 
 describe('Category Create', () => {
   beforeEach(() => {
+    csvProvider = new FastCsvProvider()
     fakeCategoryRepository = new FakeCategoryRepository()
-    categoryImportService = new CategoryImportService(fakeCategoryRepository)
+    categoryImportService = new CategoryImportService(csvProvider, fakeCategoryRepository)
   })
 
   it('should be able to import categories', async () => {
@@ -20,11 +21,11 @@ describe('Category Create', () => {
     const path = 'tmp/categories.csv'
 
     const data = [
-      { name: Faker.name.firstName(), description: Faker.lorem.words(4) },
-      { name: Faker.name.firstName(), description: Faker.lorem.words(3) }
+      { name: Faker.name.firstName(1), description: Faker.lorem.words(3) },
+      { name: Faker.name.firstName(2), description: Faker.lorem.words(4) }
     ]
 
-    await writeCsv({ path, data })
+    await csvProvider.write({ path, data })
 
     file.path = path
 

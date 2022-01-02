@@ -4,11 +4,12 @@ import 'dotenv/config'
 import express from 'express'
 import { errors } from 'celebrate'
 
-import { routes } from '@shared/infra/http/routes'
+import routes from '@shared/infra/http/routes'
+import routerError from '@shared/errors/RouterError'
+
 import '@shared/infra/typeorm'
 import '@shared/containers'
 import '@shared/providers'
-import routerError from '@shared/errors/RouterError'
 
 const app = express()
 
