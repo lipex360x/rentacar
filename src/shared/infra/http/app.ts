@@ -19,4 +19,4 @@ app.use(routes)
 app.use(errors())
 app.use(routerError)
 
-export { app }
+export default app
