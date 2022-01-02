@@ -15,12 +15,17 @@ export interface FindByEmailProps {
   email: string
 }
 
+export interface UpdateProps {
+  user: User
+}
+
 export interface FindByIdProps {
   id: string
 }
 
 export default interface IUserRepository {
   create(data: CreateProps): Promise<User>
+  update(data: UpdateProps): Promise<User>
   findByEmail(data: FindByEmailProps): Promise<User>
   findById(data: FindByIdProps): Promise<User>
 }

@@ -65,7 +65,7 @@ export default class RentailCreateService {
 
     // set user lessee
     user.isLessee = true
-    const updatedUser = await this.usersRepository.create(user)
+    const updatedUser = await this.usersRepository.update({ user })
 
     // set car unavailable
     car.available = false
