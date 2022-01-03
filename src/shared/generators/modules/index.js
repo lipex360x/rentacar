@@ -132,15 +132,6 @@ module.exports = {
         force: false
       },
 
-      // Repo Index
-      {
-        data: { pascalTableName },
-        path: '../../modules/{{camelCase moduleName}}/repositories',
-        name: 'index.ts',
-        template: 'indexContainer.hbs',
-        force: false
-      },
-
       /* --------- USE CASES --------- */
 
       // Controller
@@ -167,6 +158,17 @@ module.exports = {
         path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
         name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.spec.ts',
         template: 'service.spec.hbs',
+        force: false
+      },
+
+      /* --------- REPOSITORIES --------- */
+
+      // Repo Index
+      {
+        data: { pascalTableName },
+        path: '../../modules/{{camelCase moduleName}}/repositories',
+        name: 'index.ts',
+        template: 'indexContainer.hbs',
         force: false
       }
     ]

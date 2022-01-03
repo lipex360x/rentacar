@@ -4,6 +4,8 @@ import Faker from 'faker'
 import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUserRepository'
 import UserCreateService from '@modules/accounts/useCases/User/Create/UserCreate.service'
 import HashProvider from '@shared/providers/HashProvider/implementations/Bcrypt.implementation'
+import DateProvider from '@shared/providers/DateProvider/implementations/Dayjs.implementation'
+import FakeUserstokenRepository from '@modules/accounts/repositories/fakes/FakeUserstokens.repository'
 
 import SessionService from './Session.service'
 
@@ -11,13 +13,23 @@ let fakeUserRepository: FakeUserRepository
 let sessionService: SessionService
 let userCreateService: UserCreateService
 let hashProvider: HashProvider
+let dateProvider: DateProvider
+let fakeUserstokenRepository: FakeUserstokenRepository
 
 describe('Session Service', () => {
   beforeEach(() => {
     hashProvider = new HashProvider()
+    dateProvider = new DateProvider()
     fakeUserRepository = new FakeUserRepository()
+    fakeUserstokenRepository = new FakeUserstokenRepository(dateProvider)
+
     userCreateService = new UserCreateService(hashProvider, fakeUserRepository)
-    sessionService = new SessionService(hashProvider, fakeUserRepository)
+    sessionService = new SessionService(
+      hashProvider,
+      dateProvider,
+      fakeUserRepository,
+      fakeUserstokenRepository
+    )
   })
 
   it('should be able to check if user is valid', async () => {

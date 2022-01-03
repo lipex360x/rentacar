@@ -8,10 +8,14 @@
     "fakerentails",
     "middlewares",
     "originalname",
+    "plopfile",
     "rentail",
     "rentails",
+    "respawn",
     "teste",
     "tsyringe",
-    "typeorm"
+    "typeorm",
+    "Userstoken",
+    "Userstokens"
   ]
 }
