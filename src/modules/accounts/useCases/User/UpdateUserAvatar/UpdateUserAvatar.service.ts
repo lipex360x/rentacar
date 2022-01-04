@@ -1,11 +1,10 @@
 import { inject, injectable } from 'tsyringe'
 
 import IUserRepository from '@modules/accounts/repositories/interfaces/IUserRepository'
-
-import { deleteFile } from '@shared/utils/multerFiles'
+import IStorageProvider from '@shared/providers/StorageProvider/interface/IStorage.interface'
 
 interface Request {
-  id: string
+  user_id: string
   avatar_file: string
 }
 
@@ -17,16 +16,21 @@ interface Response {
 @injectable()
 export default class UpdateUserAvatarService {
   constructor (
+    @inject('StorageProvider')
+    private storageProvider: IStorageProvider,
+
     @inject('UserRepository')
     private repository: IUserRepository
   ) {}
 
-  async execute ({ id, avatar_file }: Request): Promise<Response> {
-    const user = await this.repository.findById({ id })
+  async execute ({ user_id, avatar_file }: Request): Promise<Response> {
+    const user = await this.repository.findById({ id: user_id })
 
-    await deleteFile({ fileName: `./tmp/avatar/${user.avatar}` })
+    if (user.avatar) await this.storageProvider.deleteFile({ file: user.avatar })
 
-    user.avatar = avatar_file
+    const fileName = await this.storageProvider.saveFile({ file: avatar_file })
+
+    user.avatar = fileName
 
     await this.repository.create(user)
 

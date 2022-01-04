@@ -58,10 +58,18 @@ export default class UserForgotPasswordService {
 
     if (token) await this.tokenRepository.delete({ id: token.id })
 
-    return this.tokenRepository.create({
+    const forgot = await this.tokenRepository.create({
       token: uuid(),
       user_id: user.id,
       type: 'forgotPassword'
     })
+
+    await this.mailProvider.sendMail({
+      to: email,
+      subject: 'Recovery Password',
+      body: `recovery password: ${forgot.token}`
+    })
+
+    return forgot
   }
 }

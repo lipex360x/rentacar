@@ -17,18 +17,6 @@ describe('UserCreateService ', () => {
     userCreateService = new UserCreateService(hashProvider, fakeUserRepository)
   })
 
-  it('should be able to create a new user', async () => {
-    const user = {
-      name: 'John Doe',
-      email: 'john@mail.com',
-      password: 'john1234',
-      driver_license: '12345678'
-    }
-    const createUser = await userCreateService.execute(user)
-
-    expect(createUser).toHaveProperty('id')
-  })
-
   it('should not be able to create a duplicate user', async () => {
     const user = {
       name: 'John Doe',
@@ -42,5 +30,20 @@ describe('UserCreateService ', () => {
     await expect(
       userCreateService.execute(user)
     ).rejects.toBeInstanceOf(AppError)
+  })
+
+  it('should be able to create a new user', async () => {
+    const user = {
+      name: 'John Doe',
+      email: 'john@mail.com',
+      password: 'john1234',
+      driver_license: '12345678'
+    }
+
+    const generateHash = jest.spyOn(hashProvider, 'generateHash')
+    const createUser = await userCreateService.execute(user)
+
+    expect(createUser).toHaveProperty('id')
+    expect(generateHash).toHaveBeenCalledWith('john1234')
   })
 })

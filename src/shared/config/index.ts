@@ -1,23 +1,16 @@
 /* eslint-disable no-useless-escape */
-
 import multer from 'multer'
 import crypto from 'crypto'
 import { resolve } from 'path'
 
-import fs from 'fs'
+const tmpFolder = resolve(__dirname, '..', '..', '..', 'tmp')
 
-interface UploadFileProps {
-  folder: string
-}
+const uploadsFolder = resolve(__dirname, '..', '..', '..', 'tmp', 'uploads')
 
-interface DeleteFileProps {
-  fileName: string
-}
-
-function uploadFile ({ folder }: UploadFileProps) {
+function multerConfig () {
   return {
     storage: multer.diskStorage({
-      destination: resolve(__dirname, '..', '..', '..', folder),
+      destination: tmpFolder,
 
       filename: (request, file, callback) => {
         const ext = /^.+\.([^.]+)$/.exec(file.originalname)
@@ -42,12 +35,8 @@ function uploadFile ({ folder }: UploadFileProps) {
   }
 }
 
-async function deleteFile ({ fileName }:DeleteFileProps): Promise<string> {
-  try { await fs.promises.stat(fileName) } catch { return }
-
-  await fs.promises.unlink(fileName)
-
-  return fileName
+export {
+  tmpFolder,
+  uploadsFolder,
+  multerConfig
 }
-
-export { uploadFile, deleteFile }

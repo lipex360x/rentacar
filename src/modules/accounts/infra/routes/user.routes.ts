@@ -5,7 +5,7 @@ import CreateUser from '@modules/accounts/useCases/User/Create/UserCreate.contro
 import UpdateUserAvatar from '@modules/accounts/useCases/User/UpdateUserAvatar/UpdateUserAvatar.controller'
 import sessionMiddleware from '@shared/middlewares/sessions'
 
-import { uploadFile } from '@shared/utils/multerFiles'
+import { multerConfig } from '@shared/config'
 import UserForgotPasswordController from '@modules/accounts/useCases/User/ForgotPassword/UserForgotPassword.controller'
 
 const router = Router()
@@ -14,7 +14,7 @@ const createUserController = new CreateUser()
 const updateUserAvatarController = new UpdateUserAvatar()
 const forgotPasswordController = new UserForgotPasswordController()
 
-const upload = multer(uploadFile({ folder: './tmp/avatar' }))
+const upload = multer(multerConfig())
 
 router.post('/', createUserController.handle)
 router.post('/forgot', forgotPasswordController.handle)

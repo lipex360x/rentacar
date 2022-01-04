@@ -5,19 +5,20 @@ import Faker from 'faker'
 import FakeTokensRepository from '@modules/accounts/repositories/fakes/FakeTokens.repository'
 import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUserRepository'
 import UserForgotPasswordService from './UserForgotPassword.service'
-import EtherealProvider from '@shared/providers/MailProvider/implementations/Ethereal.implementation'
+import MailProvider from '@shared/providers/MailProvider/fakes/FakeMail.provider'
 
 let fakeTokensRepository: FakeTokensRepository
 let userForgotPasswordService: UserForgotPasswordService
 let fakeUserRepository: FakeUserRepository
-let mailProvider: EtherealProvider
+let mailProvider: MailProvider
 
 describe('Accounts User ForgotPassword', () => {
   beforeEach(() => {
-    mailProvider = new EtherealProvider()
+    mailProvider = new MailProvider()
 
-    fakeUserRepository = new FakeUserRepository()
     fakeTokensRepository = new FakeTokensRepository()
+    fakeUserRepository = new FakeUserRepository()
+
     userForgotPasswordService = new UserForgotPasswordService(
       mailProvider,
       fakeTokensRepository,
@@ -58,8 +59,10 @@ describe('Accounts User ForgotPassword', () => {
       driver_license: Faker.datatype.string(8)
     })
 
+    const sendMail = jest.spyOn(mailProvider, 'sendMail')
     const forgotPassword = await userForgotPasswordService.execute({ email: user.email })
 
+    expect(sendMail).toHaveBeenCalled()
     expect(forgotPassword).toHaveProperty('token')
   })
 })

@@ -3,17 +3,17 @@ import Faker from 'faker'
 
 import FakeCarsRepository from '@modules/cars/repositories/fakes/FakeCarsRepository'
 import FakeSpecificationRepository from '@modules/cars/repositories/fakes/FakeSpecificationRepository'
-import CarCreateSpecificationService from './CarCreateSpecification.service'
+import CarSpecificationService from './CarSpecification.service'
 
 let fakecarsRepository: FakeCarsRepository
 let fakeSpecificationRepository: FakeSpecificationRepository
-let carCreateSpecificationService: CarCreateSpecificationService
+let carSpecificationService: CarSpecificationService
 
 describe('Cars Car CreateSpecification', () => {
   beforeEach(() => {
     fakecarsRepository = new FakeCarsRepository()
     fakeSpecificationRepository = new FakeSpecificationRepository()
-    carCreateSpecificationService = new CarCreateSpecificationService(fakecarsRepository, fakeSpecificationRepository)
+    carSpecificationService = new CarSpecificationService(fakecarsRepository, fakeSpecificationRepository)
   })
 
   it('should not be able to add a new specification in a non-existent car ', async () => {
@@ -28,7 +28,7 @@ describe('Cars Car CreateSpecification', () => {
     })
 
     await expect(
-      carCreateSpecificationService.execute({ car_id: 'fake_id', specifications_id: [] })
+      carSpecificationService.execute({ car_id: 'fake_id', specifications_id: [] })
     ).rejects.toBeInstanceOf(AppError)
   })
 
@@ -53,7 +53,7 @@ describe('Cars Car CreateSpecification', () => {
       description: Faker.lorem.words(3)
     })
 
-    const specificationsCar = await carCreateSpecificationService.execute({
+    const specificationsCar = await carSpecificationService.execute({
       car_id: car.id,
       specifications_id: [spec1.id, spec2.id]
     })

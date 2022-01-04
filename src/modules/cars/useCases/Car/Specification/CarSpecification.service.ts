@@ -11,10 +11,11 @@ interface Request{
 }
 
 @injectable()
-export default class CarCreateSpecificationService {
+export default class CarSpecificationService {
   constructor (
     @inject('CarsRepository')
     private repository: ICarsRepository,
+
     @inject('SpecificationsRepository')
     private specificationRepo: ISpecificationsRepository
   ) {}

@@ -16,8 +16,6 @@ describe('Category Create', () => {
   })
 
   it('should be able to import categories', async () => {
-    const file = {} as Express.Multer.File
-
     const path = 'tmp/categories.csv'
 
     const data = [
@@ -27,7 +25,9 @@ describe('Category Create', () => {
 
     await csvProvider.write({ path, data })
 
-    file.path = path
+    const file = {
+      path
+    }
 
     const getCategories = await categoryImportService.execute({ file })
 
