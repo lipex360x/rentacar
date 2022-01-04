@@ -59,8 +59,6 @@ export default class SessionService {
       expiresIn: JWT_EXPIRES
     })
 
-    console.log(REFRESH_TOKEN, REFRESH_EXPIRES)
-
     const refresh_token = sign({ email }, REFRESH_TOKEN, {
       subject: user.id,
       expiresIn: REFRESH_EXPIRES

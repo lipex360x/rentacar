@@ -16,9 +16,10 @@ let dateProvider: DayjsDateProvider
 
 describe('Rentails Rentail Devolution', () => {
   beforeEach(() => {
-    fakecarsRepository = new FakeCarsRepository()
-    fakeUserRepository = new FakeUserRepository()
     dateProvider = new DayjsDateProvider()
+
+    fakecarsRepository = new FakeCarsRepository()
+    fakeUserRepository = new FakeUserRepository(dateProvider)
 
     fakeRentailsRepository = new FakeRentailsRepository(dateProvider)
     rentailDevolutionService = new RentailDevolutionService(

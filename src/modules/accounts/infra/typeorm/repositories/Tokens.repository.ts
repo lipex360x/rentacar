@@ -1,7 +1,7 @@
 import { Repository, getRepository } from 'typeorm'
 
 import Token from '@modules/accounts/infra/typeorm/entities/Token.entity'
-import ITokens, { CreateProps, FindByIdProps, UpdateProps, DeleteProps } from '@modules/accounts/repositories/interfaces/ITokens.interface'
+import ITokens, { CreateProps, FindByIdProps, UpdateProps, DeleteProps, FindByTokenProps, FindByUserIdProps } from '@modules/accounts/repositories/interfaces/ITokens.interface'
 
 export default class TokensRepository implements ITokens {
   private repository: Repository<Token>
@@ -10,12 +10,12 @@ export default class TokensRepository implements ITokens {
     this.repository = getRepository(Token)
   }
 
-  async create ({ data }: CreateProps): Promise<Token> {
-    const token = this.repository.create({ data })
+  async create ({ token, user_id, type }: CreateProps): Promise<Token> {
+    const newToken = this.repository.create({ token, user_id, type })
 
-    await this.repository.save(token)
+    await this.repository.save(newToken)
 
-    return token
+    return newToken
   }
 
   async findById ({ id }: FindByIdProps): Promise<Token> {
@@ -24,6 +24,14 @@ export default class TokensRepository implements ITokens {
 
   async findAll (): Promise<Token[]> {
     return this.repository.find()
+  }
+
+  async findByToken ({ token }: FindByTokenProps): Promise<Token> {
+    return this.repository.findOne({ token })
+  }
+
+  async findByUserId ({ user_id }: FindByUserIdProps): Promise<Token> {
+    return this.repository.findOne({ user_id })
   }
 
   async update ({ token }: UpdateProps): Promise<Token> {

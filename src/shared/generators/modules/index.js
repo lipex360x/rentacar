@@ -82,7 +82,7 @@ module.exports = {
         path: '../../modules/{{camelCase moduleName}}/infra/routes',
         name: '{{camelCase useCaseName}}.routes.ts',
         template: 'routes.hbs',
-        force: true
+        force: false
       },
 
       // Entity

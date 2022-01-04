@@ -2,13 +2,17 @@ import Faker from 'faker'
 
 import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUserRepository'
 import UpdateUserAvatarService from './UpdateUserAvatar.service'
+import DayjsDateProvider from '@shared/providers/DateProvider/implementations/Dayjs.implementation'
 
 let fakeUserRepository: FakeUserRepository
 let updateUserAvatarService: UpdateUserAvatarService
+let dateProvider: DayjsDateProvider
 
 describe('Accounts UpdateUserAvatar', () => {
   beforeEach(() => {
-    fakeUserRepository = new FakeUserRepository()
+    dateProvider = new DayjsDateProvider()
+
+    fakeUserRepository = new FakeUserRepository(dateProvider)
     updateUserAvatarService = new UpdateUserAvatarService(fakeUserRepository)
   })
 
