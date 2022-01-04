@@ -2,11 +2,11 @@ import { inject, injectable } from 'tsyringe'
 
 import AppError from '@shared/errors/AppError'
 
+import Car from '@modules/cars/infra/typeorm/entities/Car'
 import Rentail from '@modules/rentails/infra/typeorm/entities/Rentail.entity'
 import IRentails from '@modules/rentails/repositories/interfaces/IRentails.interface'
-import ICars from '@modules/cars/repositories/interfaces/ICarsRepository'
-import IUsersRepository from '@modules/accounts/repositories/interfaces/IUserRepository'
-import Car from '@modules/cars/infra/typeorm/entities/Car'
+import ICars from '@modules/cars/repositories/interfaces/ICars.interface'
+import IUsers from '@modules/accounts/repositories/interfaces/IUsers.interface'
 import IDateProvider from '@shared/providers/DateProvider/interface/IDate.interface'
 
 interface Request {
@@ -38,7 +38,7 @@ export default class RentailCreateService {
     private carsRepository: ICars,
 
     @inject('UserRepository')
-    private usersRepository: IUsersRepository
+    private usersRepository: IUsers
 
   ) {}
 

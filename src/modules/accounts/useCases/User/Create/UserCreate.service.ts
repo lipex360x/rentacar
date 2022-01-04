@@ -1,8 +1,8 @@
 import { inject, injectable } from 'tsyringe'
 import AppError from '@shared/errors/AppError'
 
-import IUserRepository from '@modules/accounts/repositories/interfaces/IUserRepository'
-import IHashProvider from '@shared/providers/HashProvider/interface/IHash.interface'
+import IUser from '@modules/accounts/repositories/interfaces/IUsers.interface'
+import IHash from '@shared/providers/HashProvider/interface/IHash.interface'
 
 interface Request{
   name: string
@@ -24,10 +24,10 @@ interface Response {
 export default class UserCreateService {
   constructor (
     @inject('HashProvider')
-    private hashProvider: IHashProvider,
+    private hashProvider: IHash,
 
     @inject('UserRepository')
-    private repository: IUserRepository
+    private repository: IUser
   ) {}
 
   async execute ({ name, email, password, driver_license, isAdmin }: Request): Promise<Response> {

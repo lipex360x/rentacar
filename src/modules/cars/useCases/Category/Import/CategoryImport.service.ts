@@ -1,5 +1,5 @@
 import Category from '@modules/cars/infra/typeorm/entities/Category'
-import ICategoriesRepositoryProps from '@modules/cars/repositories/interfaces/ICategoriesRepository'
+import ICategories from '@modules/cars/repositories/interfaces/ICategories.interface'
 import { inject, injectable } from 'tsyringe'
 
 import ICsvProvider from '@shared/providers/CsvProvider/interface/ICsv.interface'
@@ -17,9 +17,9 @@ class CategoryImportService {
     private csvProvider: ICsvProvider,
 
     @inject('CategoriesRepository')
-    private repository: ICategoriesRepositoryProps) {}
+    private repository: ICategories) {}
 
-  async execute ({ file }:IRequestProps): Promise<Number> {
+  async execute ({ file }:IRequestProps): Promise<number> {
     const categories = await this.csvProvider.read({
       path: file.path,
       delimiter: ';',

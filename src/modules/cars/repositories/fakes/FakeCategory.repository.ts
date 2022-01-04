@@ -1,9 +1,9 @@
 import { v4 as uuid } from 'uuid'
 
 import Category from '@modules/cars/infra/typeorm/entities/Category'
-import ICategoriesRepositoryProps, { ICreateProps, IFindByNameProps } from '../interfaces/ICategoriesRepository'
+import ICategories, { ICreateProps, IFindByNameProps } from '../interfaces/ICategories.interface'
 
-export default class FakeCategoryRepository implements ICategoriesRepositoryProps {
+export default class FakeCategoryRepository implements ICategories {
   private repository: Category[] = []
 
   async create ({ name, description }:ICreateProps): Promise<Category> {

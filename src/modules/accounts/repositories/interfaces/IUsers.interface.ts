@@ -1,4 +1,4 @@
-import User from '@modules/accounts/infra/typeorm/entities/User'
+import User from '@modules/accounts/infra/typeorm/entities/User.entity'
 
 export interface CreateProps {
   id?: string
@@ -23,7 +23,7 @@ export interface FindByIdProps {
   id: string
 }
 
-export default interface IUserRepository {
+export default interface IUsers {
   create(data: CreateProps): Promise<User>
   update(data: UpdateProps): Promise<User>
   findById(data: FindByIdProps): Promise<User>

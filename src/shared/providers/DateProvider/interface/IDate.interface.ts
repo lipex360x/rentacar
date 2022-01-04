@@ -13,7 +13,7 @@ export interface ConvertProps {
   date: Date
 }
 
-export default interface IDateProvider {
+export default interface IDate {
   dateNow(): Date
   convertToUTC(data: ConvertProps): string
   addTime(data: AddSubtractProps): Date

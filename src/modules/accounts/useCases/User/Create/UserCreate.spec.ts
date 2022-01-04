@@ -1,20 +1,20 @@
 import AppError from '@shared/errors/AppError'
 
-import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUserRepository'
-import HashProvider from '@shared/providers/HashProvider/implementations/Bcrypt.implementation'
+import FakeUsersRepository from '@modules/accounts/repositories/fakes/FakeUsers.repository'
+import FakeHashProvider from '@shared/providers/HashProvider/fakes/FakeHash.provider'
 
 import UserCreateService from './UserCreate.service'
 
-let fakeUserRepository: FakeUserRepository
+let fakeUsersRepository: FakeUsersRepository
+let fakeHashProvider: FakeHashProvider
 let userCreateService: UserCreateService
-let hashProvider: HashProvider
 
 describe('UserCreateService ', () => {
   beforeEach(() => {
-    hashProvider = new HashProvider()
+    fakeHashProvider = new FakeHashProvider()
 
-    fakeUserRepository = new FakeUserRepository()
-    userCreateService = new UserCreateService(hashProvider, fakeUserRepository)
+    fakeUsersRepository = new FakeUsersRepository()
+    userCreateService = new UserCreateService(fakeHashProvider, fakeUsersRepository)
   })
 
   it('should not be able to create a duplicate user', async () => {
@@ -25,7 +25,7 @@ describe('UserCreateService ', () => {
       driver_license: '12345678'
     }
 
-    await fakeUserRepository.create(user)
+    await fakeUsersRepository.create(user)
 
     await expect(
       userCreateService.execute(user)
@@ -40,7 +40,7 @@ describe('UserCreateService ', () => {
       driver_license: '12345678'
     }
 
-    const generateHash = jest.spyOn(hashProvider, 'generateHash')
+    const generateHash = jest.spyOn(fakeHashProvider, 'generateHash')
     const createUser = await userCreateService.execute(user)
 
     expect(createUser).toHaveProperty('id')

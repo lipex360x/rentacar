@@ -2,15 +2,15 @@ import 'reflect-metadata'
 import AppError from '@shared/errors/AppError'
 import Faker from 'faker'
 
-import FakeTokensRepository from '@modules/accounts/repositories/fakes/FakeTokens.repository'
-import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUserRepository'
-import UserForgotPasswordService from './UserForgotPassword.service'
 import MailProvider from '@shared/providers/MailProvider/fakes/FakeMail.provider'
+import FakeTokensRepository from '@modules/tokens/repositories/fakes/FakeTokens.repository'
+import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUsers.repository'
+import UserForgotPasswordService from './UserForgotPassword.service'
 
-let fakeTokensRepository: FakeTokensRepository
-let userForgotPasswordService: UserForgotPasswordService
-let fakeUserRepository: FakeUserRepository
 let mailProvider: MailProvider
+let fakeTokensRepository: FakeTokensRepository
+let fakeUserRepository: FakeUserRepository
+let userForgotPasswordService: UserForgotPasswordService
 
 describe('Accounts User ForgotPassword', () => {
   beforeEach(() => {

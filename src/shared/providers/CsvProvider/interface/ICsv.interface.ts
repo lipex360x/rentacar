@@ -11,7 +11,7 @@ export interface ReadProps {
   firstLine?: boolean
 }
 
-export default interface ICsvProvider {
-  write(data: WriteProps): Promise<boolean>
+export default interface ICsv {
+  write(data: WriteProps): Promise<number>
   read(data: ReadProps): Promise<any[]>
 }

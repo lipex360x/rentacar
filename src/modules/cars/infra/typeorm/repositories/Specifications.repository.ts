@@ -1,9 +1,9 @@
 import { getRepository, Repository } from 'typeorm'
 
 import Specification from '@modules/cars/infra/typeorm/entities/Specification'
-import ISpecificationsRepository, { FindByIdsProps, ICreateProps, IFindByNameProps } from '@modules/cars/repositories/interfaces/ISpecificationsRepository'
+import ISpecifications, { FindByIdsProps, ICreateProps, IFindByNameProps } from '@modules/cars/repositories/interfaces/ISpecifications.interface'
 
-class SpecificationsRepository implements ISpecificationsRepository {
+class SpecificationsRepository implements ISpecifications {
   private repository: Repository<Specification>
 
   constructor () {

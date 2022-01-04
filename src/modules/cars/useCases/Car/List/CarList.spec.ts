@@ -1,6 +1,6 @@
 import Faker from 'faker'
 
-import FakeCarsRepository from '@modules/cars/repositories/fakes/FakeCarsRepository'
+import FakeCarsRepository from '@modules/cars/repositories/fakes/FakeCars.repository'
 import CarListService from './CarList.service'
 
 let fakecarsRepository: FakeCarsRepository

@@ -6,7 +6,7 @@ export interface DeleteFileProps {
   file: string
 }
 
-export default interface IStorageProvider {
+export default interface IStorage {
   saveFile(data: SaveFileProps): Promise<string>
   deleteFile(data: DeleteFileProps): Promise<void>
 }

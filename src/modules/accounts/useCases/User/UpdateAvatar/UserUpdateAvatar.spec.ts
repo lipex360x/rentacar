@@ -1,18 +1,18 @@
 import Faker from 'faker'
 
-import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUserRepository'
-import UpdateUserAvatarService from './UpdateUserAvatar.service'
+import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUsers.repository'
 import FakeStorageProvider from '@shared/providers/StorageProvider/fakes/FakeStorage.provider'
+import UserUpdateAvatarService from './UserUpdateAvatar.service'
 
 let fakeUserRepository: FakeUserRepository
-let updateUserAvatarService: UpdateUserAvatarService
+let userUpdateAvatarService: UserUpdateAvatarService
 let storageProvider: FakeStorageProvider
 
-describe('Accounts UpdateUserAvatar', () => {
+describe('Accounts UpdateAvatar', () => {
   beforeEach(() => {
     storageProvider = new FakeStorageProvider()
     fakeUserRepository = new FakeUserRepository()
-    updateUserAvatarService = new UpdateUserAvatarService(storageProvider, fakeUserRepository)
+    userUpdateAvatarService = new UserUpdateAvatarService(storageProvider, fakeUserRepository)
   })
 
   it('should be able to update an user avatar', async () => {
@@ -25,7 +25,7 @@ describe('Accounts UpdateUserAvatar', () => {
     })
 
     const saveFile = jest.spyOn(storageProvider, 'saveFile')
-    const avatar = await updateUserAvatarService.execute({ user_id, avatar_file })
+    const avatar = await userUpdateAvatarService.execute({ user_id, avatar_file })
 
     expect(avatar).toHaveProperty('user_name')
     expect(saveFile).toHaveBeenCalled()
@@ -47,7 +47,7 @@ describe('Accounts UpdateUserAvatar', () => {
 
     const deleteFile = jest.spyOn(storageProvider, 'deleteFile')
     const saveFile = jest.spyOn(storageProvider, 'saveFile')
-    const updateAvatar = await updateUserAvatarService.execute({ user_id: user.id, avatar_file: avatar })
+    const updateAvatar = await userUpdateAvatarService.execute({ user_id: user.id, avatar_file: avatar })
 
     expect(updateAvatar).toHaveProperty('user_name')
     expect(deleteFile).toHaveBeenCalled()

@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe'
 import AppError from '@shared/errors/AppError'
 
-import ICategoriesRepositoryProps from '@modules/cars/repositories/interfaces/ICategoriesRepository'
+import ICategories from '@modules/cars/repositories/interfaces/ICategories.interface'
 import Category from '@modules/cars/infra/typeorm/entities/Category'
 
 interface IRequestProps {
@@ -13,7 +13,7 @@ interface IRequestProps {
 class CategoryCreateService {
   constructor (
     @inject('CategoriesRepository')
-    private repository:ICategoriesRepositoryProps) {}
+    private repository:ICategories) {}
 
   async execute ({ name, description }:IRequestProps): Promise<Category> {
     const findCategory = await this.repository.findByName({ name })

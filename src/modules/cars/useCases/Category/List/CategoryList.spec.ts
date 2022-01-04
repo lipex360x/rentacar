@@ -1,6 +1,6 @@
 import Faker from 'faker'
 
-import FakeCategoryRepository from '@modules/cars/repositories/fakes/FakeCategoryRepository'
+import FakeCategoryRepository from '@modules/cars/repositories/fakes/FakeCategory.repository'
 import CategoryListService from './CategoryList.service'
 
 let fakeCategoryRepository: FakeCategoryRepository

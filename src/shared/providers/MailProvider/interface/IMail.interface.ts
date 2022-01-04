@@ -4,6 +4,6 @@ export interface SendMailProps {
   body: string
 }
 
-export default interface IMailProvider {
+export default interface IMail {
   sendMail(data: SendMailProps): Promise<void>
 }

@@ -5,8 +5,8 @@ import Faker from 'faker'
 import FakeRentailsRepository from '@modules/rentails/repositories/fakes/FakeRentails.repository'
 import RentailListByUserService from './RentailListByUser.service'
 import DayjsDateProvider from '@shared/providers/DateProvider/implementations/Dayjs.implementation'
-import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUserRepository'
-import FakeCarsRepository from '@modules/cars/repositories/fakes/FakeCarsRepository'
+import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUsers.repository'
+import FakeCarsRepository from '@modules/cars/repositories/fakes/FakeCars.repository'
 
 let fakeRentailsRepository: FakeRentailsRepository
 let rentailListByUserService: RentailListByUserService

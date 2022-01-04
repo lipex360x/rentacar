@@ -2,9 +2,9 @@ import fs from 'fs'
 import path from 'path'
 import { tmpFolder, uploadsFolder } from '@shared/config'
 
-import IStorageProvider, { DeleteFileProps, SaveFileProps } from '../interface/IStorage.interface'
+import IStorage, { DeleteFileProps, SaveFileProps } from '../interface/IStorage.interface'
 
-class DiskStorage implements IStorageProvider {
+class DiskStorage implements IStorage {
   async saveFile ({ file }: SaveFileProps): Promise<string> {
     await fs.promises.rename(
       path.resolve(tmpFolder, file),

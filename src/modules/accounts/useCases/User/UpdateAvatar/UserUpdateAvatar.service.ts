@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe'
 
-import IUserRepository from '@modules/accounts/repositories/interfaces/IUserRepository'
+import IUsers from '@modules/accounts/repositories/interfaces/IUsers.interface'
 import IStorageProvider from '@shared/providers/StorageProvider/interface/IStorage.interface'
 
 interface Request {
@@ -14,13 +14,13 @@ interface Response {
 }
 
 @injectable()
-export default class UpdateUserAvatarService {
+export default class UserUpdateAvatarService {
   constructor (
     @inject('StorageProvider')
     private storageProvider: IStorageProvider,
 
     @inject('UserRepository')
-    private repository: IUserRepository
+    private repository: IUsers
   ) {}
 
   async execute ({ user_id, avatar_file }: Request): Promise<Response> {

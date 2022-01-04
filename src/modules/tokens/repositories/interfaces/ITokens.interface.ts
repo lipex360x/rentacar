@@ -1,4 +1,4 @@
-import Token from '@modules/accounts/infra/typeorm/entities/Token.entity'
+import Token from '@modules/tokens/infra/typeorm/entities/Token.entity'
 
 export interface CreateProps {
   token: string

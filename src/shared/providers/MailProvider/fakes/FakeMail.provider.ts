@@ -1,4 +1,4 @@
-import IMailProvider, { SendMailProps } from '../interface/IMail.interface'
+import IMail, { SendMailProps } from '../interface/IMail.interface'
 
 interface MessageProps {
   to: string
@@ -6,7 +6,7 @@ interface MessageProps {
   body: string
 }
 
-export default class FakeMailProvider implements IMailProvider {
+export default class FakeMailProvider implements IMail {
   private mail: MessageProps[] = []
 
   async sendMail ({ to, subject, body }: SendMailProps): Promise<void> {

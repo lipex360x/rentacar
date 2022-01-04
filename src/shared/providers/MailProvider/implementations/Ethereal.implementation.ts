@@ -1,7 +1,7 @@
 import nodemailer, { Transporter } from 'nodemailer'
-import IMailProvider, { SendMailProps } from '../interface/IMail.interface'
+import IMail, { SendMailProps } from '../interface/IMail.interface'
 
-class EtherealProvider implements IMailProvider {
+class EtherealProvider implements IMail {
   private client: Transporter
 
   constructor () {

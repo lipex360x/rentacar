@@ -1,6 +1,6 @@
 import Faker from 'faker'
 
-import FakeSpecificationRepository from '@modules/cars/repositories/fakes/FakeSpecificationRepository'
+import FakeSpecificationRepository from '@modules/cars/repositories/fakes/FakeSpecification.repository'
 import SpecificationListService from './SpecificationList.service'
 
 let fakeSpecificationRepository: FakeSpecificationRepository

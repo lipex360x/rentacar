@@ -1,8 +1,8 @@
 import { v4 as uuid } from 'uuid'
 import Car from '@modules/cars/infra/typeorm/entities/Car'
-import ICarsRepository, { CreateProps, FindAvailableProps, FindById, FindByLicensePlateProps, UpdateProps } from '@modules/cars/repositories/interfaces/ICarsRepository'
+import ICars, { CreateProps, FindAvailableProps, FindById, FindByLicensePlateProps, UpdateProps } from '@modules/cars/repositories/interfaces/ICars.interface'
 
-export default class FakeCarsRepository implements ICarsRepository {
+export default class FakeCarsRepository implements ICars {
   private repository: Car[] = []
 
   async create ({

@@ -1,9 +1,9 @@
 import { v4 as uuid } from 'uuid'
 
 import Specification from '@modules/cars/infra/typeorm/entities/Specification'
-import ISpecificationsRepository, { FindByIdsProps, ICreateProps, IFindByNameProps } from '../interfaces/ISpecificationsRepository'
+import ISpecifications, { FindByIdsProps, ICreateProps, IFindByNameProps } from '../interfaces/ISpecifications.interface'
 
-export default class FakeSpecificationRepository implements ISpecificationsRepository {
+export default class FakeSpecificationRepository implements ISpecifications {
   private repository: Specification[] = []
 
   async create ({ name, description }:ICreateProps): Promise<Specification> {

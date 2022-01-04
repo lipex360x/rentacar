@@ -1,8 +1,8 @@
 import Category from '@modules/cars/infra/typeorm/entities/Category'
 import { getRepository, Repository } from 'typeorm'
-import ICategoriesRepositoryProps, { ICreateProps, IFindByNameProps } from '../../../repositories/interfaces/ICategoriesRepository'
+import ICategories, { ICreateProps, IFindByNameProps } from '@modules/cars/repositories/interfaces/ICategories.interface'
 
-class CategoriesRepository implements ICategoriesRepositoryProps {
+class CategoriesRepository implements ICategories {
   private repository: Repository<Category>
 
   constructor () {

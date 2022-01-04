@@ -2,9 +2,9 @@ import { inject, injectable } from 'tsyringe'
 import AppError from '@shared/errors/AppError'
 import { v4 as uuid } from 'uuid'
 
-import Token from '@modules/accounts/infra/typeorm/entities/Token.entity'
-import ITokens from '@modules/accounts/repositories/interfaces/ITokens.interface'
-import IUserRepository from '@modules/accounts/repositories/interfaces/IUserRepository'
+import Token from '@modules/tokens/infra/typeorm/entities/Token.entity'
+import ITokens from '@modules/tokens/repositories/interfaces/ITokens.interface'
+import IUsers from '@modules/accounts/repositories/interfaces/IUsers.interface'
 import IMailProvider from '@shared/providers/MailProvider/interface/IMail.interface'
 
 interface Request {
@@ -23,7 +23,7 @@ export default class UserForgotPasswordService {
     private tokenRepository: ITokens,
 
     @inject('UserRepository')
-    private userRepository: IUserRepository
+    private userRepository: IUsers
   ) {}
 
   // private async getToken (user: User, token: string) {

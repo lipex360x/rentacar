@@ -1,7 +1,7 @@
 import { Repository, getRepository } from 'typeorm'
 
-import Token from '@modules/accounts/infra/typeorm/entities/Token.entity'
-import ITokens, { CreateProps, FindByIdProps, UpdateProps, DeleteProps, FindByTokenProps, FindByUserIdProps } from '@modules/accounts/repositories/interfaces/ITokens.interface'
+import Token from '@modules/tokens/infra/typeorm/entities/Token.entity'
+import ITokens, { CreateProps, FindByIdProps, UpdateProps, DeleteProps, FindByTokenProps, FindByUserIdProps } from '@modules/tokens/repositories/interfaces/ITokens.interface'
 
 export default class TokensRepository implements ITokens {
   private repository: Repository<Token>

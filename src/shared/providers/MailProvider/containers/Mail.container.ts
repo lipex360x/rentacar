@@ -1,9 +1,9 @@
 import { container } from 'tsyringe'
 
-import IMailProvider from '../interface/IMail.interface'
+import IMail from '../interface/IMail.interface'
 import EtherealProvider from '../implementations/Ethereal.implementation'
 
-container.registerInstance<IMailProvider>(
+container.registerInstance<IMail>(
   'MailProvider',
   container.resolve(EtherealProvider)
 )

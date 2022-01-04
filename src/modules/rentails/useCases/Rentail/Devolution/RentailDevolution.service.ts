@@ -4,8 +4,8 @@ import AppError from '@shared/errors/AppError'
 import Rentail from '@modules/rentails/infra/typeorm/entities/Rentail.entity'
 import IRentails from '@modules/rentails/repositories/interfaces/IRentails.interface'
 import IDateProvider from '@shared/providers/DateProvider/interface/IDate.interface'
-import ICarRepository from '@modules/cars/repositories/interfaces/ICarsRepository'
-import IUserRepository from '@modules/accounts/repositories/interfaces/IUserRepository'
+import ICars from '@modules/cars/repositories/interfaces/ICars.interface'
+import IUsers from '@modules/accounts/repositories/interfaces/IUsers.interface'
 import Car from '@modules/cars/infra/typeorm/entities/Car'
 
 interface Request {
@@ -32,10 +32,10 @@ export default class RentailDevolutionService {
     private repository: IRentails,
 
     @inject('CarsRepository')
-    private carsRepository: ICarRepository,
+    private carsRepository: ICars,
 
     @inject('UserRepository')
-    private usersRepository: IUserRepository
+    private usersRepository: IUsers
   ) {}
 
   async execute ({ id }: Request): Promise<Response> {

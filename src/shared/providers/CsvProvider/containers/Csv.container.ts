@@ -1,9 +1,9 @@
 import { container } from 'tsyringe'
 
-import ICsvProvider from '../interface/ICsv.interface'
+import ICsv from '../interface/ICsv.interface'
 import FastCsvProvider from '../implementations/FastCsv.implementation'
 
-container.registerSingleton<ICsvProvider>(
+container.registerSingleton<ICsv>(
   'CsvProvider',
   FastCsvProvider
 )

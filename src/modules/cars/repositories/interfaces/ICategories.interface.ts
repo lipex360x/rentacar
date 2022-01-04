@@ -9,7 +9,7 @@ export interface IFindByNameProps {
   name: string
 }
 
-export default interface ICategoriesRepositoryProps {
+export default interface ICategories {
   create(data: ICreateProps): Promise<Category>
   findByName(data: IFindByNameProps): Promise<Category>
   list(): Promise<Category[]>

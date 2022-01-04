@@ -1,10 +1,10 @@
-import IStorageProvider, { DeleteFileProps, SaveFileProps } from '../interface/IStorage.interface'
+import IStorage, { DeleteFileProps, SaveFileProps } from '../interface/IStorage.interface'
 
 interface StorageProps {
   file: string
 }
 
-export default class FakeStorageProvider implements IStorageProvider {
+export default class FakeStorageProvider implements IStorage {
   private storage: StorageProps[] = []
 
   async saveFile ({ file }: SaveFileProps): Promise<string> {

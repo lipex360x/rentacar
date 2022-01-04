@@ -13,7 +13,7 @@ export interface FindByIdsProps {
   ids: string[]
 }
 
-export default interface ISpecificationsRepository {
+export default interface ISpecifications {
   create(data: ICreateProps): Promise<Specification>
   findByName(data: IFindByNameProps): Promise<Specification>
   findByIds(data: FindByIdsProps): Promise<Specification[]>

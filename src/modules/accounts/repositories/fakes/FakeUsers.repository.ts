@@ -1,7 +1,7 @@
-import User from '@modules/accounts/infra/typeorm/entities/User'
-import IUserRepository, { CreateProps, FindByEmailProps, FindByIdProps, UpdateProps } from '../interfaces/IUserRepository'
+import User from '@modules/accounts/infra/typeorm/entities/User.entity'
+import IUsers, { CreateProps, FindByEmailProps, FindByIdProps, UpdateProps } from '../interfaces/IUsers.interface'
 
-export default class FakeUserRepository implements IUserRepository {
+export default class FakeUsersRepository implements IUsers {
   private repository: User[] = []
 
   async create ({ name, email, password, isAdmin, driver_license, isLessee }:CreateProps): Promise<User> {

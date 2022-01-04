@@ -1,8 +1,8 @@
 import AppError from '@shared/errors/AppError'
 import Faker from 'faker'
 
-import FakeCarsRepository from '@modules/cars/repositories/fakes/FakeCarsRepository'
-import FakeSpecificationRepository from '@modules/cars/repositories/fakes/FakeSpecificationRepository'
+import FakeCarsRepository from '@modules/cars/repositories/fakes/FakeCars.repository'
+import FakeSpecificationRepository from '@modules/cars/repositories/fakes/FakeSpecification.repository'
 import CarSpecificationService from './CarSpecification.service'
 
 let fakecarsRepository: FakeCarsRepository

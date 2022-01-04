@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe'
 import AppError from '@shared/errors/AppError'
 
 import Car from '@modules/cars/infra/typeorm/entities/Car'
-import ICarsRepository from '@modules/cars/repositories/interfaces/ICarsRepository'
+import ICars from '@modules/cars/repositories/interfaces/ICars.interface'
 
 interface Request{
   brand: string
@@ -18,7 +18,7 @@ interface Request{
 export default class CarCreateService {
   constructor (
     @inject('CarsRepository')
-    private repository: ICarsRepository
+    private repository: ICars
   ) {}
 
   async execute ({ brand, model, license_plate, description, daily_rate, fine_amount, category_id }: Request): Promise<Car> {

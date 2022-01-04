@@ -1,15 +1,11 @@
 import { container } from 'tsyringe'
 
-import IUserRepository from '@modules/accounts/repositories/interfaces/IUserRepository'
-import UserRepository from '@modules/accounts/infra/typeorm/repositories/UserRepository'
+import IUsers from '@modules/accounts/repositories/interfaces/IUsers.interface'
+import UsersRepository from '@modules/accounts/infra/typeorm/repositories/Users.repository'
 
-const provider = {
-  user: UserRepository
-}
-
-container.registerSingleton<IUserRepository>(
-  'UserRepository',
-  provider.user
+container.registerSingleton<IUsers>(
+  'UsersRepository',
+  UsersRepository
 )
 
-export default provider
+export default container

@@ -1,34 +1,25 @@
 import AppError from '@shared/errors/AppError'
 import Faker from 'faker'
 
-import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUserRepository'
+import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUsers.repository'
 import UserCreateService from '@modules/accounts/useCases/User/Create/UserCreate.service'
 import HashProvider from '@shared/providers/HashProvider/implementations/Bcrypt.implementation'
-import DateProvider from '@shared/providers/DateProvider/implementations/Dayjs.implementation'
-import FakeUserstokenRepository from '@modules/accounts/repositories/fakes/FakeUserstokens.repository'
-
 import SessionService from './Session.service'
 
 let fakeUserRepository: FakeUserRepository
 let sessionService: SessionService
 let userCreateService: UserCreateService
 let hashProvider: HashProvider
-let dateProvider: DateProvider
-let fakeUserstokenRepository: FakeUserstokenRepository
 
 describe('Session Service', () => {
   beforeEach(() => {
     hashProvider = new HashProvider()
-    dateProvider = new DateProvider()
     fakeUserRepository = new FakeUserRepository()
-    fakeUserstokenRepository = new FakeUserstokenRepository()
 
     userCreateService = new UserCreateService(hashProvider, fakeUserRepository)
     sessionService = new SessionService(
       hashProvider,
-      dateProvider,
-      fakeUserRepository,
-      fakeUserstokenRepository
+      fakeUserRepository
     )
   })
 

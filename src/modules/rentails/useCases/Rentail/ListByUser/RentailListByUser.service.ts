@@ -3,7 +3,7 @@ import AppError from '@shared/errors/AppError'
 
 import Rentail from '@modules/rentails/infra/typeorm/entities/Rentail.entity'
 import IRentails from '@modules/rentails/repositories/interfaces/IRentails.interface'
-import IUserRepository from '@modules/accounts/repositories/interfaces/IUserRepository'
+import IUsers from '@modules/accounts/repositories/interfaces/IUsers.interface'
 
 interface Request {
   user_id: string
@@ -16,7 +16,7 @@ export default class RentailListByUserService {
     private repository: IRentails,
 
     @inject('UserRepository')
-    private usersRepository: IUserRepository
+    private usersRepository: IUsers
   ) {}
 
   async execute ({ user_id }: Request): Promise<Rentail[]> {

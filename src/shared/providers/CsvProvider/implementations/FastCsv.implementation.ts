@@ -1,10 +1,10 @@
 import { writeToPath } from '@fast-csv/format'
 import fs from 'fs'
 import csvParse from 'csv-parse'
-import ICsvProvider, { WriteProps, ReadProps } from '../interface/ICsv.interface'
+import ICsv, { WriteProps, ReadProps } from '../interface/ICsv.interface'
 
-class FastCsvProvider implements ICsvProvider {
-  async write ({ path, data, delimiter = ';', headers = true }:WriteProps): Promise<boolean> {
+class FastCsvProvider implements ICsv {
+  async write ({ path, data, delimiter = ';', headers = true }:WriteProps): Promise<number> {
     const options = { headers, delimiter }
 
     return new Promise((resolve, reject) => {
@@ -14,7 +14,7 @@ class FastCsvProvider implements ICsvProvider {
           reject(err)
         })
         .on('finish', () => {
-          resolve(true)
+          resolve(data.length)
         })
     })
   }

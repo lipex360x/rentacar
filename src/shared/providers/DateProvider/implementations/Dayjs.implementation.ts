@@ -1,10 +1,10 @@
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
-import IDateProvider, { ConvertProps, AddSubtractProps, CompareDatesProps } from '../interface/IDate.interface'
+import IDate, { ConvertProps, AddSubtractProps, CompareDatesProps } from '../interface/IDate.interface'
 
 dayjs.extend(utc)
 
-class DayjsDateProvider implements IDateProvider {
+class DayjsDateProvider implements IDate {
   dateNow (): Date {
     return dayjs().toDate()
   }

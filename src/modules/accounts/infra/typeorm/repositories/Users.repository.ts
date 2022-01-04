@@ -1,9 +1,9 @@
 import { Repository, getRepository } from 'typeorm'
 
-import User from '@modules/accounts/infra/typeorm/entities/User'
-import IUserRepository, { CreateProps, FindByEmailProps, FindByIdProps, UpdateProps } from '@modules/accounts/repositories/interfaces/IUserRepository'
+import User from '@modules/accounts/infra/typeorm/entities/User.entity'
+import IUsers, { CreateProps, FindByEmailProps, FindByIdProps, UpdateProps } from '@modules/accounts/repositories/interfaces/IUsers.interface'
 
-export default class UserRepository implements IUserRepository {
+export default class UsersRepository implements IUsers {
   private repository: Repository<User>
 
   constructor () {

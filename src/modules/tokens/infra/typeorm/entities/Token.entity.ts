@@ -8,7 +8,7 @@ import {
   ManyToOne,
   JoinColumn
 } from 'typeorm'
-import User from './User'
+import User from '@modules/accounts/infra/typeorm/entities/User.entity'
 
 @Entity('tokens')
 export default class Token {
