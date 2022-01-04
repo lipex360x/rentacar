@@ -1,7 +1,7 @@
 import { Repository, getRepository } from 'typeorm'
 
 import {{pascalCase entityName}} from '@modules/{{camelCase moduleName}}/infra/typeorm/entities/{{pascalCase entityName}}.entity'
-import I{{pascalTableName}}, { CreateProps, FindByIdProps, UpdateProps } from '@modules/{{camelCase moduleName}}/repositories/interfaces/I{{pascalTableName}}.interface'
+import I{{pascalTableName}}, { CreateProps, FindByIdProps, UpdateProps, DeleteProps } from '@modules/{{camelCase moduleName}}/repositories/interfaces/I{{pascalTableName}}.interface'
 
 export default class {{pascalTableName}}Repository implements I{{pascalTableName}} {
   private repository: Repository<{{pascalCase entityName}}>
@@ -34,5 +34,13 @@ export default class {{pascalTableName}}Repository implements I{{pascalTableName
     await this.repository.save(find{{pascalCase entityName}})
 
     return find{{pascalCase entityName}}
+  }
+
+  async delete ({ id }: DeleteProps): Promise<{{pascalCase entityName}}> {
+    const {{camelCase entityName}} = await this.repository.findOne({ id })
+
+    await this.repository.delete(id)
+
+    return {{camelCase entityName}} 
   }
 }
