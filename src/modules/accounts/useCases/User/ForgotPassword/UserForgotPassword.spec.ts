@@ -5,20 +5,24 @@ import Faker from 'faker'
 import FakeTokensRepository from '@modules/accounts/repositories/fakes/FakeTokens.repository'
 import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUserRepository'
 import UserForgotPasswordService from './UserForgotPassword.service'
-import DayjsDateProvider from '@shared/providers/DateProvider/implementations/Dayjs.implementation'
+import EtherealProvider from '@shared/providers/MailProvider/implementations/Ethereal.implementation'
 
 let fakeTokensRepository: FakeTokensRepository
 let userForgotPasswordService: UserForgotPasswordService
-let dateProvider: DayjsDateProvider
 let fakeUserRepository: FakeUserRepository
+let mailProvider: EtherealProvider
 
 describe('Accounts User ForgotPassword', () => {
   beforeEach(() => {
-    dateProvider = new DayjsDateProvider()
-    fakeUserRepository = new FakeUserRepository(dateProvider)
+    mailProvider = new EtherealProvider()
 
-    fakeTokensRepository = new FakeTokensRepository(dateProvider)
-    userForgotPasswordService = new UserForgotPasswordService(fakeTokensRepository, fakeUserRepository)
+    fakeUserRepository = new FakeUserRepository()
+    fakeTokensRepository = new FakeTokensRepository()
+    userForgotPasswordService = new UserForgotPasswordService(
+      mailProvider,
+      fakeTokensRepository,
+      fakeUserRepository
+    )
   })
 
   it('should not be able to ForgotPassword with a invalid user', async () => {

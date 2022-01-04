@@ -18,10 +18,10 @@ describe('Rentails Rentail ListByUser', () => {
   beforeEach(() => {
     dateProvider = new DayjsDateProvider()
 
-    fakeUsersRepository = new FakeUserRepository(dateProvider)
+    fakeUsersRepository = new FakeUserRepository()
     fakecarsRepository = new FakeCarsRepository()
 
-    fakeRentailsRepository = new FakeRentailsRepository(dateProvider)
+    fakeRentailsRepository = new FakeRentailsRepository()
     rentailListByUserService = new RentailListByUserService(
       fakeRentailsRepository,
       fakeUsersRepository

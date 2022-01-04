@@ -1,13 +1,8 @@
 import Token from '@modules/accounts/infra/typeorm/entities/Token.entity'
 import ITokens, { CreateProps, FindByIdProps, UpdateProps, DeleteProps, FindByTokenProps, FindByUserIdProps } from '@modules/accounts/repositories/interfaces/ITokens.interface'
-import IDateProvider from '@shared/providers/DateProvider/interface/IDate.interface'
 
 export default class FakeAccountsRepository implements ITokens {
   private repository: Token[] = []
-
-  constructor (
-    private dateProvider: IDateProvider
-  ) {}
 
   async create ({ token, user_id, type }:CreateProps): Promise<Token> {
     const newToken = new Token()
@@ -17,7 +12,7 @@ export default class FakeAccountsRepository implements ITokens {
       token,
       user_id,
       type,
-      created_at: this.dateProvider.dateNow()
+      created_at: new Date()
     })
 
     this.repository.push(newToken)

@@ -1,13 +1,8 @@
 import UserTokens from '@modules/accounts/infra/typeorm/entities/UserTokens.entity'
 import IUsersTokens, { CreateProps, FindByIdProps, UpdateProps } from '@modules/accounts/repositories/interfaces/IUsersTokens.interface'
-import IDateProvider from '@shared/providers/DateProvider/interface/IDate.interface'
 
 export default class FakeAccountsRepository implements IUsersTokens {
   private repository: UserTokens[] = []
-
-  constructor (
-    private dateProvider: IDateProvider
-  ) {}
 
   async create ({ user_id, expires_date, refresh_token }:CreateProps): Promise<UserTokens> {
     const userTokens = new UserTokens()
@@ -17,8 +12,8 @@ export default class FakeAccountsRepository implements IUsersTokens {
       user_id,
       expires_date,
       refresh_token,
-      created_at: this.dateProvider.dateNow(),
-      updated_at: this.dateProvider.dateNow()
+      created_at: new Date(),
+      updated_at: new Date()
     })
 
     this.repository.push(userTokens)

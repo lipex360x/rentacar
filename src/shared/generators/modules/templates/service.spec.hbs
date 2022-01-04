@@ -4,17 +4,14 @@ import Faker from 'faker'
 
 import Fake{{pascalTableName}}Repository from '@modules/{{camelCase moduleName}}/repositories/fakes/Fake{{pascalTableName}}.repository'
 import {{pascalCase useCaseName}}{{pascalCase actionName}}Service from './{{pascalCase useCaseName}}{{pascalCase actionName}}.service'
-import DayjsDateProvider from '@shared/providers/DateProvider/implementations/Dayjs.implementation'
 
 let fake{{pascalTableName}}Repository: Fake{{pascalTableName}}Repository
 let {{camelCase useCaseName}}{{pascalCase actionName}}Service: {{pascalCase useCaseName}}{{pascalCase actionName}}Service
-let dateProvider: DayjsDateProvider
 
 describe('{{pascalCase moduleName}} {{pascalCase useCaseName}} {{pascalCase actionName}}', () => {
   beforeEach(() => {
-    dateProvider = new DayjsDateProvider()
 
-    fake{{pascalTableName}}Repository = new Fake{{pascalTableName}}Repository(dateProvider)
+    fake{{pascalTableName}}Repository = new Fake{{pascalTableName}}Repository()
     {{camelCase useCaseName}}{{pascalCase actionName}}Service = new {{pascalCase useCaseName}}{{pascalCase actionName}}Service(fake{{pascalTableName}}Repository)
   })
 

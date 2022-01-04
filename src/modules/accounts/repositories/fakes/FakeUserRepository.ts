@@ -1,13 +1,8 @@
 import User from '@modules/accounts/infra/typeorm/entities/User'
 import IUserRepository, { CreateProps, FindByEmailProps, FindByIdProps, UpdateProps } from '../interfaces/IUserRepository'
-import IDateProvider from '@shared/providers/DateProvider/interface/IDate.interface'
 
 export default class FakeUserRepository implements IUserRepository {
   private repository: User[] = []
-
-  constructor (
-    private dateProvider: IDateProvider
-  ) {}
 
   async create ({ name, email, password, isAdmin, driver_license, isLessee }:CreateProps): Promise<User> {
     const user = new User()
@@ -20,8 +15,8 @@ export default class FakeUserRepository implements IUserRepository {
       isAdmin,
       driver_license,
       isLessee,
-      created_at: this.dateProvider.dateNow(),
-      updated_at: this.dateProvider.dateNow()
+      created_at: new Date(),
+      updated_at: new Date()
     })
 
     this.repository.push(user)

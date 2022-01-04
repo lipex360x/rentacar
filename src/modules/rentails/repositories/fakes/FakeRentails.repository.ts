@@ -1,13 +1,8 @@
 import Rentail from '@modules/rentails/infra/typeorm/entities/Rentail.entity'
 import IRentails, { CreateProps, FindByIdProps, FindByUserIdProps, UpdateProps } from '@modules/rentails/repositories/interfaces/IRentails.interface'
-import IDateProvider from '@shared/providers/DateProvider/interface/IDate.interface'
 
 export default class FakeRentailsRepository implements IRentails {
   private repository: Rentail[] = []
-
-  constructor (
-    private dateProvider: IDateProvider
-  ) {}
 
   async create ({ user_id, car_id, expected_return_date }:CreateProps): Promise<Rentail> {
     const rentail = new Rentail()
@@ -16,10 +11,10 @@ export default class FakeRentailsRepository implements IRentails {
       ...rentail,
       user_id,
       car_id,
-      start_date: this.dateProvider.dateNow(),
+      start_date: new Date(),
       expected_return_date,
-      created_at: this.dateProvider.dateNow(),
-      updated_at: this.dateProvider.dateNow()
+      created_at: new Date(),
+      updated_at: new Date()
     })
 
     this.repository.push(rentail)

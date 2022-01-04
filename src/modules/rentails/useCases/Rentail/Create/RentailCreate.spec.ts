@@ -21,8 +21,8 @@ describe('Rentails Rentail Create', () => {
     dateProvider = new DayjsDateProvider()
 
     fakecarsRepository = new FakeCarsRepository()
-    fakeUserRepository = new FakeUserRepository(dateProvider)
-    fakerentailsRepository = new FakeRentailsRepository(dateProvider)
+    fakeUserRepository = new FakeUserRepository()
+    fakerentailsRepository = new FakeRentailsRepository()
 
     rentailCreateService = new RentailCreateService(
       dateProvider,

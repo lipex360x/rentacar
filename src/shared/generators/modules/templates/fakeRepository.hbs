@@ -1,13 +1,8 @@
 import {{pascalCase entityName}} from '@modules/{{camelCase moduleName}}/infra/typeorm/entities/{{pascalCase entityName}}.entity'
 import I{{pascalTableName}}, { CreateProps, FindByIdProps, UpdateProps, DeleteProps } from '@modules/{{camelCase moduleName}}/repositories/interfaces/I{{pascalTableName}}.interface'
-import IDateProvider from '@shared/providers/DateProvider/interface/IDate.interface'
 
 export default class Fake{{pascalCase moduleName}}Repository implements I{{pascalTableName}} {
   private repository: {{pascalCase entityName}}[] = []
-
-  constructor (
-    private dateProvider: IDateProvider
-  ) {}
 
   async create ({ data }:CreateProps): Promise<{{pascalCase entityName}}> {
     const {{camelCase entityName}} = new {{pascalCase entityName}}()
@@ -15,8 +10,8 @@ export default class Fake{{pascalCase moduleName}}Repository implements I{{pasca
     Object.assign({{camelCase entityName}}, {
       ...{{camelCase entityName}},
       data,
-      created_at: this.dateProvider.dateNow(),
-      updated_at: this.dateProvider.dateNow()
+      created_at: new Date(),
+      updated_at: new Date()
     })
 
     this.repository.push({{camelCase entityName}})

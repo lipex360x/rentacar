@@ -5,6 +5,7 @@ import { v4 as uuid } from 'uuid'
 import Token from '@modules/accounts/infra/typeorm/entities/Token.entity'
 import ITokens from '@modules/accounts/repositories/interfaces/ITokens.interface'
 import IUserRepository from '@modules/accounts/repositories/interfaces/IUserRepository'
+import IMailProvider from '@shared/providers/MailProvider/interface/IMail.interface'
 
 interface Request {
   email: string
@@ -15,6 +16,9 @@ export default class UserForgotPasswordService {
   // private tokenExpireTime: number = 3
 
   constructor (
+    @inject('MailProvider')
+    private mailProvider: IMailProvider,
+
     @inject('TokensRepository')
     private tokenRepository: ITokens,
 

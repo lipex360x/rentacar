@@ -20,8 +20,8 @@ describe('Session Service', () => {
   beforeEach(() => {
     hashProvider = new HashProvider()
     dateProvider = new DateProvider()
-    fakeUserRepository = new FakeUserRepository(dateProvider)
-    fakeUserstokenRepository = new FakeUserstokenRepository(dateProvider)
+    fakeUserRepository = new FakeUserRepository()
+    fakeUserstokenRepository = new FakeUserstokenRepository()
 
     userCreateService = new UserCreateService(hashProvider, fakeUserRepository)
     sessionService = new SessionService(
