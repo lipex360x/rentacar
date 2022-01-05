@@ -1,0 +1,24 @@
+<style>
+  .message{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0 auto;
+    background:#eee;
+    padding: 10px;
+    border-radius: 5px;
+    max-width: 600px;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
+  }
+</style>
+
+<div class="message">
+  <p>Hello, {{name}}</p>
+  <p>To reset your account password, click on the link below</p>
+  
+  <p><a href="{{link}}">Reset Password</a></p>
+
+  <p>You can also past the link into your browser: <small>{{link}}</small></p>
+
+  <p><small>If you haven't requested, please disregard this email</small></p>
+</div>

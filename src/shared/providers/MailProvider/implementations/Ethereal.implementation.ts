@@ -1,10 +1,17 @@
+import { inject, injectable } from 'tsyringe'
 import nodemailer, { Transporter } from 'nodemailer'
+
+import IMailTemplate from '@shared/providers/MailTemplateProvider/interface/IMailTemplate.interface'
 import IMail, { SendMailProps } from '../interface/IMail.interface'
 
+@injectable()
 export default class EtherealProvider implements IMail {
   private client: Transporter
 
-  constructor () {
+  constructor (
+    @inject('MailTemplateProvider')
+    private mailTemplateProvider: IMailTemplate
+  ) {
     nodemailer.createTestAccount().then(account => {
       const transporter = nodemailer.createTransport({
         host: account.smtp.host,
@@ -20,16 +27,22 @@ export default class EtherealProvider implements IMail {
     }).catch(err => console.error(err))
   }
 
-  async sendMail ({ to, subject, body }: SendMailProps): Promise<void> {
+  async sendMail ({ to, from, subject, templateData }: SendMailProps): Promise<void> {
     const message = await this.client.sendMail({
-      to,
-      from: 'Rentex <noreplay@rentex.com>',
+      from: {
+        name: from?.name || `'${process.env.PROJECT_NAME}'`,
+        address: from?.email || `'${process.env.PROJECT_MAIL}'`
+      },
+
+      to: {
+        name: to.name,
+        address: to.email
+      },
+
       subject,
-      text: body,
-      html: body
+      html: await this.mailTemplateProvider.parse(templateData)
     })
 
-    console.log('Message sent: %s', message.messageId)
-    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(message))
+    console.log('\n MailSent. URL: %s', nodemailer.getTestMessageUrl(message))
   }
 }

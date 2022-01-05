@@ -69,7 +69,13 @@ module.exports = {
       {
         type: 'add',
         path: '../../../.env',
-        data: { jwtToken: generateId(16), jwtExpires: '15m', refreshToken: generateId(12), refreshExpires: '7d' },
+        data: {
+          jwtToken: generateId(16),
+          jwtExpires: '15m',
+          refreshToken: generateId(12),
+          refreshExpires: '7d',
+          projectMail: 'noreply@{{camelCase projectName}}.com'
+        },
         templateFile: './start/templates/env.hbs'
       }
     ]

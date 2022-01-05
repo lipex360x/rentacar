@@ -1,7 +1,15 @@
+import { ParseMailProps } from '@shared/providers/MailTemplateProvider/interface/IMailTemplate.interface'
+
+interface MailContactProps {
+  name: string
+  email: string
+}
+
 export interface SendMailProps {
-  to: string
+  to: MailContactProps
+  from ?: MailContactProps
   subject: string
-  body: string
+  templateData: ParseMailProps
 }
 
 export default interface IMail {

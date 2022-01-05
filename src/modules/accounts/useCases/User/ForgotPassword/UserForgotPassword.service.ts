@@ -1,8 +1,8 @@
 import { inject, injectable } from 'tsyringe'
 import AppError from '@shared/errors/AppError'
 import { v4 as uuid } from 'uuid'
+import { resolve } from 'path'
 
-import Token from '@modules/tokens/infra/typeorm/entities/Token.entity'
 import ITokens from '@modules/tokens/repositories/interfaces/ITokens.interface'
 import IUsers from '@modules/accounts/repositories/interfaces/IUsers.interface'
 import IMail from '@shared/providers/MailProvider/interface/IMail.interface'
@@ -26,27 +26,35 @@ export default class UserForgotPasswordService {
     private userRepository: IUsers
   ) {}
 
-  async execute ({ email }: Request): Promise<Token> {
+  async execute ({ email }: Request): Promise<string> {
     const user = await this.userRepository.findByEmail({ email })
 
     if (!user) throw new AppError('User not found!')
 
-    const token = await this.tokensRepository.findByUserId({ user_id: user.id })
+    const getToken = await this.tokensRepository.findByUserId({ user_id: user.id })
 
-    if (token) await this.tokensRepository.delete({ id: token.id })
+    if (getToken) await this.tokensRepository.delete({ id: getToken.id })
 
-    const forgot = await this.tokensRepository.create({
+    const { token } = await this.tokensRepository.create({
       token: uuid(),
       user_id: user.id,
       type: 'forgotPassword'
     })
 
+    const mailTemplate = resolve(__dirname, 'MailTemplate.hbs')
+
     await this.mailProvider.sendMail({
-      to: email,
+      to: { name: user.name, email: user.email },
       subject: 'Recovery Password',
-      body: `recovery password: ${forgot.token}`
+      templateData: {
+        file: mailTemplate,
+        variables: {
+          name: user.name,
+          link: `http://localhost:3000/password/reset/${token}`
+        }
+      }
     })
 
-    return forgot
+    return token
   }
 }

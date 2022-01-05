@@ -1,19 +1,9 @@
 import IMail, { SendMailProps } from '../interface/IMail.interface'
 
-interface MessageProps {
-  to: string
-  subject: string
-  body: string
-}
-
 export default class FakeMailProvider implements IMail {
-  private mail: MessageProps[] = []
+  private mail: SendMailProps[] = []
 
-  async sendMail ({ to, subject, body }: SendMailProps): Promise<void> {
-    this.mail.push({
-      to,
-      subject,
-      body
-    })
+  async sendMail ({ to, from, subject, templateData }: SendMailProps): Promise<void> {
+    this.mail.push({ to, from, subject, templateData })
   }
 }

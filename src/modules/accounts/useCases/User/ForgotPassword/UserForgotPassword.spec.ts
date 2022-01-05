@@ -48,7 +48,7 @@ describe('Accounts User ForgotPassword', () => {
 
     const forgotPassword = await userForgotPasswordService.execute({ email: user.email })
 
-    expect(forgotPassword).toHaveProperty('token')
+    expect(typeof forgotPassword).toBe('string')
   })
 
   it('should be able to create a Forgot Token', async () => {
@@ -63,6 +63,6 @@ describe('Accounts User ForgotPassword', () => {
     const forgotPassword = await userForgotPasswordService.execute({ email: user.email })
 
     expect(sendMail).toHaveBeenCalled()
-    expect(forgotPassword).toHaveProperty('token')
+    expect(typeof forgotPassword).toBe('string')
   })
 })

@@ -57,7 +57,7 @@ module.exports = {
       {
         data: {},
         path: '../../shared/providers/{{pascalCase providerName}}Provider/fakes',
-        name: '{{pascalCase implementationName}}.implementation.ts',
+        name: 'Fake{{pascalCase providerName}}.provider.ts',
         template: 'fake.hbs',
         force: false
       },
