@@ -9,12 +9,14 @@ import DayjsDateProvider from '@shared/providers/DateProvider/implementations/Da
 import FakeRentailsRepository from '@modules/rentails/repositories/fakes/FakeRentails.repository'
 import FakeCarsRepository from '@modules/cars/repositories/fakes/FakeCars.repository'
 import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUsers.repository'
+import FakeNotificationsRepository from '@modules/notifications/repositories/fakes/FakeNotifications.repository'
 
 let rentailCreateService: RentailCreateService
 let fakerentailsRepository: FakeRentailsRepository
 let fakecarsRepository: FakeCarsRepository
 let fakeUserRepository: FakeUserRepository
 let dateProvider: DayjsDateProvider
+let fakeNotificationsRepository: FakeNotificationsRepository
 
 describe('Rentails Rentail Create', () => {
   beforeEach(() => {
@@ -23,12 +25,14 @@ describe('Rentails Rentail Create', () => {
     fakecarsRepository = new FakeCarsRepository()
     fakeUserRepository = new FakeUserRepository()
     fakerentailsRepository = new FakeRentailsRepository()
+    fakeNotificationsRepository = new FakeNotificationsRepository()
 
     rentailCreateService = new RentailCreateService(
       dateProvider,
       fakerentailsRepository,
       fakecarsRepository,
-      fakeUserRepository
+      fakeUserRepository,
+      fakeNotificationsRepository
     )
   })
 
@@ -142,8 +146,11 @@ describe('Rentails Rentail Create', () => {
       expected_return_date: dateProvider.addTime({ time: 1, unit: 'day' })
     })
 
+    const notifications = await fakeNotificationsRepository.findAll()
+
     expect(rentails.rentail).toHaveProperty('id')
     expect(rentails.user.isLessee).toBe(true)
     expect(rentails.car.available).toBe(false)
+    expect(notifications.length).toBe(1)
   })
 })

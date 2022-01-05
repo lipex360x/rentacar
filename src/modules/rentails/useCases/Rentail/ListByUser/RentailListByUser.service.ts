@@ -15,7 +15,7 @@ export default class RentailListByUserService {
     @inject('RentailsRepository')
     private repository: IRentails,
 
-    @inject('UserRepository')
+    @inject('UsersRepository')
     private usersRepository: IUsers
   ) {}
 

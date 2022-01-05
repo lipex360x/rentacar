@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
-import IDate, { ConvertProps, AddSubtractProps, CompareDatesProps } from '../interface/IDate.interface'
+import IDate, { ConvertProps, AddSubtractProps, CompareDatesProps, FormatProps } from '../interface/IDate.interface'
 
 dayjs.extend(utc)
 
@@ -11,6 +11,10 @@ export default class FakeDateProvider implements IDate {
 
   convertToUTC ({ date }: ConvertProps): string {
     return dayjs(date).utc().local().format()
+  }
+
+  format ({ date, format }: FormatProps): string {
+    return dayjs(date).format(format)
   }
 
   addTime ({ time, unit, date = null }: AddSubtractProps): Date {

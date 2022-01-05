@@ -34,7 +34,7 @@ export default class RentailDevolutionService {
     @inject('CarsRepository')
     private carsRepository: ICars,
 
-    @inject('UserRepository')
+    @inject('UsersRepository')
     private usersRepository: IUsers
   ) {}
 

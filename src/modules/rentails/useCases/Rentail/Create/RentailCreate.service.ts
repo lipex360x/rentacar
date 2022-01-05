@@ -8,6 +8,7 @@ import IRentails from '@modules/rentails/repositories/interfaces/IRentails.inter
 import ICars from '@modules/cars/repositories/interfaces/ICars.interface'
 import IUsers from '@modules/accounts/repositories/interfaces/IUsers.interface'
 import IDateProvider from '@shared/providers/DateProvider/interface/IDate.interface'
+import INotitications from '@modules/notifications/repositories/interfaces/INotifications.interface'
 
 interface Request {
   user_id: string
@@ -37,8 +38,11 @@ export default class RentailCreateService {
     @inject('CarsRepository')
     private carsRepository: ICars,
 
-    @inject('UserRepository')
-    private usersRepository: IUsers
+    @inject('UsersRepository')
+    private usersRepository: IUsers,
+
+    @inject('NotificationsRepository')
+    private notificationsRepository: INotitications
 
   ) {}
 
@@ -77,6 +81,12 @@ export default class RentailCreateService {
     // set car unavailable
     car.available = false
     const updatedCar = await this.carsRepository.update({ car })
+
+    const rentalDate = this.dateProvider.format({ date: rentail.created_at, format: 'DD/MM/YYYY [at] HH:mm:ss' })
+    await this.notificationsRepository.create({
+      user_id: updatedUser.id,
+      content: `New rental to car ${updatedCar.model} from ${updatedUser.name} in ${rentalDate}`
+    })
 
     return {
       rentail,

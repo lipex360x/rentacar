@@ -14,9 +14,15 @@ export interface ConvertProps {
   date: Date
 }
 
+export interface FormatProps {
+  date: string | Date
+  format: string
+}
+
 export default interface IDate {
   dateNow(): Date
   convertToUTC(data: ConvertProps): string
+  format(data: FormatProps): string
   addTime(data: AddSubtractProps): Date
   subtractTime(data: AddSubtractProps): Date
   compareDates(data: CompareDatesProps): number

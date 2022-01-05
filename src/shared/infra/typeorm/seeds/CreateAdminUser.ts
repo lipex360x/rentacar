@@ -18,7 +18,7 @@ export default class CreateAdminUser implements Seeder {
         {
           id: uuid(),
           name: 'admin',
-          email: 'admin@user.com',
+          email: 'root@user.com',
           password,
           driver_license: Faker.lorem.slug(),
           isAdmin: true
