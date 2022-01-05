@@ -17,7 +17,6 @@ export interface UpdateProps {
 
 export interface DeleteProps {
   id: string
-
 }
 
 export interface FindByTokenProps {

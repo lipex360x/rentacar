@@ -49,7 +49,6 @@ export default class UserLoginService {
     const {
       JWT_TOKEN,
       JWT_EXPIRES,
-      REFRESH_TOKEN,
       REFRESH_EXPIRES_DAYS
     } = process.env
 
@@ -59,17 +58,18 @@ export default class UserLoginService {
     })
 
     const expireDate = this.dateProvider.addTime({ time: parseInt(REFRESH_EXPIRES_DAYS), unit: 'day' })
+    const refreshToken = await this.hashProvider.generateHash()
 
-    const refreshToken = await this.tokensRepository.create({
+    await this.tokensRepository.create({
       user_id: user.id,
-      token: REFRESH_TOKEN,
+      token: refreshToken,
       type: 'refreshToken',
       expire_date: expireDate
     })
 
     return {
       token: jwtToken,
-      refreshToken: refreshToken.token,
+      refreshToken: refreshToken,
       user: {
         name: user.name,
         email: user.email
