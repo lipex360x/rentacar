@@ -1,5 +1,6 @@
 import { inject, injectable } from 'tsyringe'
 import AppError from '@shared/errors/AppError'
+import { sign } from 'jsonwebtoken'
 
 import ITokens from '@modules/tokens/repositories/interfaces/ITokens.interface'
 import IDate from '@shared/providers/DateProvider/interface/IDate.interface'
@@ -10,10 +11,19 @@ interface Request {
   token: string
 }
 
+interface Response {
+  user: {
+    name: string,
+    email: string
+  },
+  token: string
+  refreshToken: string
+}
+
 @injectable()
 export default class UserRefreshTokenService {
   constructor (
-    @inject('DateProvoder')
+    @inject('DateProvider')
     private dateProvider: IDate,
 
     @inject('HashProvider')
@@ -26,7 +36,7 @@ export default class UserRefreshTokenService {
     private tokensRepository: ITokens
   ) {}
 
-  async execute ({ token }: Request): Promise<string> {
+  async execute ({ token }: Request): Promise<Response> {
     const getToken = await this.tokensRepository.findByToken({ token })
 
     if (!getToken) throw new AppError('Invalid Token')
@@ -35,7 +45,16 @@ export default class UserRefreshTokenService {
 
     if (!user) throw new AppError('Invalid User')
 
-    const { REFRESH_EXPIRES_DAYS } = process.env
+    const {
+      JWT_TOKEN,
+      JWT_EXPIRES,
+      REFRESH_EXPIRES_DAYS
+    } = process.env
+
+    const jwtToken = sign({}, JWT_TOKEN, {
+      subject: user.id,
+      expiresIn: JWT_EXPIRES
+    })
 
     await this.tokensRepository.delete({ id: getToken.id })
 
@@ -49,6 +68,13 @@ export default class UserRefreshTokenService {
       expire_date: expireDate
     })
 
-    return refreshToken
+    return {
+      token: jwtToken,
+      refreshToken: refreshToken,
+      user: {
+        name: user.name,
+        email: user.email
+      }
+    }
   }
 }

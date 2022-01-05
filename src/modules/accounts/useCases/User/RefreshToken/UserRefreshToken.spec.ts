@@ -67,7 +67,7 @@ describe('Accounts User RefreshToken', () => {
     const generateHash = jest.spyOn(fakeHashProvider, 'generateHash')
     const refreshToken = await userRefreshTokenService.execute({ token })
 
-    expect(typeof refreshToken).toBe('string')
+    expect(refreshToken).toHaveProperty('refreshToken')
     expect(addTime).toHaveBeenCalled()
     expect(generateHash).toHaveBeenCalled()
   })
