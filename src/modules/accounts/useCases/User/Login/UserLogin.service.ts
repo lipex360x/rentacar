@@ -5,6 +5,7 @@ import { sign } from 'jsonwebtoken'
 import IUsers from '@modules/accounts/repositories/interfaces/IUsers.interface'
 import IHash from '@shared/providers/HashProvider/interface/IHash.interface'
 import ITokens from '@modules/tokens/repositories/interfaces/ITokens.interface'
+import IDate from '@shared/providers/DateProvider/interface/IDate.interface'
 
 interface Request{
   email: string
@@ -17,6 +18,7 @@ interface Response {
     email: string
   },
   token: string
+  refreshToken: string
 }
 
 @injectable()
@@ -24,6 +26,9 @@ export default class UserLoginService {
   constructor (
     @inject('HashProvider')
     private hashProvider: IHash,
+
+    @inject('DateProvider')
+    private dateProvider: IDate,
 
     @inject('TokensRepository')
     private tokensRepository: ITokens,
@@ -43,16 +48,28 @@ export default class UserLoginService {
 
     const {
       JWT_TOKEN,
-      JWT_EXPIRES
+      JWT_EXPIRES,
+      REFRESH_TOKEN,
+      REFRESH_EXPIRES_DAYS
     } = process.env
 
-    const token = sign({}, JWT_TOKEN, {
+    const jwtToken = sign({}, JWT_TOKEN, {
       subject: user.id,
       expiresIn: JWT_EXPIRES
     })
 
+    const expireDate = this.dateProvider.addTime({ time: parseInt(REFRESH_EXPIRES_DAYS), unit: 'day' })
+
+    const refreshToken = await this.tokensRepository.create({
+      user_id: user.id,
+      token: REFRESH_TOKEN,
+      type: 'refreshToken',
+      expire_date: expireDate
+    })
+
     return {
-      token,
+      token: jwtToken,
+      refreshToken: refreshToken.token,
       user: {
         name: user.name,
         email: user.email

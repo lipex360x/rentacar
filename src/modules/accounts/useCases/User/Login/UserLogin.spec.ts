@@ -28,6 +28,7 @@ describe('Session Service', () => {
     userCreateService = new UserCreateService(hashProvider, fakeUserRepository)
     userLoginService = new UserLoginService(
       hashProvider,
+      dateProvider,
       fakeTokensRepository,
       fakeUserRepository
     )

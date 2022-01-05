@@ -10,8 +10,8 @@ export default class TokensRepository implements ITokens {
     this.repository = getRepository(Token)
   }
 
-  async create ({ token, user_id, type }: CreateProps): Promise<Token> {
-    const newToken = this.repository.create({ token, user_id, type })
+  async create ({ token, user_id, type, expire_date }: CreateProps): Promise<Token> {
+    const newToken = this.repository.create({ token, user_id, type, expire_date })
 
     await this.repository.save(newToken)
 
