@@ -1,22 +1,20 @@
-import { createConnections } from 'typeorm'
-import promiseRetry from '@shared/utils/promiseRetry'
+import { createConnection, getConnectionOptions } from 'typeorm'
 
 class OrmConnect {
   async execute () {
-    try {
-      const connect = await createConnections()
-      const { database } = connect[0].options
+    const options = await getConnectionOptions()
 
-      console.log(`📚 Connected to database ${database}`)
+    Object.assign(options, {
+      connection: process.env.TYPEORM_CONNECTION
+    })
+
+    try {
+      await createConnection(options)
+      console.log('📚 Connected to database', options.database)
     } catch (error) {
-      return promiseRetry({
-        maxAttempt: 5,
-        terminalMessage: `Trying to connect to database - ${error}`,
-        timeToRetry: 2000,
-        functionRetry: () => { return this.execute() }
-      })
+      console.log('❌ Fail to Connect to database', options.database)
+      process.exit()
     }
   }
 }
-
 export default new OrmConnect().execute()

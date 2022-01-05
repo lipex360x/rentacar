@@ -17,7 +17,7 @@ class DiskStorage implements IStorage {
   async deleteFile ({ file }: DeleteFileProps): Promise<void> {
     try { await fs.promises.stat(path.resolve(uploadsFolder, file)) } catch { return }
 
-    await fs.promises.unlink(file)
+    await fs.promises.unlink(path.resolve(uploadsFolder, file))
   }
 }
 

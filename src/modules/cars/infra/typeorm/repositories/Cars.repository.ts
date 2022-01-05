@@ -1,9 +1,9 @@
 import { Repository, getRepository } from 'typeorm'
 
 import Car from '@modules/cars/infra/typeorm/entities/Car'
-import ICarsRepository, { CreateProps, FindAvailableProps, FindById, FindByLicensePlateProps, UpdateProps } from '@modules/cars/repositories/interfaces/ICarsRepository'
+import ICars, { CreateProps, FindAvailableProps, FindById, FindByLicensePlateProps, UpdateProps } from '@modules/cars/repositories/interfaces/ICars.interface'
 
-export default class CarsRepository implements ICarsRepository {
+export default class CarsRepository implements ICars {
   private repository: Repository<Car>
 
   constructor () {

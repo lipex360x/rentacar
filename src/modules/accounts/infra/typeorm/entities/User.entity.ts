@@ -32,7 +32,7 @@ export default class User {
   @Column({ default: false })
     isLessee: boolean
 
-  @Column()
+  @Column({ nullable: true })
     avatar: string
 
   @CreateDateColumn()

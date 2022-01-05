@@ -2,6 +2,7 @@ import { inject, injectable } from 'tsyringe'
 
 import IUsers from '@modules/accounts/repositories/interfaces/IUsers.interface'
 import IStorageProvider from '@shared/providers/StorageProvider/interface/IStorage.interface'
+import AppError from '@shared/errors/AppError'
 
 interface Request {
   user_id: string
@@ -19,12 +20,14 @@ export default class UserUpdateAvatarService {
     @inject('StorageProvider')
     private storageProvider: IStorageProvider,
 
-    @inject('UserRepository')
+    @inject('UsersRepository')
     private repository: IUsers
   ) {}
 
   async execute ({ user_id, avatar_file }: Request): Promise<Response> {
     const user = await this.repository.findById({ id: user_id })
+
+    if (!user) throw new AppError('User not found!')
 
     if (user.avatar) await this.storageProvider.deleteFile({ file: user.avatar })
 

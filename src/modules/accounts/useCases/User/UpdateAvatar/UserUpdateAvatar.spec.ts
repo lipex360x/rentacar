@@ -3,6 +3,7 @@ import Faker from 'faker'
 import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUsers.repository'
 import FakeStorageProvider from '@shared/providers/StorageProvider/fakes/FakeStorage.provider'
 import UserUpdateAvatarService from './UserUpdateAvatar.service'
+import AppError from '@shared/errors/AppError'
 
 let fakeUserRepository: FakeUserRepository
 let userUpdateAvatarService: UserUpdateAvatarService
@@ -13,6 +14,12 @@ describe('Accounts UpdateAvatar', () => {
     storageProvider = new FakeStorageProvider()
     fakeUserRepository = new FakeUserRepository()
     userUpdateAvatarService = new UserUpdateAvatarService(storageProvider, fakeUserRepository)
+  })
+
+  it('should not be able to update a invalid user', async () => {
+    await expect(
+      userUpdateAvatarService.execute({ user_id: 'fake_user_id', avatar_file: 'file.png' })
+    ).rejects.toBeInstanceOf(AppError)
   })
 
   it('should be able to update an user avatar', async () => {
