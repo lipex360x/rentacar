@@ -22,7 +22,10 @@ export default class Token {
     user_id: string
 
   @Column()
-    type:string
+    type: string
+
+  @Column()
+    expire_date: Date
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })

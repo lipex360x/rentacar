@@ -6,8 +6,10 @@ import MailProvider from '@shared/providers/MailProvider/fakes/FakeMail.provider
 import FakeTokensRepository from '@modules/tokens/repositories/fakes/FakeTokens.repository'
 import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUsers.repository'
 import UserForgotPasswordService from './UserForgotPassword.service'
+import FakeDateProvider from '@shared/providers/DateProvider/fakes/FakeDate.provider'
 
 let mailProvider: MailProvider
+let dateProvider: FakeDateProvider
 let fakeTokensRepository: FakeTokensRepository
 let fakeUserRepository: FakeUserRepository
 let userForgotPasswordService: UserForgotPasswordService
@@ -15,11 +17,13 @@ let userForgotPasswordService: UserForgotPasswordService
 describe('Accounts User ForgotPassword', () => {
   beforeEach(() => {
     mailProvider = new MailProvider()
+    dateProvider = new FakeDateProvider()
 
     fakeTokensRepository = new FakeTokensRepository()
     fakeUserRepository = new FakeUserRepository()
 
     userForgotPasswordService = new UserForgotPasswordService(
+      dateProvider,
       mailProvider,
       fakeTokensRepository,
       fakeUserRepository
@@ -43,7 +47,8 @@ describe('Accounts User ForgotPassword', () => {
     await fakeTokensRepository.create({
       user_id: user.id,
       token: Faker.datatype.uuid(),
-      type: 'forgotPassword'
+      type: 'forgotPassword',
+      expire_date: dateProvider.addTime({ time: 15, unit: 'minute' })
     })
 
     const forgotPassword = await userForgotPasswordService.execute({ email: user.email })

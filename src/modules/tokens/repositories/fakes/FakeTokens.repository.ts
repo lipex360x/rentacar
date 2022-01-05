@@ -4,7 +4,7 @@ import ITokens, { CreateProps, FindByIdProps, UpdateProps, DeleteProps, FindByTo
 export default class FakeAccountsRepository implements ITokens {
   private repository: Token[] = []
 
-  async create ({ token, user_id, type }:CreateProps): Promise<Token> {
+  async create ({ token, user_id, type, expire_date }:CreateProps): Promise<Token> {
     const newToken = new Token()
 
     Object.assign(newToken, {
@@ -12,6 +12,7 @@ export default class FakeAccountsRepository implements ITokens {
       token,
       user_id,
       type,
+      expire_date,
       created_at: new Date()
     })
 

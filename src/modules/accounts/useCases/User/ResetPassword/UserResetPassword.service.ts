@@ -37,7 +37,7 @@ export default class UserResetPasswordService {
     const dateNow = this.dateProvider.dateNow()
 
     const tokenTime = this.dateProvider.compareDates({
-      start_date: getToken.created_at,
+      start_date: getToken.expire_date,
       end_date: dateNow,
       unit: 'hour'
     })

@@ -1,24 +1,34 @@
+import 'reflect-metadata'
 import AppError from '@shared/errors/AppError'
 import Faker from 'faker'
 
-import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUsers.repository'
-import UserCreateService from '@modules/accounts/useCases/User/Create/UserCreate.service'
-import HashProvider from '@shared/providers/HashProvider/implementations/Bcrypt.implementation'
 import UserLoginService from './UserLogin.service'
 
+import UserCreateService from '@modules/accounts/useCases/User/Create/UserCreate.service'
+import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUsers.repository'
+import FakeTokensRepository from '@modules/tokens/repositories/fakes/FakeTokens.repository'
+import FakeHashProvider from '@shared/providers/HashProvider/fakes/FakeHash.provider'
+import FakeDateProvider from '@shared/providers/DateProvider/fakes/FakeDate.provider'
+
 let fakeUserRepository: FakeUserRepository
+let fakeTokensRepository: FakeTokensRepository
 let userLoginService: UserLoginService
+
 let userCreateService: UserCreateService
-let hashProvider: HashProvider
+let hashProvider: FakeHashProvider
+let dateProvider: FakeDateProvider
 
 describe('Session Service', () => {
   beforeEach(() => {
-    hashProvider = new HashProvider()
+    dateProvider = new FakeDateProvider()
+    hashProvider = new FakeHashProvider()
     fakeUserRepository = new FakeUserRepository()
+    fakeTokensRepository = new FakeTokensRepository()
 
     userCreateService = new UserCreateService(hashProvider, fakeUserRepository)
     userLoginService = new UserLoginService(
       hashProvider,
+      fakeTokensRepository,
       fakeUserRepository
     )
   })

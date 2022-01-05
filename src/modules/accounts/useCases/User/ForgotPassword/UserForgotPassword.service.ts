@@ -6,6 +6,7 @@ import { resolve } from 'path'
 import ITokens from '@modules/tokens/repositories/interfaces/ITokens.interface'
 import IUsers from '@modules/accounts/repositories/interfaces/IUsers.interface'
 import IMail from '@shared/providers/MailProvider/interface/IMail.interface'
+import IDate from '@shared/providers/DateProvider/interface/IDate.interface'
 
 interface Request {
   email: string
@@ -13,9 +14,10 @@ interface Request {
 
 @injectable()
 export default class UserForgotPasswordService {
-  // private tokenExpireTime: number = 3
-
   constructor (
+    @inject('DateProvider')
+    private dateProvider: IDate,
+
     @inject('MailProvider')
     private mailProvider: IMail,
 
@@ -38,7 +40,8 @@ export default class UserForgotPasswordService {
     const { token } = await this.tokensRepository.create({
       token: uuid(),
       user_id: user.id,
-      type: 'forgotPassword'
+      type: 'forgotPassword',
+      expire_date: this.dateProvider.addTime({ time: 3, unit: 'hour' })
     })
 
     const mailTemplate = resolve(__dirname, 'MailTemplate.hbs')

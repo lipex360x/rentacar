@@ -91,7 +91,7 @@ describe('Rentails Rentail Create', () => {
     ).rejects.toBeInstanceOf(AppError)
   })
 
-  it('should not be able to Create a new rentail to an invalid date', async () => {
+  it('should not be able to Create a new rentail with an invalid date', async () => {
     const car = await fakecarsRepository.create({
       brand: Faker.name.firstName(1),
       model: Faker.name.firstName(2),

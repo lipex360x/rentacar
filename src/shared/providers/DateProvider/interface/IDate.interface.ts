@@ -7,6 +7,7 @@ export interface CompareDatesProps {
 export interface AddSubtractProps {
   time: number
   unit: 'day' | 'week' | 'month' | 'year' | 'hour' | 'minute' | 'second' | 'millisecond'
+  date?: string | number | Date
 }
 
 export interface ConvertProps {

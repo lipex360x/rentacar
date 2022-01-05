@@ -4,6 +4,7 @@ import { sign } from 'jsonwebtoken'
 
 import IUsers from '@modules/accounts/repositories/interfaces/IUsers.interface'
 import IHash from '@shared/providers/HashProvider/interface/IHash.interface'
+import ITokens from '@modules/tokens/repositories/interfaces/ITokens.interface'
 
 interface Request{
   email: string
@@ -23,6 +24,9 @@ export default class UserLoginService {
   constructor (
     @inject('HashProvider')
     private hashProvider: IHash,
+
+    @inject('TokensRepository')
+    private tokensRepository: ITokens,
 
     @inject('UsersRepository')
     private repository: IUsers

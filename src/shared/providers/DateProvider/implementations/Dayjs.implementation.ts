@@ -4,7 +4,7 @@ import IDate, { ConvertProps, AddSubtractProps, CompareDatesProps } from '../int
 
 dayjs.extend(utc)
 
-class DayjsDateProvider implements IDate {
+export default class DayjsDateProvider implements IDate {
   dateNow (): Date {
     return dayjs().toDate()
   }
@@ -13,12 +13,12 @@ class DayjsDateProvider implements IDate {
     return dayjs(date).utc().local().format()
   }
 
-  addTime ({ time, unit }: AddSubtractProps): Date {
-    return dayjs().add(time, unit).toDate()
+  addTime ({ time, unit, date = null }: AddSubtractProps): Date {
+    return date ? dayjs(date).add(time, unit).toDate() : dayjs().add(time, unit).toDate()
   }
 
-  subtractTime ({ time, unit }: AddSubtractProps): Date {
-    return dayjs().subtract(time, unit).toDate()
+  subtractTime ({ time, unit, date = null }: AddSubtractProps): Date {
+    return date ? dayjs(date).subtract(time, unit).toDate() : dayjs().subtract(time, unit).toDate()
   }
 
   compareDates ({ start_date, end_date, unit }: CompareDatesProps): number {
@@ -28,5 +28,3 @@ class DayjsDateProvider implements IDate {
     return dayjs(end_date_utc).diff(start_date_utc, unit)
   }
 }
-
-export default DayjsDateProvider

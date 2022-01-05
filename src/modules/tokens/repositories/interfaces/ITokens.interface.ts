@@ -4,6 +4,7 @@ export interface CreateProps {
   token: string
   user_id: string
   type: string
+  expire_date: Date
 }
 
 export interface FindByIdProps {

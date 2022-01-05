@@ -13,6 +13,11 @@ export default class CreateTokens1641252950311 implements MigrationInterface {
           },
 
           {
+            name: 'user_id',
+            type: 'uuid'
+          },
+
+          {
             name: 'token',
             type: 'varchar'
           },
@@ -23,8 +28,8 @@ export default class CreateTokens1641252950311 implements MigrationInterface {
           },
 
           {
-            name: 'user_id',
-            type: 'uuid'
+            name: 'expire_date',
+            type: 'timestamp with time zone'
           },
 
           {

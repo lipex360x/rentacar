@@ -47,11 +47,9 @@ describe('Accounts User ResetPassword', () => {
     const token = await fakeTokensRepository.create({
       token: Faker.datatype.uuid(),
       user_id: user.id,
-      type: 'forgotPassword'
+      type: 'forgotPassword',
+      expire_date: fakeDateProvider.subtractTime({ time: 1, unit: 'day' })
     })
-
-    token.created_at = fakeDateProvider.subtractTime({ time: 4, unit: 'hour' })
-    await fakeTokensRepository.update({ token })
 
     await expect(
       userResetPasswordService.execute({ token: token.token, password: 'fake_password' })
@@ -62,7 +60,8 @@ describe('Accounts User ResetPassword', () => {
     const token = await fakeTokensRepository.create({
       token: Faker.datatype.uuid(),
       user_id: 'another_user',
-      type: 'forgotPassword'
+      type: 'forgotPassword',
+      expire_date: fakeDateProvider.addTime({ time: 1, unit: 'day' })
     })
 
     await expect(
@@ -81,19 +80,22 @@ describe('Accounts User ResetPassword', () => {
     const token = await fakeTokensRepository.create({
       token: Faker.datatype.uuid(),
       user_id: user.id,
-      type: 'forgotPassword'
+      type: 'forgotPassword',
+      expire_date: fakeDateProvider.addTime({ time: 1, unit: 'day' })
     })
 
     await fakeTokensRepository.create({
       token: Faker.datatype.uuid(),
       user_id: user.id,
-      type: 'refresh'
+      type: 'refresh',
+      expire_date: fakeDateProvider.subtractTime({ time: 1, unit: 'day' })
     })
 
     await fakeTokensRepository.create({
       token: Faker.datatype.uuid(),
       user_id: user.id,
-      type: 'refresh'
+      type: 'refresh',
+      expire_date: fakeDateProvider.subtractTime({ time: 1, unit: 'day' })
     })
 
     const compareDates = jest.spyOn(fakeDateProvider, 'compareDates')
