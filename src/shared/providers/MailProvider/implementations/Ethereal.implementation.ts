@@ -1,7 +1,7 @@
 import nodemailer, { Transporter } from 'nodemailer'
 import IMail, { SendMailProps } from '../interface/IMail.interface'
 
-class EtherealProvider implements IMail {
+export default class EtherealProvider implements IMail {
   private client: Transporter
 
   constructor () {
@@ -33,5 +33,3 @@ class EtherealProvider implements IMail {
     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(message))
   }
 }
-
-export default EtherealProvider

@@ -4,7 +4,7 @@ import { tmpFolder, uploadsFolder } from '@shared/config'
 
 import IStorage, { DeleteFileProps, SaveFileProps } from '../interface/IStorage.interface'
 
-class DiskStorage implements IStorage {
+export default class DiskStorage implements IStorage {
   async saveFile ({ file }: SaveFileProps): Promise<string> {
     await fs.promises.rename(
       path.resolve(tmpFolder, file),
@@ -20,5 +20,3 @@ class DiskStorage implements IStorage {
     await fs.promises.unlink(path.resolve(uploadsFolder, file))
   }
 }
-
-export default DiskStorage

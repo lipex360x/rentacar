@@ -26,29 +26,6 @@ export default class UserForgotPasswordService {
     private userRepository: IUsers
   ) {}
 
-  // private async getToken (user: User, token: string) {
-  //   const getToken = await this.tokenRepository.findByToken({ token })
-
-  //   if (!getToken) throw new AppError('This token is invalid')
-
-  //   const dateNow = this.dateProvider.dateNow()
-
-  //   const tokenTime = this.dateProvider.compareDates({
-  //     start_date: dateNow,
-  //     end_date: getToken.created_at,
-  //     unit: 'hour'
-  //   })
-
-  //   if (tokenTime >= this.tokenExpireTime) throw new AppError('This token is invalid')
-
-  //   const setToken = {
-  //     token: uuid(),
-  //     user_id: user.id
-  //   }
-
-  //   return setToken
-  // }
-
   async execute ({ email }: Request): Promise<Token> {
     const user = await this.userRepository.findByEmail({ email })
 

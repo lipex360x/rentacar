@@ -3,7 +3,7 @@ import fs from 'fs'
 import csvParse from 'csv-parse'
 import ICsv, { WriteProps, ReadProps } from '../interface/ICsv.interface'
 
-class FastCsvProvider implements ICsv {
+export default class FastCsvProvider implements ICsv {
   async write ({ path, data, delimiter = ';', headers = true }:WriteProps): Promise<number> {
     const options = { headers, delimiter }
 
@@ -47,5 +47,3 @@ class FastCsvProvider implements ICsv {
     })
   }
 }
-
-export default FastCsvProvider

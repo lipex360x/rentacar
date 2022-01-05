@@ -1,9 +1,9 @@
 import { container } from 'tsyringe'
 
-import I{{pascalCase providerName}}Provider from '../interface/I{{pascalCase providerName}}.interface'
+import I{{pascalCase providerName}} from '../interface/I{{pascalCase providerName}}.interface'
 import {{pascalCase implementationName}}Provider from '../implementations/{{pascalCase implementationName}}.implementation'
 
-container.registerSingleton<I{{pascalCase providerName}}Provider>(
+container.registerSingleton<I{{pascalCase providerName}}>(
   '{{pascalCase providerName}}Provider',
   {{pascalCase implementationName}}Provider
 )

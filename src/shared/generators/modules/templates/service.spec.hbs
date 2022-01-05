@@ -10,7 +10,6 @@ let {{camelCase useCaseName}}{{pascalCase actionName}}Service: {{pascalCase useC
 
 describe('{{pascalCase moduleName}} {{pascalCase useCaseName}} {{pascalCase actionName}}', () => {
   beforeEach(() => {
-
     fake{{pascalTableName}}Repository = new Fake{{pascalTableName}}Repository()
     {{camelCase useCaseName}}{{pascalCase actionName}}Service = new {{pascalCase useCaseName}}{{pascalCase actionName}}Service(fake{{pascalTableName}}Repository)
   })
@@ -34,5 +33,4 @@ describe('{{pascalCase moduleName}} {{pascalCase useCaseName}} {{pascalCase acti
 
   //  expect({{camelCase moduleName}}).toHaveProperty('XXXXXXXXXXXXX')
   // })
-
 })
