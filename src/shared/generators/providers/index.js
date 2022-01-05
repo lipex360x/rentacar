@@ -56,6 +56,14 @@ module.exports = {
 
       {
         data: {},
+        path: '../../shared/providers/{{pascalCase providerName}}Provider/fakes',
+        name: '{{pascalCase implementationName}}.implementation.ts',
+        template: 'fake.hbs',
+        force: false
+      },
+
+      {
+        data: {},
         path: '../../shared/providers/{{pascalCase providerName}}Provider/containers',
         name: '{{pascalCase providerName}}.container.ts',
         template: 'container.hbs',
