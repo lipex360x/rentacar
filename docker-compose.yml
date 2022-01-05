@@ -12,10 +12,10 @@ services:
       - pgdata:/data/postgres
     network_mode: host
 
-  # mongodb:
-  #   image: mongo
-  #   container_name: ${MONGODB_CONTAINER_NAME}
-  #   network_mode: host
+  mongodb:
+    image: mongo
+    container_name: ${MONGODB_CONTAINER_NAME}
+    network_mode: host
 
   # redisdb:
   #   image: redis:alpine
