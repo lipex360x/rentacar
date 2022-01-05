@@ -3,7 +3,7 @@ import AppError from '@shared/errors/AppError'
 import { sign } from 'jsonwebtoken'
 
 import IUsers from '@modules/accounts/repositories/interfaces/IUsers.interface'
-import IHashProvider from '@shared/providers/HashProvider/interface/IHash.interface'
+import IHash from '@shared/providers/HashProvider/interface/IHash.interface'
 
 interface Request{
   email: string
@@ -22,9 +22,9 @@ interface Response {
 export default class SessionService {
   constructor (
     @inject('HashProvider')
-    private hashProvider: IHashProvider,
+    private hashProvider: IHash,
 
-    @inject('UserRepository')
+    @inject('UsersRepository')
     private repository: IUsers
   ) {}
 

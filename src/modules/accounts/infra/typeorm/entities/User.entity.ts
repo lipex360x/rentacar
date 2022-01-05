@@ -29,7 +29,7 @@ export default class User {
   @Column()
     isAdmin: boolean
 
-  @Column()
+  @Column({ default: false })
     isLessee: boolean
 
   @Column()

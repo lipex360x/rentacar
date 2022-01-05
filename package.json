@@ -38,6 +38,7 @@
     "pg": "^8.7.1",
     "plop": "^2.7.6",
     "reflect-metadata": "^0.1.13",
+    "sqlite3": "^5.0.2",
     "swagger-ui-express": "^4.1.6",
     "tracer": "^1.1.5",
     "tsyringe": "^4.6.0",

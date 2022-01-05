@@ -26,7 +26,7 @@ export default class UserCreateService {
     @inject('HashProvider')
     private hashProvider: IHash,
 
-    @inject('UserRepository')
+    @inject('UsersRepository')
     private repository: IUser
   ) {}
 
