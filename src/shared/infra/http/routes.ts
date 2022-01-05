@@ -12,6 +12,8 @@ import userRoutes from '@modules/accounts/infra/routes/user.routes'
 
 import rentailRoutes from '@modules/rentails/infra/routes/rentail.routes'
 
+import passwordRotes from '@modules/accounts/infra/routes/password.routes'
+
 const routes = Router()
 
 routes.use('/auth', sessionRoutes)
@@ -25,5 +27,7 @@ routes.use('/specifications', specificationsRoutes)
 routes.use('/users', userRoutes)
 
 routes.use('/rentails', rentailRoutes)
+
+routes.use('/password', passwordRotes)
 
 export default routes

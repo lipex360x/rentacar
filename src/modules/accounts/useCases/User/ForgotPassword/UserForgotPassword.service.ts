@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid'
 import Token from '@modules/tokens/infra/typeorm/entities/Token.entity'
 import ITokens from '@modules/tokens/repositories/interfaces/ITokens.interface'
 import IUsers from '@modules/accounts/repositories/interfaces/IUsers.interface'
-import IMailProvider from '@shared/providers/MailProvider/interface/IMail.interface'
+import IMail from '@shared/providers/MailProvider/interface/IMail.interface'
 
 interface Request {
   email: string
@@ -17,12 +17,12 @@ export default class UserForgotPasswordService {
 
   constructor (
     @inject('MailProvider')
-    private mailProvider: IMailProvider,
+    private mailProvider: IMail,
 
     @inject('TokensRepository')
-    private tokenRepository: ITokens,
+    private tokensRepository: ITokens,
 
-    @inject('UserRepository')
+    @inject('UsersRepository')
     private userRepository: IUsers
   ) {}
 
@@ -54,11 +54,11 @@ export default class UserForgotPasswordService {
 
     if (!user) throw new AppError('User not found!')
 
-    const token = await this.tokenRepository.findByUserId({ user_id: user.id })
+    const token = await this.tokensRepository.findByUserId({ user_id: user.id })
 
-    if (token) await this.tokenRepository.delete({ id: token.id })
+    if (token) await this.tokensRepository.delete({ id: token.id })
 
-    const forgot = await this.tokenRepository.create({
+    const forgot = await this.tokensRepository.create({
       token: uuid(),
       user_id: user.id,
       type: 'forgotPassword'
