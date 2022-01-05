@@ -19,7 +19,7 @@ interface Response {
 }
 
 @injectable()
-export default class SessionService {
+export default class UserLoginService {
   constructor (
     @inject('HashProvider')
     private hashProvider: IHash,
@@ -47,14 +47,12 @@ export default class SessionService {
       expiresIn: JWT_EXPIRES
     })
 
-    const useCaseReturn: Response = {
+    return {
       token,
       user: {
         name: user.name,
         email: user.email
       }
     }
-
-    return useCaseReturn
   }
 }

@@ -4,10 +4,10 @@ import Faker from 'faker'
 import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUsers.repository'
 import UserCreateService from '@modules/accounts/useCases/User/Create/UserCreate.service'
 import HashProvider from '@shared/providers/HashProvider/implementations/Bcrypt.implementation'
-import SessionService from './Session.service'
+import UserLoginService from './UserLogin.service'
 
 let fakeUserRepository: FakeUserRepository
-let sessionService: SessionService
+let userLoginService: UserLoginService
 let userCreateService: UserCreateService
 let hashProvider: HashProvider
 
@@ -17,7 +17,7 @@ describe('Session Service', () => {
     fakeUserRepository = new FakeUserRepository()
 
     userCreateService = new UserCreateService(hashProvider, fakeUserRepository)
-    sessionService = new SessionService(
+    userLoginService = new UserLoginService(
       hashProvider,
       fakeUserRepository
     )
@@ -40,7 +40,7 @@ describe('Session Service', () => {
     }
 
     await expect(
-      sessionService.execute(fakeUser)
+      userLoginService.execute(fakeUser)
     ).rejects.toBeInstanceOf(AppError)
 
     fakeUser = {
@@ -49,7 +49,7 @@ describe('Session Service', () => {
     }
 
     await expect(
-      sessionService.execute(fakeUser)
+      userLoginService.execute(fakeUser)
     ).rejects.toBeInstanceOf(AppError)
   })
 
@@ -64,7 +64,7 @@ describe('Session Service', () => {
 
     await userCreateService.execute(user)
 
-    const webToken = await sessionService.execute({ email: user.email, password: user.password })
+    const webToken = await userLoginService.execute({ email: user.email, password: user.password })
 
     expect(webToken).toHaveProperty('token')
   })

@@ -1,13 +1,13 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 
-import SessionService from './Session.service'
+import UserLoginService from './UserLogin.service'
 
 export default class SessionController {
   async handle (request: Request, response: Response): Promise<Response> {
     const { email, password } = request.body
 
-    const service = container.resolve(SessionService)
+    const service = container.resolve(UserLoginService)
 
     const serviceResponse = await service.execute({ email, password })
 

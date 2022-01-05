@@ -20,9 +20,7 @@ export default function sessionMiddleware (request:Request, response:Response, n
 
     const { sub } = decoded as TokenPayload
 
-    request.user = {
-      id: sub
-    }
+    request.user = { id: sub }
 
     return next()
   } catch {

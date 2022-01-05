@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import sessionRoutes from '@shared/middlewares/sessions/routes/session.routes'
+import loginRoutes from '@modules/accounts/infra/routes/login.routes'
 
 import categoriesRoutes from '@modules/cars/infra/routes/categories.routes'
 
@@ -16,7 +16,7 @@ import passwordRotes from '@modules/accounts/infra/routes/password.routes'
 
 const routes = Router()
 
-routes.use('/auth', sessionRoutes)
+routes.use('/login', loginRoutes)
 
 routes.use('/cars', carsRoutes)
 
