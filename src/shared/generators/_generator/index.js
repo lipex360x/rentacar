@@ -8,7 +8,6 @@ module.exports = {
       type: 'input',
       name: 'name',
       message: 'Generator Name',
-      default: 'teste',
       validate: (value) => {
         if (!value) {
           return 'Value is required'

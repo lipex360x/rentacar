@@ -25,22 +25,24 @@ module.exports = {
   actions: (data) => {
     const pathTemplate = './{{ name }}/templates'
 
-    const files = [
-      {
-        data: {},
-        path: '../../xxx',
-        name: 'fileName.ts',
-        template: '{{ name }}.hbs',
-        force: false
-      }
+    const files = () => {
+      return [
+        {
+          data: {},
+          path: '../../xxx',
+          name: 'fileName.ts',
+          template: '{{ name }}.hbs',
+          force: false
+        }
 
-      // snippet: plopFilesTemplate
-    ]
+        // snippet: plopFilesTemplate
+      ]
+    }
 
     // Create Files
     const action = []
 
-    files.forEach(file => {
+    files().forEach(file => {
       const createFile = {
         type: 'add',
         path: `${file.path}/${file.name}`,

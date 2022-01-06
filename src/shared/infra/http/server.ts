@@ -10,7 +10,7 @@ class Server {
     })
 
     process.on('SIGINT', () => {
-      console.log('\n\n⚓ API Stopped')
+      console.log('\n⚓ API Stopped')
       api.close()
     })
   }

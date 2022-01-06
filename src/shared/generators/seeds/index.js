@@ -40,18 +40,20 @@ module.exports = {
   actions: (data) => {
     const pathTemplate = './seeds/templates/'
 
-    const files = [
-      {
-        data: {},
-        path: '../../shared/infra/typeorm/seeds',
-        name: '{{pascalCase name}}.ts',
-        template: 'seed.hbs'
-      }
-    ]
+    const files = () => {
+      return [
+        {
+          data: {},
+          path: '../../shared/infra/typeorm/seeds',
+          name: '{{pascalCase name}}.ts',
+          template: 'seed.hbs'
+        }
+      ]
+    }
     // Create Files
     const action = []
 
-    files.forEach(file => {
+    files().forEach(file => {
       const createFile = {
         type: 'add',
         path: `${file.path}/${file.name}`,
