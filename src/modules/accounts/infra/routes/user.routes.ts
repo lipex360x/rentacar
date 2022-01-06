@@ -5,7 +5,7 @@ import CreateUser from '@modules/accounts/useCases/User/Create/UserCreate.contro
 import UserUpdateAvatarController from '@modules/accounts/useCases/User/UpdateAvatar/UserUpdateAvatar.controller'
 import sessionMiddleware from '@shared/middlewares/sessions'
 
-import { multerConfig } from '@shared/config'
+import { multerConfig } from '@shared/config/files'
 
 const router = Router()
 

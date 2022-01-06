@@ -1,4 +1,4 @@
-import Notification from '@modules/notifications/infra/typeorm/schemas/Notification.schema'
+import { NotificationAttributes } from '@modules/notifications/infra/mongoose/schemas/Notification.schema'
 
 export interface CreateProps {
   content: string
@@ -10,7 +10,7 @@ export interface FindByIdProps {
 }
 
 export interface UpdateProps {
-  notification: Notification
+  notification: NotificationAttributes
 }
 
 export interface DeleteProps {
@@ -18,9 +18,9 @@ export interface DeleteProps {
 }
 
 export default interface INotitications {
-  create(data: CreateProps): Promise<Notification>
-  findAll(): Promise<Notification[]>
-  findById(data: FindByIdProps): Promise<Notification>
-  update(data: UpdateProps): Promise<Notification>
-  delete(data: DeleteProps): Promise<Notification>
+  create(data: CreateProps): Promise<NotificationAttributes>
+  findAll(): Promise<NotificationAttributes[]>
+  findById(data: FindByIdProps): Promise<NotificationAttributes>
+  update(data: UpdateProps): Promise<NotificationAttributes>
+  delete(data: DeleteProps): Promise<NotificationAttributes>
 }

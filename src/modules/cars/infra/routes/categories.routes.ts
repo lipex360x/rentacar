@@ -5,7 +5,7 @@ import CategoryCreateController from '@modules/cars/useCases/Category/Create/Cat
 import CategoryImportController from '@modules/cars/useCases/Category/Import/CategoryImport.controller'
 import CategoryListController from '@modules/cars/useCases/Category/List/CategoryList.controller'
 
-import { multerConfig } from '@shared/config'
+import { multerConfig } from '@shared/config/files'
 
 const categoriesRoutes = Router()
 

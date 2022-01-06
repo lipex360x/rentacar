@@ -10,21 +10,9 @@ class OrmConnect {
 
     try {
       await createConnection()
-
-      const mongo = await createConnection({
-        name: 'mongo',
-        type: 'mongodb',
-        host: 'localhost',
-        port: 27017,
-        database: 'rentex',
-        entities: ['src/modules/**/schemas/*.ts'],
-        useUnifiedTopology: true
-      })
-
-      console.log('📚 Connected to database', options.database)
-      console.log('📚 Connected to database', mongo.name)
+      console.log('📚 Connected to database postgres')
     } catch (error) {
-      console.log('❌ Fail to Connect to databases', error)
+      console.log('❌ Fail to Connect to postgres', error)
       process.exit()
     }
   }

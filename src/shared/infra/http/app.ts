@@ -8,6 +8,7 @@ import routes from '@shared/infra/http/routes'
 import routerError from '@shared/errors/RouterError'
 
 import '@shared/infra/typeorm'
+import '@shared/infra/mongoose'
 import '@shared/containers'
 import '@shared/providers'
 

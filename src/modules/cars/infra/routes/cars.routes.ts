@@ -8,7 +8,7 @@ import CarSpecificationController from '@modules/cars/useCases/Car/Specification
 import sessionMiddleware from '@shared/middlewares/sessions'
 import adminMiddleware from '@shared/middlewares/admin'
 
-import { multerConfig } from '@shared/config'
+import { multerConfig } from '@shared/config/files'
 
 const upload = multer(multerConfig())
 

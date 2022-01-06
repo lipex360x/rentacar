@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { tmpFolder, uploadsFolder } from '@shared/config'
+import { tmpFolder, uploadsFolder } from '@shared/config/files'
 
 import IStorage, { DeleteFileProps, SaveFileProps } from '../interface/IStorage.interface'
 
