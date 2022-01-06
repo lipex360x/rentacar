@@ -147,7 +147,6 @@ describe('Rentails Rentail Create', () => {
     })
 
     const notifications = await fakeNotificationsRepository.findAll()
-    console.log(notifications)
 
     expect(rentails.rentail).toHaveProperty('id')
     expect(rentails.user.isLessee).toBe(true)

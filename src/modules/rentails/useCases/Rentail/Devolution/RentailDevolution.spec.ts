@@ -61,7 +61,7 @@ describe('Rentails Rentail Devolution', () => {
     })
     const rentails = await rentailDevolutionService.execute({ id: rentail.id })
 
-    expect(rentails.rentail).toHaveProperty('id')
+    expect(rentails).toHaveProperty('total')
     expect(rentails.user.isLessee).toBe(false)
     expect(rentails.car.available).toBe(true)
   })
@@ -76,8 +76,8 @@ describe('Rentails Rentail Devolution', () => {
       model: Faker.name.firstName(2),
       license_plate: Faker.random.word(),
       description: Faker.lorem.words(4),
-      daily_rate: Faker.datatype.float(2),
-      fine_amount: Faker.datatype.float(2),
+      daily_rate: 100,
+      fine_amount: 500,
       category_id: Faker.datatype.uuid()
     })
 
@@ -91,7 +91,7 @@ describe('Rentails Rentail Devolution', () => {
     const rentail = await fakeRentailsRepository.create({
       user_id: user.id,
       car_id: car.id,
-      expected_return_date: dateProvider.addTime({ time: 2, unit: 'day' })
+      expected_return_date: dateProvider.subtractTime({ time: 2, unit: 'day' })
     })
 
     rentail.start_date = dateProvider.subtractTime({ time: 3, unit: 'day' })
@@ -99,8 +99,9 @@ describe('Rentails Rentail Devolution', () => {
 
     const rentails = await rentailDevolutionService.execute({ id: rentail.id })
 
-    expect(rentails.rentail).toHaveProperty('id')
+    expect(rentails.devoluntion).toHaveProperty('id')
     expect(rentails.user.isLessee).toBe(false)
     expect(rentails.car.available).toBe(true)
+    expect(rentails.total).toBe(1300)
   })
 })

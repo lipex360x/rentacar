@@ -13,7 +13,9 @@ interface Request {
 }
 
 interface Response {
-  rentail: Rentail
+  devoluntion: Rentail
+  daysOnLease: number
+  total: number
   user: {
     id: string,
     name: string,
@@ -49,32 +51,34 @@ export default class RentailDevolutionService {
 
     const dateNow = this.dateProvider.dateNow()
 
-    let daily = this.dateProvider.compareDates({
+    let daysOnLease = this.dateProvider.compareDates({
       start_date: rentail.start_date,
       end_date: dateNow,
       unit: 'day'
     })
 
-    daily = daily <= 0 ? minimumDaily : daily
+    daysOnLease = daysOnLease <= 0 ? minimumDaily : daysOnLease
 
-    const delay = this.dateProvider.compareDates({
-      start_date: dateNow,
+    const contractedLeaseDays = this.dateProvider.compareDates({
+      start_date: rentail.start_date,
       end_date: rentail.expected_return_date,
       unit: 'day'
     })
 
     let total = 0
-    if (delay > 0) {
-      const calculate_fine = delay * car.fine_amount
-      total = calculate_fine
+
+    if (daysOnLease > contractedLeaseDays) {
+      const fineDays = daysOnLease - contractedLeaseDays
+      const calculateFine = fineDays * car.fine_amount
+      total = calculateFine
     }
 
-    total += daily * car.fine_amount
+    total += daysOnLease * car.daily_rate
 
     rentail.end_date = dateNow
     rentail.total = total
 
-    await this.repository.update({ rentail })
+    const devoluntion = await this.repository.update({ rentail })
 
     // set car available
     car.available = true
@@ -85,8 +89,10 @@ export default class RentailDevolutionService {
     const updatedUser = await this.usersRepository.update({ user })
 
     return {
-      rentail,
+      devoluntion,
       car: updatedCar,
+      daysOnLease,
+      total,
       user: {
         id: updatedUser.id,
         name: updatedUser.name,
