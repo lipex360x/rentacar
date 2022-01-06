@@ -146,11 +146,12 @@ describe('Rentails Rentail Create', () => {
       expected_return_date: dateProvider.addTime({ time: 1, unit: 'day' })
     })
 
-    //  const notifications = await fakeNotificationsRepository.findAll()
+    const notifications = await fakeNotificationsRepository.findAll()
+    console.log(notifications)
 
     expect(rentails.rentail).toHaveProperty('id')
     expect(rentails.user.isLessee).toBe(true)
     expect(rentails.car.available).toBe(false)
-    // expect(notifications.length).toBe(1)
+    expect(notifications.length).toBe(1)
   })
 })

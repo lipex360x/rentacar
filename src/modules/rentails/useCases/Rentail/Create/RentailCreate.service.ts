@@ -89,28 +89,6 @@ export default class RentailCreateService {
       content: `New rental to car ${updatedCar.model} from ${updatedUser.name} in ${rentalDate}`
     })
 
-    // const allNotifications = await this.notificationsRepository.findAll()
-    // const findOne = await this.notificationsRepository.findById({ id: '61d702aa58393e5ed71ce78c' })
-
-    // console.log(notification)
-    // console.log(allNotifications)
-
-    const notification = await this.notificationsRepository.create({
-      user_id: updatedUser.id,
-      content: 'Notification Created by Felipe'
-    })
-
-    console.log('created:', notification)
-
-    notification.content = 'Notification Updated by HELLOOOO MONGOOOOO'
-
-    const notUpdated = await this.notificationsRepository.update({ notification })
-
-    const deleteNotB1 = await this.notificationsRepository.delete({ id: '61d709e940e8f010719700b1' })
-
-    console.log('updated:', notUpdated)
-    console.log('deleted:', deleteNotB1)
-
     return {
       rentail,
       car: updatedCar,
