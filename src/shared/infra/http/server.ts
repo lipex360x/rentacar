@@ -1,10 +1,19 @@
-import app from './app'
+import { app, typeorm, mongodb } from './app'
 
-const api = app.listen(process.env.API_PORT, () => {
-  console.log(`\n🚀 API Started on port ${process.env.API_PORT} \n😉 Check Hello Message at ${process.env.API_URL}:${process.env.API_PORT}/hello`)
-})
+class Server {
+  async execute () {
+    await typeorm.execute()
+    await mongodb.execute()
 
-process.on('SIGINT', () => {
-  console.log('\n\n⚓ API Stopped')
-  api.close()
-})
+    const api = app.listen(process.env.API_PORT, () => {
+      console.log(`\n🚀 API Started on port ${process.env.API_PORT} \n😉 Check Hello Message at ${process.env.API_URL}:${process.env.API_PORT}/hello`)
+    })
+
+    process.on('SIGINT', () => {
+      console.log('\n\n⚓ API Stopped')
+      api.close()
+    })
+  }
+}
+
+export default new Server().execute()

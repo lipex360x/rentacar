@@ -18,7 +18,7 @@ const generateId = (size = 20) => {
 
 const sanitize = (text: string) => {
   text = text.replace(/\uFEFF/g, '')
-    .replace(/[&\\/\\#,+()$~%!.„'":*‚^_¤?<>|@ª{«»§}©®™ ]/g, '')
+  text = text.replace(/[&\\/\\#,+()$~%!.„'":*‚^_¤?<>|@ª{«»§}©®™ ]/g, '')
 
   const accentsMap = {
     a: 'á|à|ã|â|À|Á|Ã|Â',

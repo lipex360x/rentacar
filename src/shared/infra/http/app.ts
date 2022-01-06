@@ -7,8 +7,8 @@ import { errors } from 'celebrate'
 import routes from '@shared/infra/http/routes'
 import routerError from '@shared/errors/RouterError'
 
-import '@shared/infra/typeorm'
-import '@shared/infra/mongoose'
+import typeorm from '@shared/infra/typeorm'
+import mongodb from '@shared/infra/mongoose'
 import '@shared/containers'
 import '@shared/providers'
 
@@ -21,4 +21,4 @@ app.use(routes)
 app.use(errors())
 app.use(routerError)
 
-export default app
+export { app, typeorm, mongodb }

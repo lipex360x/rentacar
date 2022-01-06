@@ -22,10 +22,10 @@ services:
     #   - MONGODB_DATABASE=${MONGO_DB}
     network_mode: host
 
-  # redisdb:
-  #   image: redis:alpine
-  #   container_name: ${REDIS_CONTAINER_NAME}
-  #   network_mode: host
+  redisdb:
+    image: redis:alpine
+    container_name: ${REDIS_CONTAINER_NAME}
+    network_mode: host
 
 volumes:
   pgdata:
