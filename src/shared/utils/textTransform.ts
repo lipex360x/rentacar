@@ -1,12 +1,12 @@
-const crypto = require('crypto')
+import crypto from 'crypto'
 
-const capitalize = (word) => {
+const capitalize = (word: string) => {
   const lower = word.toLowerCase()
 
   return word.charAt(0).toUpperCase() + lower.slice(1)
 }
 
-const textToPascal = (word) => {
+const textToPascal = (word: string) => {
   const pascal = word.replace(/([-_ ]\w)/g, text => text[1].toUpperCase())
 
   return capitalize(pascal)
@@ -16,7 +16,7 @@ const generateId = (size = 20) => {
   return crypto.randomBytes(size).toString('hex')
 }
 
-const sanitize = (text) => {
+const sanitize = (text: string) => {
   text = text.replace(/\uFEFF/g, '')
     .replace(/[&\\/\\#,+()$~%!.„'":*‚^_¤?<>|@ª{«»§}©®™ ]/g, '')
 
@@ -33,4 +33,4 @@ const sanitize = (text) => {
   return Object.keys(accentsMap).reduce((acc, cur) => acc.replace(new RegExp(accentsMap[cur], 'g'), cur), text)
 }
 
-module.exports = { capitalize, textToPascal, generateId, sanitize }
+export { capitalize, textToPascal, generateId, sanitize }

@@ -3,6 +3,7 @@ import Faker from 'faker'
 import FakeCategoryRepository from '@modules/cars/repositories/fakes/FakeCategory.repository'
 import CategoryImportService from './CategoryImport.service'
 import FakeCsvProvider from '@shared/providers/CsvProvider/fakes/FakeCsv.provider'
+import AppError from '@shared/errors/AppError'
 
 let fakeCategoryRepository: FakeCategoryRepository
 let categoryImportService: CategoryImportService
@@ -15,8 +16,24 @@ describe('Category Create', () => {
     categoryImportService = new CategoryImportService(fakeCsvProvider, fakeCategoryRepository)
   })
 
+  it('should not be able to import categories with a invalid CSV', async () => {
+    const path = null
+    const file = { buffer: null }
+
+    const data = [
+      { hello: Faker.name.firstName(1), world: Faker.lorem.words(3) }
+    ]
+
+    await fakeCsvProvider.write({ path, data })
+
+    await expect(
+      categoryImportService.execute({ file })
+    ).rejects.toBeInstanceOf(AppError)
+  })
+
   it('should be able to import categories', async () => {
-    const path = 'pathFile.csv'
+    const path = null
+    const file = { buffer: null }
 
     const data = [
       { name: Faker.name.firstName(1), description: Faker.lorem.words(3) },
@@ -24,8 +41,6 @@ describe('Category Create', () => {
     ]
 
     await fakeCsvProvider.write({ path, data })
-
-    const file = { path }
 
     const getCategories = await categoryImportService.execute({ file })
 

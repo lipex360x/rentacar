@@ -6,9 +6,9 @@ export interface WriteProps {
 }
 
 export interface ReadProps {
-  path: string
+  file: { buffer: {} }
   delimiter?: ',' | ';'
-  firstLine?: boolean
+  show_header?: boolean
 }
 
 export default interface ICsv {

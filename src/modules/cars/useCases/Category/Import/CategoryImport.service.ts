@@ -3,10 +3,11 @@ import ICategories from '@modules/cars/repositories/interfaces/ICategories.inter
 import { inject, injectable } from 'tsyringe'
 
 import ICsvProvider from '@shared/providers/CsvProvider/interface/ICsv.interface'
+import AppError from '@shared/errors/AppError'
 
 interface IRequestProps {
   file: {
-    path: string
+    buffer: {}
   }
 }
 
@@ -21,13 +22,14 @@ class CategoryImportService {
 
   async execute ({ file }:IRequestProps): Promise<number> {
     const categories = await this.csvProvider.read({
-      path: file.path,
-      delimiter: ';',
-      firstLine: false
+      file,
+      delimiter: ';'
     })
 
     for (const category of categories) {
       const { name, description } = category
+
+      if (!name || !description) throw new AppError('Invalid CSV')
 
       const setCategory = new Category()
 
