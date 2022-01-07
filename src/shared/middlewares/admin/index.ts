@@ -1,6 +1,7 @@
-import UsersRepository from '@modules/accounts/infra/typeorm/repositories/Users.repository'
 import AppError from '@shared/errors/AppError'
 import { NextFunction, Request, Response } from 'express'
+
+import UsersRepository from '@modules/accounts/infra/typeorm/repositories/Users.repository'
 
 export default async function adminMiddleware (request:Request, response:Response, next:NextFunction): Promise<void> {
   const { id } = request.user

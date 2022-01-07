@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express'
+import { Request, Response, NextFunction } from 'express'
 import { RateLimiterRedis } from 'rate-limiter-flexible'
 import Redis from 'ioredis'
 
@@ -14,12 +14,12 @@ const limiter = new RateLimiterRedis({
   duration: 1
 })
 
-export default async function rateLimiterMiddleware (request:Request, response:Response, next:NextFunction): Promise<void> {
+export default async function rateLimiter (request: Request, response: Response, next: NextFunction): Promise<void> {
   try {
     await limiter.consume(request.ip)
 
     return next()
-  } catch {
+  } catch (err) {
     throw new AppError('Too many requests', 429)
   }
 }
