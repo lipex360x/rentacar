@@ -28,11 +28,13 @@ export default class RentailListByUserService {
 
     if (!user) throw new AppError('User not found')
 
-    const rentalsFromUser = await this.repository.findByUserId({ user_id })
+    let rentalsFromUser = await this.cacheProvider.findByKey<Rentail[]>({ key: `rentals-user-${user_id}:list` })
 
-    // await this.cacheProvider.create({ key: 'ashuasua', value: 'lksdflskd' })
-    const cache = await this.cacheProvider.findByKey({ key: 'ashuasua' })
-    console.log(cache)
+    if (!rentalsFromUser) {
+      rentalsFromUser = await this.repository.findByUserId({ user_id })
+
+      await this.cacheProvider.create({ key: `rentals-user-${user_id}:list`, value: rentalsFromUser })
+    }
 
     return rentalsFromUser
   }

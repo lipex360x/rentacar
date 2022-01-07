@@ -7,6 +7,7 @@ import IDateProvider from '@shared/providers/DateProvider/interface/IDate.interf
 import ICars from '@modules/cars/repositories/interfaces/ICars.interface'
 import IUsers from '@modules/accounts/repositories/interfaces/IUsers.interface'
 import Car from '@modules/cars/infra/typeorm/entities/Car'
+import ICache from '@shared/providers/CacheProvider/interface/ICache.interface'
 
 interface Request {
   id: string
@@ -30,6 +31,9 @@ export default class RentailDevolutionService {
     @inject('DateProvider')
     private dateProvider: IDateProvider,
 
+    @inject('CacheProvider')
+    private cacheProvider: ICache,
+
     @inject('RentailsRepository')
     private repository: IRentails,
 
@@ -48,6 +52,8 @@ export default class RentailDevolutionService {
 
     const car = await this.carsRepository.findById({ id: rentail.car_id })
     const user = await this.usersRepository.findById({ id: rentail.user_id })
+
+    await this.cacheProvider.deleteByPrefix({ prefix: `rentals-user-${user.id}` })
 
     const dateNow = this.dateProvider.dateNow()
 

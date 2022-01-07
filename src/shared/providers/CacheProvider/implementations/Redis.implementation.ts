@@ -2,7 +2,7 @@ import Redis, { Redis as RedisClient } from 'ioredis'
 
 import cacheConfig from '@shared/config/cache'
 
-import ICache, { CreateProps, DeleteProps, FindByKeyProps } from '../interface/ICache.interface'
+import ICache, { CreateProps, FindByKeyProps, DeleteAllProps, DeleteByPrefixProps } from '../interface/ICache.interface'
 
 export default class RedisProvider implements ICache {
   private client: RedisClient
@@ -15,12 +15,25 @@ export default class RedisProvider implements ICache {
     await this.client.set(key, JSON.stringify(value))
   }
 
-  async findByKey ({ key }: FindByKeyProps): Promise<string> {
+  async findByKey<T> ({ key }: FindByKeyProps): Promise<T> {
     const data = await this.client.get(key)
-    return data
+
+    return JSON.parse(data) as T
   }
 
-  async delete (data: DeleteProps): Promise<void> {
-    throw new Error('Method not implemented.')
+  async deleteByPrefix ({ prefix }: DeleteByPrefixProps): Promise<void> {
+    const keys = await this.client.keys(`${prefix}:*`)
+
+    const pipeline = this.client.pipeline()
+
+    keys.forEach(key => {
+      pipeline.del(key)
+    })
+
+    await pipeline.exec()
+  }
+
+  async deleteAll ({ key }: DeleteAllProps): Promise<void> {
+    await this.client.del(key)
   }
 }

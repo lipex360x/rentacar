@@ -9,6 +9,7 @@ import ICars from '@modules/cars/repositories/interfaces/ICars.interface'
 import IUsers from '@modules/accounts/repositories/interfaces/IUsers.interface'
 import IDateProvider from '@shared/providers/DateProvider/interface/IDate.interface'
 import INotitications from '@modules/notifications/repositories/interfaces/INotifications.interface'
+import ICache from '@shared/providers/CacheProvider/interface/ICache.interface'
 
 interface Request {
   user_id: string
@@ -31,6 +32,9 @@ export default class RentailCreateService {
   constructor (
     @inject('DateProvider')
     private dateProvider: IDateProvider,
+
+    @inject('CacheProvider')
+    private cacheProvider: ICache,
 
     @inject('RentailsRepository')
     private repository: IRentails,
@@ -88,6 +92,8 @@ export default class RentailCreateService {
       user_id: updatedUser.id,
       content: `New rental to car ${updatedCar.model} from ${updatedUser.name} in ${rentalDate}`
     })
+
+    await this.cacheProvider.deleteByPrefix({ prefix: `rentals-user-${user.id}` })
 
     return {
       rentail,
