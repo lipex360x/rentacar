@@ -1,5 +1,5 @@
 /* eslint-disable */
-const { capitalize, textToPascal } = require('../_utils/textTransform')
+const { capitalize, pascalCase } = require('../_utils/textTransform')
 const get = require('../_utils/fileSystem')
 
 const modules = get('./src/modules', 'folder')
@@ -67,7 +67,7 @@ module.exports = {
   ],
 
   actions: (data) => {
-    const pascalTableName = textToPascal(data.tableName)
+    const pascalTableName = pascalCase(data.tableName)
     const pathTemplate = './modules/templates'
 
     const files = [

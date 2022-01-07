@@ -1,5 +1,5 @@
 /* eslint-disable */
-const { textToPascal, textToCamel } = require('../../_utils/textTransform')
+const { pascalCase, camelCase } = require('../../_utils/textTransform')
 const fs = require('../../_utils/fileSystem')
 
 module.exports = {
@@ -87,8 +87,8 @@ module.exports = {
 
   actions: (data) => {
     const pathTemplate = './modules/typeorm/templates'
-    const generatePath = `../../modules/${textToCamel(data.moduleName)}`
-    const pascalTableName = textToPascal(data.tableName)
+    const generatePath = `../../modules/${camelCase(data.moduleName)}`
+    const pascalTableName = pascalCase(data.tableName)
 
     const files = () => {
       const arrayFiles = []
@@ -177,7 +177,7 @@ module.exports = {
       }
 
       // Repository Index
-      const moduleName = textToCamel(data.moduleName)
+      const moduleName = camelCase(data.moduleName)
       const repositoryFolder = fs(`./src/modules/${moduleName}/repositories/`, 'folder')
       const repositoryIndex = fs(`./src/modules/${moduleName}/repositories/`, 'file')
 

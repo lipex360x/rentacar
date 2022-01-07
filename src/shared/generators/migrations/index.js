@@ -1,4 +1,4 @@
-const { textToPascal, textToCamel } = require('../_utils/textTransform')
+const { pascalCase, camelCase } = require('../_utils/textTransform')
 const fs = require('../_utils/fileSystem')
 
 module.exports = {
@@ -195,7 +195,7 @@ module.exports = {
   ],
 
   actions: (data) => {
-    const pascalTableName = textToPascal(data.tableName)
+    const pascalTableName = pascalCase(data.tableName)
     const pathTemplate = './modules/typeorm/templates'
 
     const files = () => {
@@ -294,7 +294,7 @@ module.exports = {
         }
 
         // Repository Index
-        const moduleName = textToCamel(data.moduleName)
+        const moduleName = camelCase(data.moduleName)
         const repositoryFolder = fs(`./src/modules/${moduleName}/repositories/`, 'folder')
         const repositoryIndex = fs(`./src/modules/${moduleName}/repositories/`, 'file')
 

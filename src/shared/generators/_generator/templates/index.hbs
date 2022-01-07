@@ -1,5 +1,5 @@
 /* eslint-disable */
-const { capitalize } = require('../_utils/textTransform')
+const { capitalize, camelCase } = require('../_utils/textTransform')
 
 module.exports = {
   description: 'Generate a {{pascalCase name }}',
@@ -21,13 +21,15 @@ module.exports = {
 
   actions: (data) => {
     const pathTemplate = './{{ name }}/templates'
+    const generatePath = `../../modules/${camelCase(data.moduleName)}`
+
 
     const files = () => {
       const arrayFiles = []
 
       arrayFiles.push({
         data: {},
-        path: '../../xxx',
+        path: `${generatePath}/xxxx`,
         name: 'fileName.ts',
         template: '{{ name }}.hbs',
         force: false

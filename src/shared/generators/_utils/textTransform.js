@@ -6,20 +6,20 @@ const capitalize = (word) => {
   return word.charAt(0).toUpperCase() + lower.slice(1)
 }
 
-const textToPascal = (word) => {
+const pascalCase = (word) => {
   const pascal = word.replace(/([-_ ]\w)/g, text => text[1].toUpperCase())
 
   return capitalize(pascal)
 }
 
-const textToCamel = (word) => {
+const camelCase = (word) => {
   return word.replace(/^([A-Z])|\s(\w)/g, function (match, p1, p2, offset) {
     if (p2) return p2.toUpperCase()
     return p1.toLowerCase()
   })
 }
 
-const textToSnake = (string) => {
+const snakeCase = (string) => {
   return string.replace(/\d+/g, ' ')
     .split(/ |\B(?=[A-Z])/)
     .map((word) => word.toLowerCase())
@@ -49,9 +49,9 @@ const sanitize = (text) => {
 
 module.exports = {
   capitalize,
-  textToPascal,
-  textToCamel,
-  textToSnake,
+  pascalCase,
+  camelCase,
+  snakeCase,
   generateId,
   sanitize
 }

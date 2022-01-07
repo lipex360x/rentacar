@@ -1,5 +1,5 @@
 /* eslint-disable */
-const { textToPascal, textToCamel } = require('../../_utils/textTransform')
+const { pascalCase, camelCase } = require('../../_utils/textTransform')
 
 module.exports = {
   description: 'Generate a Mongoose Module',
@@ -8,7 +8,7 @@ module.exports = {
       type: 'input',
       name: 'moduleName',
       message: 'Module Name:',
-      default: 'teste',
+      // default: 'teste',
       validate: value => {
         if (!value) {
           return 'Value is required'
@@ -21,7 +21,7 @@ module.exports = {
       type: 'input',
       name: 'tableName',
       message: 'Table Name:',
-      default: 'teste',
+      // default: 'teste',
       validate: value => {
         if (!value) {
           return 'Value is required'
@@ -34,7 +34,7 @@ module.exports = {
       type: 'input',
       name: 'schemaName',
       message: 'Schema Name:',
-      default: 'teste',
+      // default: 'teste',
       validate: value => {
         if (!value) {
           return 'Value is required'
@@ -46,8 +46,8 @@ module.exports = {
 
   actions: (data) => {
     const pathTemplate = './modules/mongoose/templates'
-    const generatePath = `../../modules/${textToCamel(data.moduleName)}`
-    const pascalTableName = textToPascal(data.tableName)
+    const generatePath = `../../modules/${camelCase(data.moduleName)}`
+    const pascalTableName = pascalCase(data.tableName)
 
     const files = () => {
       const arrayFiles = []
@@ -118,8 +118,8 @@ module.exports = {
         path: `${file.path}/${file.name}`,
         data: file.data,
         templateFile: `${pathTemplate}/${file.template}`,
-        // force: !!file.force
-        force: true
+        force: !!file.force
+        // force: true
       }
 
       action.push(createFile)
