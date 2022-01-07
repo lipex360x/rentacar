@@ -1,0 +1,25 @@
+import { {{pascalTableName}}Attributes } from '@modules/{{camelCase moduleName}}/infra/mongoose/schemas/{{pascalTableName}}.schema'
+
+export interface CreateProps {
+  content: string
+}
+
+export interface FindByIdProps {
+  id: any
+}
+
+export interface UpdateProps {
+  {{camelCase moduleName}}: {{pascalTableName}}Attributes
+}
+
+export interface DeleteProps {
+  id: any
+}
+
+export default interface INotitications {
+  create(data: CreateProps): Promise<{{pascalTableName}}Attributes>
+  findAll(): Promise<{{pascalTableName}}Attributes[]>
+  findById(data: FindByIdProps): Promise<{{pascalTableName}}Attributes>
+  update(data: UpdateProps): Promise<{{pascalTableName}}Attributes>
+  delete(data: DeleteProps): Promise<{{pascalTableName}}Attributes>
+}

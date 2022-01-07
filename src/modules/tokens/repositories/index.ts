@@ -1,1 +1,1 @@
-import './containers/TokensRepository.container'
+import './containers/Tokens.container'

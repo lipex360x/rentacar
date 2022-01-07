@@ -54,7 +54,7 @@ module.exports = {
 
       // Schema
       arrayFiles.push({
-        data: {},
+        data: { pascalTableName },
         path: `${generatePath}/infra/mongoose/schemas`,
         name: '{{pascalCase schemaName}}.schema.ts',
         template: 'schema.hbs',
@@ -74,7 +74,7 @@ module.exports = {
       arrayFiles.push({
         data: { pascalTableName },
         path: `${generatePath}/repositories/containers`,
-        name: `${pascalTableName}Repository.container.ts`,
+        name: `${pascalTableName}.container.ts`,
         template: 'container.hbs',
         force: false
       })

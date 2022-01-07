@@ -259,7 +259,7 @@ module.exports = {
         arrayFiles.push({
           data: { pascalTableName },
           path: '../../modules/{{camelCase moduleName}}/repositories/containers',
-          name: `${pascalTableName}Repository.container.ts`,
+          name: `${pascalTableName}.container.ts`,
           template: `${pathTemplate}/container.hbs`,
           force: false
         })

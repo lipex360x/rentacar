@@ -3,12 +3,10 @@ import INotifications, { CreateProps, FindByIdProps, UpdateProps, DeleteProps } 
 
 export default class NotificationsRepository implements INotifications {
   async create ({ content, user_id }: CreateProps): Promise<NotificationAttributes> {
-    const notification = await Notification.create({
+    return Notification.create({
       user_id,
       content
     })
-
-    return notification
   }
 
   async findAll (): Promise<NotificationAttributes[]> {
@@ -25,8 +23,6 @@ export default class NotificationsRepository implements INotifications {
   }
 
   async delete ({ id }: DeleteProps): Promise<NotificationAttributes> {
-    const notification = await Notification.findByIdAndDelete(id)
-
-    return notification
+    return Notification.findByIdAndDelete(id)
   }
 }

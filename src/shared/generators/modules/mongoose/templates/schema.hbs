@@ -1,0 +1,24 @@
+import mongoose, { Document, Schema, Model } from 'mongoose'
+
+export interface {{pascalTableName}}Attributes {
+  _id?: string
+  content: string
+}
+
+export type {{pascalTableName}}Document = Document & {{pascalTableName}}Attributes;
+
+type {{pascalTableName}}Model = Model<{{pascalTableName}}Document>;
+
+const {{pascalTableName}}Schema = new Schema(
+  {
+    content: {
+      type: String,
+      trim: true,
+      required: true
+    }
+  },
+
+  { timestamps: true }
+)
+
+export default mongoose.model<{{pascalTableName}}Document, {{pascalTableName}}Model>('{{pascalTableName}}', {{pascalTableName}}Schema)
