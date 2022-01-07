@@ -1,4 +1,5 @@
-const { textToPascal } = require('../_utils/textTransform')
+const { textToPascal, textToCamel } = require('../_utils/textTransform')
+const fs = require('../_utils/fileSystem')
 
 module.exports = {
   description: 'Create a Migration',
@@ -19,6 +20,7 @@ module.exports = {
     {
       type: 'input',
       name: 'name',
+      default: 'teste',
       message: 'Migration Name:',
       validate: (value) => {
         if (!value) {
@@ -31,6 +33,7 @@ module.exports = {
     {
       type: 'input',
       name: 'tableName',
+      default: 'testes',
       message: 'Table Name:',
       validate: (value) => {
         if (!value) {
@@ -43,6 +46,7 @@ module.exports = {
     {
       type: 'input',
       name: 'columnName',
+      default: 'teste',
       message: 'Column Name:',
       validate: (value) => {
         if (!value) {
@@ -119,6 +123,7 @@ module.exports = {
       type: 'input',
       name: 'moduleName',
       message: 'Module Name:',
+      default: 'teste',
       validate: value => {
         if (!value) {
           return 'Name is required'
@@ -135,6 +140,7 @@ module.exports = {
       type: 'input',
       name: 'entityName',
       message: 'Entity Name:',
+      default: 'teste',
       validate: value => {
         if (!value) {
           return 'Name is required'
@@ -144,13 +150,21 @@ module.exports = {
     },
 
     {
+      type: 'confirm',
+      name: 'createUseCase',
+      message: 'Generate UseCase?',
+      default: false
+    },
+
+    {
       when: function (response) {
         const type = response.type
-        if (type === 'tableCreate' && response.createModule) return type
+        if (type === 'tableCreate' && response.createModule && response.createUseCase) return type
       },
       type: 'input',
       name: 'useCaseName',
       message: 'UseCase Name',
+      default: 'teste',
       // default: 'teste',
       validate: (value) => {
         if (!value) {
@@ -163,11 +177,12 @@ module.exports = {
     {
       when: function (response) {
         const type = response.type
-        if (type === 'tableCreate' && response.createModule) return type
+        if (type === 'tableCreate' && response.createModule && response.createUseCase) return type
       },
       type: 'input',
       name: 'actionName',
       message: 'Action Name',
+      default: 'teste',
       // default: 'create',
       validate: (value) => {
         if (!value) {
@@ -183,125 +198,131 @@ module.exports = {
     const pascalTableName = textToPascal(data.tableName)
     const pathTemplate = './modules/templates'
 
-    let files = [
-      {
+    const files = () => {
+      const arrayFiles = []
+
+      // Migration
+      arrayFiles.push({
         path: '../../shared/infra/typeorm/migrations',
         name: '{{timestamp}}-{{pascalCase name}}.ts',
         data: { timestamp: new Date().getTime() },
         template: `./migrations/templates/${data.type}.hbs`
+      })
+
+      if (data.type === 'tableCreate' && data.createModule) {
+        // Routes
+        arrayFiles.push({
+          data: {},
+          path: '../../modules/{{camelCase moduleName}}/infra/routes',
+          name: '{{camelCase useCaseName}}.routes.ts',
+          template: `${pathTemplate}/routes.hbs`,
+          force: false
+        })
+
+        // Entity
+        arrayFiles.push({
+          data: {},
+          path: '../../modules/{{camelCase moduleName}}/infra/typeorm/entities',
+          name: '{{pascalCase entityName}}.entity.ts',
+          template: `${pathTemplate}/entity.hbs`,
+          force: false
+        })
+
+        // Repository
+        arrayFiles.push({
+          data: { pascalTableName },
+          path: '../../modules/{{camelCase moduleName}}/infra/typeorm/repositories',
+          name: `${pascalTableName}.repository.ts`,
+          template: `${pathTemplate}/repository.hbs`,
+          force: false
+        })
+
+        // FakeRepository
+        arrayFiles.push({
+          data: { pascalTableName },
+          path: '../../modules/{{camelCase moduleName}}/repositories/fakes',
+          name: `Fake${pascalTableName}.repository.ts`,
+          template: `${pathTemplate}/fakeRepository.hbs`,
+          force: false
+        })
+
+        // Interface
+        arrayFiles.push({
+          data: { pascalTableName },
+          path: '../../modules/{{camelCase moduleName}}/repositories/interfaces',
+          name: `I${pascalTableName}.interface.ts`,
+          template: `${pathTemplate}/interfaceRepository.hbs`,
+          force: false
+        })
+
+        // Container
+        arrayFiles.push({
+          data: { pascalTableName },
+          path: '../../modules/{{camelCase moduleName}}/repositories/containers',
+          name: `${pascalTableName}Repository.container.ts`,
+          template: `${pathTemplate}/container.hbs`,
+          force: false
+        })
+
+        if (data.createUseCase) {
+        // Controller
+          arrayFiles.push({
+            data: {},
+            path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
+            name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.controller.ts',
+            template: `${pathTemplate}/controller.hbs`,
+            force: false
+          })
+
+          // Service
+          arrayFiles.push({
+            data: { pascalTableName },
+            path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
+            name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.service.ts',
+            template: `${pathTemplate}/service.hbs`,
+            force: false
+          })
+
+          // Tests
+          arrayFiles.push({
+            data: { pascalTableName },
+            path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
+            name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.spec.ts',
+            template: `${pathTemplate}/service.spec.hbs`,
+            force: false
+          })
+        }
+
+        // Repository Index
+        const moduleName = textToCamel(data.moduleName)
+        const repositoryFolder = fs(`./src/modules/${moduleName}/repositories/`, 'folder')
+        const repositoryIndex = fs(`./src/modules/${moduleName}/repositories/`, 'file')
+
+        if (repositoryFolder.length === 0 || repositoryIndex.length === 0) {
+          arrayFiles.push({
+            data: { pascalTableName },
+            path: '../../modules/{{camelCase moduleName}}/repositories',
+            name: 'index.ts',
+            template: `${pathTemplate}/indexContainer.hbs`,
+            force: false
+          })
+        }
       }
-    ]
 
-    const createModule = [
-      /* --------- INFRA --------- */
-
-      // Routes
-      {
-        data: {},
-        path: '../../modules/{{camelCase moduleName}}/infra/routes',
-        name: '{{camelCase useCaseName}}.routes.ts',
-        template: `${pathTemplate}/routes.hbs`,
-        force: true
-      },
-
-      // Entity
-      {
-        data: {},
-        path: '../../modules/{{camelCase moduleName}}/infra/typeorm/entities',
-        name: '{{pascalCase entityName}}.entity.ts',
-        template: `${pathTemplate}/entity.hbs`,
-        force: false
-      },
-
-      // Repository
-      {
-        data: { pascalTableName },
-        path: '../../modules/{{camelCase moduleName}}/infra/typeorm/repositories',
-        name: `${pascalTableName}.repository.ts`,
-        template: `${pathTemplate}/repository.hbs`,
-        force: false
-      },
-
-      /* --------- REPOSITORIES --------- */
-
-      // Fake
-      {
-        data: { pascalTableName },
-        path: '../../modules/{{camelCase moduleName}}/repositories/fakes',
-        name: `Fake${pascalTableName}.repository.ts`,
-        template: `${pathTemplate}/fakeRepository.hbs`,
-        force: false
-      },
-
-      // Interface
-      {
-        data: { pascalTableName },
-        path: '../../modules/{{camelCase moduleName}}/repositories/interfaces',
-        name: `I${pascalTableName}.interface.ts`,
-        template: `${pathTemplate}/interfaceRepository.hbs`,
-        force: false
-      },
-
-      // Container
-      {
-        data: { pascalTableName },
-        path: '../../modules/{{camelCase moduleName}}/repositories/containers',
-        name: `${pascalTableName}Repository.container.ts`,
-        template: `${pathTemplate}/container.hbs`,
-        force: false
-      },
-
-      /* --------- USE CASES --------- */
-
-      // Controller
-      {
-        data: {},
-        path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
-        name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.controller.ts',
-        template: `${pathTemplate}/controller.hbs`,
-        force: false
-      },
-
-      // Service
-      {
-        data: { pascalTableName },
-        path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
-        name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.service.ts',
-        template: `${pathTemplate}/service.hbs`,
-        force: false
-      },
-
-      // Tests
-      {
-        data: { pascalTableName },
-        path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
-        name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.spec.ts',
-        template: `${pathTemplate}/service.spec.hbs`,
-        force: false
-      },
-
-      // Repo Index
-      {
-        data: { pascalTableName },
-        path: '../../modules/{{camelCase moduleName}}/repositories',
-        name: 'index.ts',
-        template: `${pathTemplate}/indexContainer.hbs`,
-        force: false
-      }
-    ]
-
-    if (data.type === 'tableCreate' && data.createModule) files = files.concat(createModule)
+      return arrayFiles
+    }
 
     // Create Files
     const action = []
 
-    files.forEach(file => {
+    files().forEach(file => {
       const createFile = {
         type: 'add',
         path: `${file.path}/${file.name}`,
         data: file.data,
         templateFile: file.template,
-        force: !!file.force
+        // force: !!file.force
+        force: true
       }
 
       action.push(createFile)
