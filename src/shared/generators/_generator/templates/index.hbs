@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-unused-vars */
-/* eslint-disable eqeqeq */
+/* eslint-disable */
 
 // const { capitalize } = require('../_utils/textTransform')
 
@@ -26,17 +24,19 @@ module.exports = {
     const pathTemplate = './{{ name }}/templates'
 
     const files = () => {
-      return [
-        {
-          data: {},
-          path: '../../xxx',
-          name: 'fileName.ts',
-          template: '{{ name }}.hbs',
-          force: false
-        }
+      const arrayFiles = []
 
-        // snippet: plopFilesTemplate
-      ]
+      arrayFiles.push({
+        data: {},
+        path: '../../xxx',
+        name: 'fileName.ts',
+        template: '{{ name }}.hbs',
+        force: false
+      })
+      
+      // snippet: plopFilesTemplate
+      
+      return arrayFiles      
     }
 
     // Create Files

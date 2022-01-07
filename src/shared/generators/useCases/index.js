@@ -1,11 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-unused-vars */
-/* eslint-disable eqeqeq */
-
+/* eslint-disable */
 const { capitalize, textToPascal } = require('../_utils/textTransform')
-const getModules = require('../_utils/getModules')
+const get = require('../_utils/fileSystem')
 
-const modules = getModules('./src/modules')
+const modules = get('./src/modules', 'folder')
 
 module.exports = {
   description: 'Generate a useCases',

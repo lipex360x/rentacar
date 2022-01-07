@@ -1,7 +1,8 @@
+/* eslint-disable */
 const { capitalize } = require('../_utils/textTransform')
-const getModules = require('../_utils/getModules')
+const get = require('../_utils/fileSystem')
 
-const modules = getModules('./src/modules')
+const modules = get('./src/modules', 'folder')
 
 module.exports = {
   description: 'Create a Seed',
@@ -17,6 +18,7 @@ module.exports = {
       type: 'input',
       name: 'entity',
       message: 'Entity Name:',
+      // default: 'teste',
       validate: (value) => {
         if (!value) return 'Name is required'
 
@@ -28,6 +30,7 @@ module.exports = {
       type: 'input',
       name: 'name',
       message: 'Seed Name:',
+      // default: 'teste',
       validate: (value) => {
         if (!value) return 'Value is required'
 
@@ -38,17 +41,18 @@ module.exports = {
   ],
 
   actions: (data) => {
-    const pathTemplate = './seeds/templates/'
-
     const files = () => {
-      return [
-        {
-          data: {},
-          path: '../../shared/infra/typeorm/seeds',
-          name: '{{pascalCase name}}.ts',
-          template: 'seed.hbs'
-        }
-      ]
+      const arrayFiles = []
+
+      arrayFiles.push({
+        data: {},
+        path: '../../shared/infra/typeorm/seeds',
+        name: '{{pascalCase name}}.ts',
+        template: 'seed.hbs',
+        force: true
+      })
+
+      return arrayFiles
     }
     // Create Files
     const action = []
@@ -67,7 +71,6 @@ module.exports = {
 
     // Message
     const message = () => `Seed ${capitalize(data.name)} created`
-
     action.push(message)
 
     return action

@@ -353,13 +353,13 @@
   "Plop Files Template": {
     "prefix": "plopFilesTemplate",
     "body": [
-      "{",
+      "arrayFiles.push({",
       "  data: {},",
       "  path: '../../xxx',",
       "  name: 'fileName.ts',",
       "  template: 'teste.hbs',",
       "  force: false",
-      "}",
+      "})",
     ]
   },
 

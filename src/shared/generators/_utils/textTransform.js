@@ -12,6 +12,20 @@ const textToPascal = (word) => {
   return capitalize(pascal)
 }
 
+const textToCamel = (word) => {
+  return word.replace(/^([A-Z])|\s(\w)/g, function (match, p1, p2, offset) {
+    if (p2) return p2.toUpperCase()
+    return p1.toLowerCase()
+  })
+}
+
+const textToSnake = (string) => {
+  return string.replace(/\d+/g, ' ')
+    .split(/ |\B(?=[A-Z])/)
+    .map((word) => word.toLowerCase())
+    .join('_')
+}
+
 const generateId = (size = 20) => {
   return crypto.randomBytes(size).toString('hex')
 }
@@ -33,4 +47,11 @@ const sanitize = (text) => {
   return Object.keys(accentsMap).reduce((acc, cur) => acc.replace(new RegExp(accentsMap[cur], 'g'), cur), text)
 }
 
-module.exports = { capitalize, textToPascal, generateId, sanitize }
+module.exports = {
+  capitalize,
+  textToPascal,
+  textToCamel,
+  textToSnake,
+  generateId,
+  sanitize
+}
