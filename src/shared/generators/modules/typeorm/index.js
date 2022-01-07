@@ -1,8 +1,8 @@
-const { textToPascal, textToCamel } = require('../_utils/textTransform')
-const fs = require('../_utils/fileSystem')
+const { textToPascal, textToCamel } = require('../../_utils/textTransform')
+const fs = require('../../_utils/fileSystem')
 
 module.exports = {
-  description: 'Create a Module',
+  description: 'Create a TypeORM Module',
   prompts: [
     {
       type: 'input',
@@ -85,7 +85,7 @@ module.exports = {
   ],
 
   actions: (data) => {
-    const pathTemplate = './modules/templates'
+    const pathTemplate = './modules/typeorm/templates'
     const pascalTableName = textToPascal(data.tableName)
 
     const files = () => {
@@ -94,7 +94,7 @@ module.exports = {
       // Routes
       arrayFiles.push({
         data: {},
-        path: '../../modules/{{camelCase moduleName}}/infra/routes',
+        path: '../../../modules/{{camelCase moduleName}}/infra/routes',
         name: '{{camelCase useCaseName}}.routes.ts',
         template: 'routes.hbs',
         force: false
@@ -103,7 +103,7 @@ module.exports = {
       // Entity
       arrayFiles.push({
         data: {},
-        path: '../../modules/{{camelCase moduleName}}/infra/typeorm/entities',
+        path: '../../../modules/{{camelCase moduleName}}/infra/typeorm/entities',
         name: '{{pascalCase entityName}}.entity.ts',
         template: 'entity.hbs',
         force: false
@@ -112,7 +112,7 @@ module.exports = {
       // Repository
       arrayFiles.push({
         data: { pascalTableName },
-        path: '../../modules/{{camelCase moduleName}}/infra/typeorm/repositories',
+        path: '../../../modules/{{camelCase moduleName}}/infra/typeorm/repositories',
         name: `${pascalTableName}.repository.ts`,
         template: 'repository.hbs',
         force: false
@@ -121,7 +121,7 @@ module.exports = {
       // FakeRepository
       arrayFiles.push({
         data: { pascalTableName },
-        path: '../../modules/{{camelCase moduleName}}/repositories/fakes',
+        path: '../../../modules/{{camelCase moduleName}}/repositories/fakes',
         name: `Fake${pascalTableName}.repository.ts`,
         template: 'fakeRepository.hbs',
         force: false
@@ -130,7 +130,7 @@ module.exports = {
       // Interface
       arrayFiles.push({
         data: { pascalTableName },
-        path: '../../modules/{{camelCase moduleName}}/repositories/interfaces',
+        path: '../../../modules/{{camelCase moduleName}}/repositories/interfaces',
         name: `I${pascalTableName}.interface.ts`,
         template: 'interfaceRepository.hbs',
         force: false
@@ -139,7 +139,7 @@ module.exports = {
       // Container
       arrayFiles.push({
         data: { pascalTableName },
-        path: '../../modules/{{camelCase moduleName}}/repositories/containers',
+        path: '../../../modules/{{camelCase moduleName}}/repositories/containers',
         name: `${pascalTableName}Repository.container.ts`,
         template: 'container.hbs',
         force: false
@@ -149,7 +149,7 @@ module.exports = {
         // Controller
         arrayFiles.push({
           data: {},
-          path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
+          path: '../../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
           name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.controller.ts',
           template: 'controller.hbs',
           force: false
@@ -158,7 +158,7 @@ module.exports = {
         // Service
         arrayFiles.push({
           data: { pascalTableName },
-          path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
+          path: '../../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
           name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.service.ts',
           template: 'service.hbs',
           force: false
@@ -167,7 +167,7 @@ module.exports = {
         // Tests
         arrayFiles.push({
           data: { pascalTableName },
-          path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
+          path: '../../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
           name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.spec.ts',
           template: 'service.spec.hbs',
           force: false
@@ -182,7 +182,7 @@ module.exports = {
       if (repositoryFolder.length === 0 || repositoryIndex.length === 0) {
         arrayFiles.push({
           data: { pascalTableName },
-          path: '../../modules/{{camelCase moduleName}}/repositories',
+          path: '../../../modules/{{camelCase moduleName}}/repositories',
           name: 'index.ts',
           template: 'indexContainer.hbs',
           force: false

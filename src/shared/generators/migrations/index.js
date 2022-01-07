@@ -196,7 +196,7 @@ module.exports = {
 
   actions: (data) => {
     const pascalTableName = textToPascal(data.tableName)
-    const pathTemplate = './modules/templates'
+    const pathTemplate = './modules/typeorm/templates'
 
     const files = () => {
       const arrayFiles = []
