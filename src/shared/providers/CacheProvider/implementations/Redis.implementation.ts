@@ -2,7 +2,7 @@ import Redis, { Redis as RedisClient } from 'ioredis'
 
 import cacheConfig from '@shared/config/cache'
 
-import ICache, { CreateProps, FindByKeyProps, DeleteAllProps, DeleteByPrefixProps } from '../interface/ICache.interface'
+import ICache, { CreateProps, FindByKeyProps, DeleteByPrefixProps, DeleteKeyProps } from '../interface/ICache.interface'
 
 export default class RedisProvider implements ICache {
   private client: RedisClient
@@ -33,7 +33,7 @@ export default class RedisProvider implements ICache {
     await pipeline.exec()
   }
 
-  async deleteAll ({ key }: DeleteAllProps): Promise<void> {
+  async deleteKey ({ key }: DeleteKeyProps): Promise<void> {
     await this.client.del(key)
   }
 }

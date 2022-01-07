@@ -7,7 +7,7 @@ export interface FindByKeyProps {
   key: string
 }
 
-export interface DeleteAllProps {
+export interface DeleteKeyProps {
   key: string
 }
 
@@ -18,6 +18,6 @@ export interface DeleteByPrefixProps {
 export default interface ICache {
   create(data: CreateProps): Promise<void>
   findByKey<T>(data: FindByKeyProps): Promise<T>
-  deleteAll(data: DeleteAllProps): Promise<void>
+  deleteKey(data: DeleteKeyProps): Promise<void>
   deleteByPrefix(data: DeleteByPrefixProps): Promise<void>
 }
