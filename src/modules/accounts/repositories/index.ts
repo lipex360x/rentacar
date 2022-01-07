@@ -1,1 +1,1 @@
-import './containers/UsersRepository.container'
+import './containers/Users.container'

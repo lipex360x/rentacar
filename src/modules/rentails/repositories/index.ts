@@ -1,1 +1,1 @@
-import './containers/RentailsRepository.container'
+import './containers/Rentails.container'

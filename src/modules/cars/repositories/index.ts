@@ -1,4 +1,4 @@
-import './containers/CarsRepository.container'
-import './containers/CategoriesRepository.container'
-import './containers/SpecificationsRepository.container'
-import './containers/CarsimagesRepository.container'
+import './containers/Cars.container'
+import './containers/Categories.container'
+import './containers/Specifications.container'
+import './containers/CarsImages.container'
