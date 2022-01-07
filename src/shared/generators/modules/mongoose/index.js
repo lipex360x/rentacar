@@ -1,5 +1,5 @@
 /* eslint-disable */
-const { capitalize } = require('../../_utils/textTransform')
+const { textToPascal, textToCamel } = require('../../_utils/textTransform')
 
 module.exports = {
   description: 'Generate a Mongoose Module',
@@ -46,6 +46,8 @@ module.exports = {
 
   actions: (data) => {
     const pathTemplate = './modules/mongoose/templates'
+    const generatePath = `../../modules/${textToCamel(data.moduleName)}`
+    const pascalTableName = textToPascal(data.tableName)
 
     const files = () => {
       const arrayFiles = []
@@ -53,8 +55,8 @@ module.exports = {
       // Schema
       arrayFiles.push({
         data: {},
-        path: '../../../modules/{{camelCase moduleName}}/infra/mongoose/schemas',
-        name: '{{pascalCase entityName}}.schema.ts',
+        path: `${generatePath}/infra/mongoose/schemas`,
+        name: '{{pascalCase schemaName}}.schema.ts',
         template: 'schema.hbs',
         force: false
       })
@@ -62,7 +64,7 @@ module.exports = {
       // Repository
       arrayFiles.push({
         data: { pascalTableName },
-        path: '../../../modules/{{camelCase moduleName}}/infra/mongoose/repositories',
+        path: `${generatePath}/infra/mongoose/repositories`,
         name: `${pascalTableName}.repository.ts`,
         template: 'repository.hbs',
         force: false
@@ -71,7 +73,7 @@ module.exports = {
       // Container
       arrayFiles.push({
         data: { pascalTableName },
-        path: '../../../modules/{{camelCase moduleName}}/repositories/containers',
+        path: `${generatePath}/repositories/containers`,
         name: `${pascalTableName}Repository.container.ts`,
         template: 'container.hbs',
         force: false
@@ -80,7 +82,7 @@ module.exports = {
       // FakeRepository
       arrayFiles.push({
         data: { pascalTableName },
-        path: '../../../modules/{{camelCase moduleName}}/repositories/fakes',
+        path: `${generatePath}/repositories/fakes`,
         name: `Fake${pascalTableName}.repository.ts`,
         template: 'fakeRepository.hbs',
         force: false
@@ -89,7 +91,7 @@ module.exports = {
       // Interface
       arrayFiles.push({
         data: { pascalTableName },
-        path: '../../../modules/{{camelCase moduleName}}/repositories/interfaces',
+        path: `${generatePath}/repositories/interfaces`,
         name: `I${pascalTableName}.interface.ts`,
         template: 'interfaceRepository.hbs',
         force: false
@@ -98,7 +100,7 @@ module.exports = {
       // Repository Index
       arrayFiles.push({
         data: { pascalTableName },
-        path: '../../../modules/{{camelCase moduleName}}/repositories',
+        path: `${generatePath}/repositories`,
         name: 'index.ts',
         template: 'indexContainer.hbs',
         force: false
