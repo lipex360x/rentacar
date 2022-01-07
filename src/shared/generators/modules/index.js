@@ -1,4 +1,5 @@
-const { textToPascal } = require('../_utils/textTransform')
+const { textToPascal, textToCamel } = require('../_utils/textTransform')
+const fs = require('../_utils/fileSystem')
 
 module.exports = {
   description: 'Create a Module',
@@ -7,7 +8,7 @@ module.exports = {
       type: 'input',
       name: 'moduleName',
       message: 'Module Name:',
-      // default: 'teste',
+      default: 'teste',
       validate: value => {
         if (!value) {
           return 'Name is required'
@@ -20,7 +21,7 @@ module.exports = {
       type: 'input',
       name: 'tableName',
       message: 'Table Name:',
-      // default: 'testes',
+      default: 'testes',
       validate: value => {
         if (!value) {
           return 'Name is required'
@@ -33,7 +34,7 @@ module.exports = {
       type: 'input',
       name: 'entityName',
       message: 'Entity Name:',
-      // default: 'teste',
+      default: 'teste',
       validate: value => {
         if (!value) {
           return 'Name is required'
@@ -52,13 +53,12 @@ module.exports = {
 
     {
       when: function (response) {
-        const type = response.type
-        if (type.createUseCase) return type
+        if (response.createUseCase) return true
       },
       type: 'input',
       name: 'useCaseName',
       message: 'UseCase Name',
-      // default: 'teste',
+      default: 'teste',
       validate: (value) => {
         if (!value) {
           return 'Value is required'
@@ -69,13 +69,12 @@ module.exports = {
 
     {
       when: function (response) {
-        const type = response.type
-        if (type.createUseCase) return type
+        if (response.createUseCase) return true
       },
       type: 'input',
       name: 'actionName',
       message: 'Action Name',
-      // default: 'create',
+      default: 'create',
       validate: (value) => {
         if (!value) {
           return 'Value is required'
@@ -86,12 +85,10 @@ module.exports = {
   ],
 
   actions: (data) => {
-    const pascalTableName = textToPascal(data.tableName)
     const pathTemplate = './modules/templates'
+    const pascalTableName = textToPascal(data.tableName)
 
     const files = () => {
-      console.log(data.useCaseName)
-
       const arrayFiles = []
 
       // Routes
@@ -176,13 +173,19 @@ module.exports = {
       })
 
       // Repository Index
-      arrayFiles.push({
-        data: { pascalTableName },
-        path: '../../modules/{{camelCase moduleName}}/repositories',
-        name: 'index.ts',
-        template: 'indexContainer.hbs',
-        force: false
-      })
+      const moduleName = textToCamel(data.moduleName)
+      const repositoryFolder = fs(`./src/modules/${moduleName}/repositories/`, 'folder')
+      const repositoryIndex = fs(`./src/modules/${moduleName}/repositories/`, 'file')
+
+      if (repositoryFolder.length === 0 || repositoryIndex.length === 0) {
+        arrayFiles.push({
+          data: { pascalTableName },
+          path: '../../modules/{{camelCase moduleName}}/repositories',
+          name: 'index.ts',
+          template: 'indexContainer.hbs',
+          force: false
+        })
+      }
 
       return arrayFiles
     }
@@ -196,8 +199,8 @@ module.exports = {
         path: `${file.path}/${file.name}`,
         data: file.data,
         templateFile: `${pathTemplate}/${file.template}`,
-        force: !!file.force
-        // force: true
+        // force: !!file.force
+        force: true
       }
 
       action.push(createFile)
