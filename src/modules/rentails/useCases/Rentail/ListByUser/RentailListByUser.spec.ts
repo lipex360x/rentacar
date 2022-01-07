@@ -2,27 +2,31 @@ import 'reflect-metadata'
 import AppError from '@shared/errors/AppError'
 import Faker from 'faker'
 
+import FakeDateProvider from '@shared/providers/DateProvider/fakes/FakeDate.provider'
 import FakeRentailsRepository from '@modules/rentails/repositories/fakes/FakeRentails.repository'
 import RentailListByUserService from './RentailListByUser.service'
-import DayjsDateProvider from '@shared/providers/DateProvider/implementations/Dayjs.implementation'
 import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUsers.repository'
 import FakeCarsRepository from '@modules/cars/repositories/fakes/FakeCars.repository'
+import FakeCacheProvider from '@shared/providers/CacheProvider/fakes/FakeCache.provider'
 
 let fakeRentailsRepository: FakeRentailsRepository
 let rentailListByUserService: RentailListByUserService
 let fakeUsersRepository: FakeUserRepository
 let fakecarsRepository: FakeCarsRepository
-let dateProvider: DayjsDateProvider
+let dateProvider: FakeDateProvider
+let cacheProvider: FakeCacheProvider
 
 describe('Rentails Rentail ListByUser', () => {
   beforeEach(() => {
-    dateProvider = new DayjsDateProvider()
+    dateProvider = new FakeDateProvider()
+    cacheProvider = new FakeCacheProvider()
 
     fakeUsersRepository = new FakeUserRepository()
     fakecarsRepository = new FakeCarsRepository()
 
     fakeRentailsRepository = new FakeRentailsRepository()
     rentailListByUserService = new RentailListByUserService(
+      cacheProvider,
       fakeRentailsRepository,
       fakeUsersRepository
     )
@@ -34,7 +38,7 @@ describe('Rentails Rentail ListByUser', () => {
     ).rejects.toBeInstanceOf(AppError)
   })
 
-  it('should be able to ListByUser XXXXXXXXXXXXX', async () => {
+  it('should be able to ListByUser', async () => {
     const car = await fakecarsRepository.create({
       brand: Faker.name.firstName(1),
       model: Faker.name.firstName(2),

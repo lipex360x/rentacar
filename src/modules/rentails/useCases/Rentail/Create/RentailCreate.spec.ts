@@ -5,22 +5,25 @@ import Faker from 'faker'
 
 import RentailCreateService from './RentailCreate.service'
 
-import DayjsDateProvider from '@shared/providers/DateProvider/implementations/Dayjs.implementation'
+import FakeDateProvider from '@shared/providers/DateProvider/fakes/FakeDate.provider'
 import FakeRentailsRepository from '@modules/rentails/repositories/fakes/FakeRentails.repository'
 import FakeCarsRepository from '@modules/cars/repositories/fakes/FakeCars.repository'
 import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUsers.repository'
 import FakeNotificationsRepository from '@modules/notifications/repositories/fakes/FakeNotifications.repository'
+import FakeCacheProvider from '@shared/providers/CacheProvider/fakes/FakeCache.provider'
 
+let dateProvider: FakeDateProvider
+let cacheProvider: FakeCacheProvider
 let rentailCreateService: RentailCreateService
 let fakerentailsRepository: FakeRentailsRepository
 let fakecarsRepository: FakeCarsRepository
 let fakeUserRepository: FakeUserRepository
-let dateProvider: DayjsDateProvider
 let fakeNotificationsRepository: FakeNotificationsRepository
 
 describe('Rentails Rentail Create', () => {
   beforeEach(() => {
-    dateProvider = new DayjsDateProvider()
+    dateProvider = new FakeDateProvider()
+    cacheProvider = new FakeCacheProvider()
 
     fakecarsRepository = new FakeCarsRepository()
     fakeUserRepository = new FakeUserRepository()
@@ -29,6 +32,7 @@ describe('Rentails Rentail Create', () => {
 
     rentailCreateService = new RentailCreateService(
       dateProvider,
+      cacheProvider,
       fakerentailsRepository,
       fakecarsRepository,
       fakeUserRepository,

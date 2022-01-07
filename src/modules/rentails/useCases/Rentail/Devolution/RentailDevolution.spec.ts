@@ -2,9 +2,10 @@ import 'reflect-metadata'
 import AppError from '@shared/errors/AppError'
 import Faker from 'faker'
 
+import FakeCacheProvider from '@shared/providers/CacheProvider/fakes/FakeCache.provider'
+import FakeDateProvider from '@shared/providers/DateProvider/fakes/FakeDate.provider'
 import FakeRentailsRepository from '@modules/rentails/repositories/fakes/FakeRentails.repository'
 import RentailDevolutionService from './RentailDevolution.service'
-import DayjsDateProvider from '@shared/providers/DateProvider/implementations/Dayjs.implementation'
 import FakeUserRepository from '@modules/accounts/repositories/fakes/FakeUsers.repository'
 import FakeCarsRepository from '@modules/cars/repositories/fakes/FakeCars.repository'
 
@@ -12,11 +13,13 @@ let fakeRentailsRepository: FakeRentailsRepository
 let rentailDevolutionService: RentailDevolutionService
 let fakecarsRepository: FakeCarsRepository
 let fakeUserRepository: FakeUserRepository
-let dateProvider: DayjsDateProvider
+let dateProvider: FakeDateProvider
+let cacheProvider: FakeCacheProvider
 
 describe('Rentails Rentail Devolution', () => {
   beforeEach(() => {
-    dateProvider = new DayjsDateProvider()
+    dateProvider = new FakeDateProvider()
+    cacheProvider = new FakeCacheProvider()
 
     fakecarsRepository = new FakeCarsRepository()
     fakeUserRepository = new FakeUserRepository()
@@ -24,6 +27,7 @@ describe('Rentails Rentail Devolution', () => {
 
     rentailDevolutionService = new RentailDevolutionService(
       dateProvider,
+      cacheProvider,
       fakeRentailsRepository,
       fakecarsRepository,
       fakeUserRepository
