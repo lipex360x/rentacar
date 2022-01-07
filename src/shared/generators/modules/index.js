@@ -145,32 +145,34 @@ module.exports = {
         force: false
       })
 
-      // Controller
-      arrayFiles.push({
-        data: {},
-        path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
-        name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.controller.ts',
-        template: 'controller.hbs',
-        force: false
-      })
+      if (data.createUseCase) {
+        // Controller
+        arrayFiles.push({
+          data: {},
+          path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
+          name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.controller.ts',
+          template: 'controller.hbs',
+          force: false
+        })
 
-      // Service
-      arrayFiles.push({
-        data: { pascalTableName },
-        path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
-        name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.service.ts',
-        template: 'service.hbs',
-        force: false
-      })
+        // Service
+        arrayFiles.push({
+          data: { pascalTableName },
+          path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
+          name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.service.ts',
+          template: 'service.hbs',
+          force: false
+        })
 
-      // Tests
-      arrayFiles.push({
-        data: { pascalTableName },
-        path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
-        name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.spec.ts',
-        template: 'service.spec.hbs',
-        force: false
-      })
+        // Tests
+        arrayFiles.push({
+          data: { pascalTableName },
+          path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
+          name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.spec.ts',
+          template: 'service.spec.hbs',
+          force: false
+        })
+      }
 
       // Repository Index
       const moduleName = textToCamel(data.moduleName)
