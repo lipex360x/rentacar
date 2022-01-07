@@ -1,4 +1,4 @@
-import { {{pascalTableName}}Attributes } from '@modules/{{camelCase moduleName}}/infra/mongoose/schemas/{{pascalTableName}}.schema'
+import { {{pascalCase schemaName}}Attributes } from '@modules/{{camelCase moduleName}}/infra/mongoose/schemas/{{pascalCase schemaName}}.schema'
 
 export interface CreateProps {
   content: string
@@ -9,7 +9,7 @@ export interface FindByIdProps {
 }
 
 export interface UpdateProps {
-  {{camelCase moduleName}}: {{pascalTableName}}Attributes
+  {{camelCase moduleName}}: {{pascalCase schemaName}}Attributes
 }
 
 export interface DeleteProps {
@@ -17,9 +17,9 @@ export interface DeleteProps {
 }
 
 export default interface INotitications {
-  create(data: CreateProps): Promise<{{pascalTableName}}Attributes>
-  findAll(): Promise<{{pascalTableName}}Attributes[]>
-  findById(data: FindByIdProps): Promise<{{pascalTableName}}Attributes>
-  update(data: UpdateProps): Promise<{{pascalTableName}}Attributes>
-  delete(data: DeleteProps): Promise<{{pascalTableName}}Attributes>
+  create(data: CreateProps): Promise<{{pascalCase schemaName}}Attributes>
+  findAll(): Promise<{{pascalCase schemaName}}Attributes[]>
+  findById(data: FindByIdProps): Promise<{{pascalCase schemaName}}Attributes>
+  update(data: UpdateProps): Promise<{{pascalCase schemaName}}Attributes>
+  delete(data: DeleteProps): Promise<{{pascalCase schemaName}}Attributes>
 }

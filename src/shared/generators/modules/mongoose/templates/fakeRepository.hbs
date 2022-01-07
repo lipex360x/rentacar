@@ -1,11 +1,11 @@
-import {{pascalTableName}}, { {{pascalTableName}}Attributes } from '@modules/{{camelCase moduleName}}/infra/mongoose/schemas/{{pascalTableName}}.schema'
+import {{pascalCase schemaName}}, { {{pascalCase schemaName}}Attributes } from '@modules/{{camelCase moduleName}}/infra/mongoose/schemas/{{pascalCase schemaName}}.schema'
 import I{{pascalTableName}}, { CreateProps, FindByIdProps, UpdateProps, DeleteProps } from '@modules/{{camelCase moduleName}}/repositories/interfaces/I{{pascalTableName}}.interface'
 
-export default class Fake{{pascalTableName}}Repository implements I{{pascalTableName}} {
-  private repository: {{pascalTableName}}Attributes[] = []
+export default class Fake{{pascalCase schemaName}}Repository implements I{{pascalTableName}} {
+  private repository: {{pascalCase schemaName}}Attributes[] = []
 
-  async create ({ content }: CreateProps): Promise<{{pascalTableName}}Attributes> {
-    const {{camelCase moduleName}} = new {{pascalTableName}}()
+  async create ({ content }: CreateProps): Promise<{{pascalCase schemaName}}Attributes> {
+    const {{camelCase moduleName}} = new {{pascalCase schemaName}}()
 
     Object.assign({{camelCase moduleName}}, {
       ...{{camelCase moduleName}},
@@ -17,23 +17,23 @@ export default class Fake{{pascalTableName}}Repository implements I{{pascalTable
     return {{camelCase moduleName}}
   }
 
-  async findAll (): Promise<{{pascalTableName}}Attributes[]> {
+  async findAll (): Promise<{{pascalCase schemaName}}Attributes[]> {
     return this.repository
   }
 
-  async findById ({ id }: FindByIdProps): Promise<{{pascalTableName}}Attributes> {
+  async findById ({ id }: FindByIdProps): Promise<{{pascalCase schemaName}}Attributes> {
     return this.repository.find({{camelCase moduleName}} => {{camelCase moduleName}}._id === id)
   }
 
-  async update ({ {{camelCase moduleName}} }: UpdateProps): Promise<{{pascalTableName}}Attributes> {
-    const getIndex = this.repository.findIndex(get{{pascalTableName}} => get{{pascalTableName}}._id === {{camelCase moduleName}}._id)
+  async update ({ {{camelCase moduleName}} }: UpdateProps): Promise<{{pascalCase schemaName}}Attributes> {
+    const getIndex = this.repository.findIndex(get{{pascalCase schemaName}} => get{{pascalCase schemaName}}._id === {{camelCase moduleName}}._id)
 
     this.repository[getIndex] = {{camelCase moduleName}}
 
     return {{camelCase moduleName}}
   }
 
-  async delete ({ id }: DeleteProps): Promise<{{pascalTableName}}Attributes> {
+  async delete ({ id }: DeleteProps): Promise<{{pascalCase schemaName}}Attributes> {
     const {{camelCase moduleName}} = this.repository.find(repo => repo._id === id)
 
     this.repository = this.repository.filter(repo => repo._id !== id)

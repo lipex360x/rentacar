@@ -8,7 +8,7 @@ module.exports = {
       type: 'input',
       name: 'moduleName',
       message: 'Module Name:',
-      // default: 'teste',
+      default: 'teste',
       validate: value => {
         if (!value) {
           return 'Value is required'
@@ -21,7 +21,7 @@ module.exports = {
       type: 'input',
       name: 'tableName',
       message: 'Table Name:',
-      // default: 'teste',
+      default: 'testes',
       validate: value => {
         if (!value) {
           return 'Value is required'
@@ -34,7 +34,7 @@ module.exports = {
       type: 'input',
       name: 'schemaName',
       message: 'Schema Name:',
-      // default: 'teste',
+      default: 'teste',
       validate: value => {
         if (!value) {
           return 'Value is required'
@@ -118,8 +118,8 @@ module.exports = {
         path: `${file.path}/${file.name}`,
         data: file.data,
         templateFile: `${pathTemplate}/${file.template}`,
-        force: !!file.force
-        // force: true
+        // force: !!file.force
+        force: true
       }
 
       action.push(createFile)

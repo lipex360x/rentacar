@@ -1,15 +1,15 @@
 import mongoose, { Document, Schema, Model } from 'mongoose'
 
-export interface {{pascalTableName}}Attributes {
+export interface {{pascalCase schemaName}}Attributes {
   _id?: string
   content: string
 }
 
-export type {{pascalTableName}}Document = Document & {{pascalTableName}}Attributes;
+export type {{pascalCase schemaName}}Document = Document & {{pascalCase schemaName}}Attributes;
 
-type {{pascalTableName}}Model = Model<{{pascalTableName}}Document>;
+type {{pascalCase schemaName}}Model = Model<{{pascalCase schemaName}}Document>;
 
-const {{pascalTableName}}Schema = new Schema(
+const {{pascalCase schemaName}}Schema = new Schema(
   {
     content: {
       type: String,
@@ -21,4 +21,4 @@ const {{pascalTableName}}Schema = new Schema(
   { timestamps: true }
 )
 
-export default mongoose.model<{{pascalTableName}}Document, {{pascalTableName}}Model>('{{pascalTableName}}', {{pascalTableName}}Schema)
+export default mongoose.model<{{pascalCase schemaName}}Document, {{pascalCase schemaName}}Model>('{{pascalCase schemaName}}', {{pascalCase schemaName}}Schema)

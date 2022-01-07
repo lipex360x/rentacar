@@ -1,27 +1,27 @@
-import {{pascalTableName}}, { {{pascalTableName}}Attributes } from '@modules/{{camelCase moduleName}}/infra/mongoose/schemas/{{pascalTableName}}.schema'
+import {{pascalCase schemaName}}, { {{pascalCase schemaName}}Attributes } from '@modules/{{camelCase moduleName}}/infra/mongoose/schemas/{{pascalCase schemaName}}.schema'
 import I{{pascalTableName}}, { CreateProps, FindByIdProps, UpdateProps, DeleteProps } from '@modules/{{camelCase moduleName}}/repositories/interfaces/I{{pascalTableName}}.interface'
 
-export default class {{pascalTableName}}Repository implements I{{pascalTableName}} {
-  async create ({ content }: CreateProps): Promise<{{pascalTableName}}Attributes> {
-    return {{pascalTableName}}.create({
+export default class {{pascalCase schemaName}}Repository implements I{{pascalTableName}} {
+  async create ({ content }: CreateProps): Promise<{{pascalCase schemaName}}Attributes> {
+    return {{pascalCase schemaName}}.create({
       content
     })
   }
 
-  async findAll (): Promise<{{pascalTableName}}Attributes[]> {
-    return {{pascalTableName}}.find()
+  async findAll (): Promise<{{pascalCase schemaName}}Attributes[]> {
+    return {{pascalCase schemaName}}.find()
   }
 
-  async findById ({ id }: FindByIdProps): Promise<{{pascalTableName}}Attributes> {
-    return {{pascalTableName}}.findOne({ _id: { $ne: id } })
+  async findById ({ id }: FindByIdProps): Promise<{{pascalCase schemaName}}Attributes> {
+    return {{pascalCase schemaName}}.findOne({ _id: { $ne: id } })
   }
 
-  async update ({ {{camelCase moduleName}} }: UpdateProps): Promise<{{pascalTableName}}Attributes> {
+  async update ({ {{camelCase moduleName}} }: UpdateProps): Promise<{{pascalCase schemaName}}Attributes> {
     const id = {{camelCase moduleName}}._id
-    return {{pascalTableName}}.findByIdAndUpdate(id, {{camelCase moduleName}}, { new: true })
+    return {{pascalCase schemaName}}.findByIdAndUpdate(id, {{camelCase moduleName}}, { new: true })
   }
 
-  async delete ({ id }: DeleteProps): Promise<{{pascalTableName}}Attributes> {
-    return {{pascalTableName}}.findByIdAndDelete(id)
+  async delete ({ id }: DeleteProps): Promise<{{pascalCase schemaName}}Attributes> {
+    return {{pascalCase schemaName}}.findByIdAndDelete(id)
   }
 }
