@@ -2,7 +2,7 @@ const { textToPascal, textToCamel } = require('../_utils/textTransform')
 const fs = require('../_utils/fileSystem')
 
 module.exports = {
-  description: 'Create a Migration',
+  description: 'Create a Migration (TypeORM)',
   prompts: [
     {
       type: 'list',
@@ -20,7 +20,7 @@ module.exports = {
     {
       type: 'input',
       name: 'name',
-      default: 'teste',
+      // default: 'teste',
       message: 'Migration Name:',
       validate: (value) => {
         if (!value) {
@@ -46,7 +46,7 @@ module.exports = {
     {
       type: 'input',
       name: 'columnName',
-      default: 'teste',
+      // default: 'teste',
       message: 'Column Name:',
       validate: (value) => {
         if (!value) {
@@ -123,7 +123,7 @@ module.exports = {
       type: 'input',
       name: 'moduleName',
       message: 'Module Name:',
-      default: 'teste',
+      // default: 'teste',
       validate: value => {
         if (!value) {
           return 'Name is required'
@@ -140,7 +140,7 @@ module.exports = {
       type: 'input',
       name: 'entityName',
       message: 'Entity Name:',
-      default: 'teste',
+      // default: 'teste',
       validate: value => {
         if (!value) {
           return 'Name is required'
@@ -164,8 +164,8 @@ module.exports = {
       type: 'input',
       name: 'useCaseName',
       message: 'UseCase Name',
-      default: 'teste',
       // default: 'teste',
+      // // default: 'teste',
       validate: (value) => {
         if (!value) {
           return 'Value is required'
@@ -182,7 +182,7 @@ module.exports = {
       type: 'input',
       name: 'actionName',
       message: 'Action Name',
-      default: 'teste',
+      // default: 'teste',
       // default: 'create',
       validate: (value) => {
         if (!value) {
@@ -321,8 +321,8 @@ module.exports = {
         path: `${file.path}/${file.name}`,
         data: file.data,
         templateFile: file.template,
-        // force: !!file.force
-        force: true
+        force: !!file.force
+        // force: true
       }
 
       action.push(createFile)

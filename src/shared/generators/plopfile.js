@@ -1,4 +1,5 @@
-const moduleGenerator = require('./modules/typeorm')
+const typeORMGenerator = require('./modules/typeorm')
+const mongooseGenerator = require('./modules/mongoose')
 const useCasesGenerator = require('./useCases')
 const seedGenerator = require('./seeds')
 const migrationGenerator = require('./migrations')
@@ -8,7 +9,8 @@ const generator = require('./_generator')
 const startGenerator = require('./start')
 
 module.exports = function (plop) {
-  plop.setGenerator('Module - TypeORM', moduleGenerator)
+  plop.setGenerator('Module - TypeORM', typeORMGenerator)
+  plop.setGenerator('Module - Mongoose', mongooseGenerator)
   plop.setGenerator('UseCase', useCasesGenerator)
   plop.setGenerator('Migration', migrationGenerator)
   plop.setGenerator('Seed', seedGenerator)

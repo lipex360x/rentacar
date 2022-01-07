@@ -5,7 +5,7 @@ const get = require('../_utils/fileSystem')
 const modules = get('./src/modules', 'folder')
 
 module.exports = {
-  description: 'Generate a useCases',
+  description: 'Generate a useCases (TypeORM)',
 
   prompts: [
     {
@@ -108,7 +108,7 @@ module.exports = {
         path: `${file.path}/${file.name}`,
         data: file.data,
         templateFile: `${pathTemplate}/${file.template}`,
-        force: true
+        // force: true
       }
 
       action.push(createFile)

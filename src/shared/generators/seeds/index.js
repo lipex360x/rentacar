@@ -5,7 +5,7 @@ const get = require('../_utils/fileSystem')
 const modules = get('./src/modules', 'folder')
 
 module.exports = {
-  description: 'Create a Seed',
+  description: 'Create a Seed (TypeORM)',
   prompts: [
     {
       type: 'list',
@@ -49,7 +49,7 @@ module.exports = {
         path: '../../shared/infra/typeorm/seeds',
         name: '{{pascalCase name}}.ts',
         template: 'seed.hbs',
-        force: true
+        force: false
       })
 
       return arrayFiles
@@ -63,7 +63,8 @@ module.exports = {
         path: `${file.path}/${file.name}`,
         data: file.data,
         templateFile: `${pathTemplate}/${file.template}`,
-        force: !!file.force
+        force: !!file.force,
+        // force: true
       }
 
       action.push(createFile)

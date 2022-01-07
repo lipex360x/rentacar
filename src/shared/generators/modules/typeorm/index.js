@@ -8,10 +8,10 @@ module.exports = {
       type: 'input',
       name: 'moduleName',
       message: 'Module Name:',
-      default: 'teste',
+      // default: 'teste',
       validate: value => {
         if (!value) {
-          return 'Name is required'
+          return 'Value is required'
         }
         return true
       }
@@ -21,10 +21,10 @@ module.exports = {
       type: 'input',
       name: 'tableName',
       message: 'Table Name:',
-      default: 'testes',
+      // default: 'testes',
       validate: value => {
         if (!value) {
-          return 'Name is required'
+          return 'Value is required'
         }
         return true
       }
@@ -34,10 +34,10 @@ module.exports = {
       type: 'input',
       name: 'entityName',
       message: 'Entity Name:',
-      default: 'teste',
+      // default: 'teste',
       validate: value => {
         if (!value) {
-          return 'Name is required'
+          return 'Value is required'
         }
         return true
       }
@@ -58,7 +58,7 @@ module.exports = {
       type: 'input',
       name: 'useCaseName',
       message: 'UseCase Name',
-      default: 'teste',
+      // default: 'teste',
       validate: (value) => {
         if (!value) {
           return 'Value is required'
@@ -74,7 +74,7 @@ module.exports = {
       type: 'input',
       name: 'actionName',
       message: 'Action Name',
-      default: 'create',
+      // default: 'teste',
       validate: (value) => {
         if (!value) {
           return 'Value is required'
@@ -201,8 +201,8 @@ module.exports = {
         path: `${file.path}/${file.name}`,
         data: file.data,
         templateFile: `${pathTemplate}/${file.template}`,
-        // force: !!file.force
-        force: true
+        force: !!file.force
+        // force: true
       }
 
       action.push(createFile)
