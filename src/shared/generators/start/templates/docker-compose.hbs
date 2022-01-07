@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   postgresdb:
-    image: postgres
+    image: bitnami/postgresql:latest
     container_name: ${TYPEORM_CONTAINER_NAME}
     environment:
       - POSTGRES_USER=${TYPEORM_USERNAME}
@@ -13,8 +13,13 @@ services:
     network_mode: host
 
   # mongodb:
-  #   image: mongo
+  #   image: bitnami/mongodb:latest
   #   container_name: ${MONGODB_CONTAINER_NAME}
+  #  environment:
+  #   - ALLOW_EMPTY_PASSWORD=no
+  #   - MONGODB_USERNAME=${MONGO_USER}
+  #   - MONGODB_PASSWORD=${MONGO_PASS}
+  #   - MONGODB_DATABASE=${MONGO_DB}
   #   network_mode: host
 
   # redisdb:
