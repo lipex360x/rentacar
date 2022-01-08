@@ -9,7 +9,7 @@ module.exports = {
       type: 'input',
       name: 'moduleName',
       message: 'Module Name:',
-      // default: 'teste',
+       default: 'teste',
       validate: value => {
         if (!value) {
           return 'Value is required'
@@ -22,7 +22,7 @@ module.exports = {
       type: 'input',
       name: 'tableName',
       message: 'Table Name:',
-      // default: 'testes',
+       default: 'testes',
       validate: value => {
         if (!value) {
           return 'Value is required'
@@ -35,7 +35,7 @@ module.exports = {
       type: 'input',
       name: 'entityName',
       message: 'Entity Name:',
-      // default: 'teste',
+       default: 'teste',
       validate: value => {
         if (!value) {
           return 'Value is required'
@@ -59,7 +59,7 @@ module.exports = {
       type: 'input',
       name: 'useCaseName',
       message: 'UseCase Name',
-      // default: 'teste',
+       default: 'teste',
       validate: (value) => {
         if (!value) {
           return 'Value is required'
@@ -75,7 +75,7 @@ module.exports = {
       type: 'input',
       name: 'actionName',
       message: 'Action Name',
-      // default: 'teste',
+       default: 'teste',
       validate: (value) => {
         if (!value) {
           return 'Value is required'
@@ -108,6 +108,15 @@ module.exports = {
         path: `${generatePath}/infra/typeorm/entities`,
         name: '{{pascalCase entityName}}.entity.ts',
         template: 'entity.hbs',
+        force: false
+      })
+      
+      // Mapper
+      arrayFiles.push({
+        data: {},
+        path: `${generatePath}/mapper`,
+        name: '{{pascalCase entityName}}.map.ts',
+        template: 'mapper.hbs',
         force: false
       })
 
@@ -203,8 +212,8 @@ module.exports = {
         path: `${file.path}/${file.name}`,
         data: file.data,
         templateFile: `${pathTemplate}/${file.template}`,
-        force: !!file.force
-        // force: true
+        // force: !!file.force
+        force: true
       }
 
       action.push(createFile)
