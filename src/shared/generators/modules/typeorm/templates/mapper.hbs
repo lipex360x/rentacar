@@ -2,8 +2,24 @@ import { instanceToInstance } from 'class-transformer'
 
 import {{pascalCase entityName}} from '@modules/{{camelCase moduleName}}/infra/typeorm/entities/{{pascalCase entityName}}.entity'
 
+interface Response {
+  data: string
+}
+
 export default class {{pascalCase entityName}}Map {
-  static response ({ data }: {{pascalCase entityName}}) {
+  static one ({ data }: {{pascalCase entityName}}): Response {
     return instanceToInstance({ data })
+  }
+
+  static list ({{camelCase entityName}}: {{pascalCase entityName}}[]): Response {
+    const {{camelCase entityName}}List:Response[] = []
+
+    for (const user of users) {
+      {{camelCase entityName}}List.push({
+        data: {{camelCase entityName}}.prop
+      })
+    }
+
+    return {{camelCase entityName}}List
   }
 }

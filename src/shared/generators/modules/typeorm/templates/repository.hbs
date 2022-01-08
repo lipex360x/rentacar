@@ -29,7 +29,7 @@ export default class {{pascalTableName}}Repository implements I{{pascalTableName
   async update ({ {{camelCase entityName}} }: UpdateProps): Promise<{{pascalCase entityName}}> {
     let find{{pascalCase entityName}} = await this.repository.findOne({{camelCase entityName}}.id)
 
-    find{{pascalCase entityName}} = { ...{{camelCase entityName}} }
+    find{{pascalCase entityName}} = { ...{{camelCase entityName}} } as {{pascalCase entityName}}
 
     await this.repository.save(find{{pascalCase entityName}})
 
