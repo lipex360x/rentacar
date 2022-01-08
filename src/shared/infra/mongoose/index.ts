@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 import mongoConfig from '@shared/config/mongo'
 
 class MongoDbConnect {
-  async execute (): Promise<boolean> {
+  static async execute (): Promise<boolean> {
     const mongoUserPass = mongoConfig.username
       ? `${mongoConfig.username}:${mongoConfig.password}@`
       : ''
@@ -21,4 +21,4 @@ class MongoDbConnect {
   }
 }
 
-export default new MongoDbConnect()
+export default MongoDbConnect

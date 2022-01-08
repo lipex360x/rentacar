@@ -1,7 +1,7 @@
 import { createConnection, getConnectionOptions } from 'typeorm'
 
 class OrmConnect {
-  async execute (): Promise<boolean> {
+  static async execute (): Promise<boolean> {
     const options = await getConnectionOptions()
 
     Object.assign(options, {
@@ -20,4 +20,4 @@ class OrmConnect {
     }
   }
 }
-export default new OrmConnect()
+export default OrmConnect

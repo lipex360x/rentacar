@@ -1,7 +1,6 @@
 import User from '@modules/accounts/infra/typeorm/entities/User.entity'
 
 export interface CreateProps {
-  id?: string
   name: string
   email: string
   password: string,

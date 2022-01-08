@@ -10,8 +10,8 @@ export default class UsersRepository implements IUsers {
     this.repository = getRepository(User)
   }
 
-  async create ({ id, name, email, password, isAdmin, driver_license, avatar }: CreateProps): Promise<User> {
-    const user = this.repository.create({ id, name, email, password, isAdmin, driver_license, avatar })
+  async create ({ name, email, password, isAdmin, driver_license, avatar }: CreateProps): Promise<User> {
+    const user = this.repository.create({ name, email, password, isAdmin, driver_license, avatar })
 
     await this.repository.save(user)
 
