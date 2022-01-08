@@ -1,7 +1,9 @@
+import { instanceToInstance } from 'class-transformer'
+
 import {{pascalCase entityName}} from '@modules/{{camelCase moduleName}}/infra/typeorm/entities/{{pascalCase entityName}}.entity'
 
 export default class {{pascalCase entityName}}Map {
   static response ({ data }: {{pascalCase entityName}}) {
-    return { data }
+    return instanceToInstance({ data })
   }
 }
