@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
   DeleteDateColumn
 } from 'typeorm'
+import { Expose } from 'class-transformer'
 
 @Entity('users')
 export default class User {
@@ -43,6 +44,18 @@ export default class User {
 
   @DeleteDateColumn()
     deleted_at: Date
+
+  @Expose({ name: 'avatar_url' })
+  avatar_url (): string {
+    switch (process.env.DISK_STORAGE) {
+      case 'local':
+        return `${process.env.API_URL}:${process.env.API_PORT}/files/${this.avatar}`
+      case 'S3':
+        return `${process.env.AWS_S3_BUCKET_URL}/${this.avatar}`
+      default:
+        return null
+    }
+  }
 
   constructor () {
     if (!this.id) this.id = uuid()
