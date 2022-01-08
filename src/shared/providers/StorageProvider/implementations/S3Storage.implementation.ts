@@ -1,7 +1,7 @@
 import { S3 } from 'aws-sdk'
 import fs from 'fs'
 import path from 'path'
-import { tmpFolder, uploadsFolder } from '@shared/config/files'
+import { tmpFolder } from '@shared/config/files'
 import mime from 'mime'
 
 import aws from '@shared/config/aws'
@@ -32,7 +32,7 @@ export default class S3Storage implements IStorage {
 
     await fs.promises.unlink(originalName)
 
-    return originalName
+    return file
   }
 
   async deleteFile ({ file }: DeleteFileProps): Promise<void> {
