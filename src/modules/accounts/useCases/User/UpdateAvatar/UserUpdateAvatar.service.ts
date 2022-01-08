@@ -35,7 +35,7 @@ export default class UserUpdateAvatarService {
 
     user.avatar = fileName
 
-    await this.repository.create(user)
+    await this.repository.update({ user })
 
     const response = {
       avatar_file,
