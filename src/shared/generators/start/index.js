@@ -1,4 +1,4 @@
-const { generateId } = require('../_utils/textTransform')
+const { generateId, camelCase } = require('../_utils/textTransform')
 
 module.exports = {
   description: 'Start Project (Just once)',
@@ -65,20 +65,55 @@ module.exports = {
   ],
 
   actions: (data) => {
-    const action = [
-      {
-        type: 'add',
-        path: '../../../.env',
+    const pathTemplate = './start/templates'
+    const generatePath = '../../..'
+
+    const files = () => {
+      const arrayFiles = []
+      // env
+      arrayFiles.push({
         data: {
           jwtToken: generateId(16),
-          jwtExpires: '15m',
+          jwtExpires: '60m',
           refreshToken: generateId(12),
           refreshExpires: '7d',
-          projectMail: 'noreply@{{camelCase projectName}}.com'
+          projectMail: `noreply@${camelCase(data.projectName)}.com`
         },
-        templateFile: './start/templates/env.hbs'
+        path: generatePath,
+        name: '.env',
+        template: 'env.hbs',
+        force: true
+      })
+
+      arrayFiles.push({
+        data: {},
+        path: `${generatePath}`,
+        name: 'docker-compose.yml',
+        template: 'docker-compose.hbs',
+        force: true
+      })
+
+      return arrayFiles
+    }
+    // Create Files
+    const action = []
+
+    files().forEach(file => {
+      const createFile = {
+        type: 'add',
+        path: `${file.path}/${file.name}`,
+        data: file.data,
+        templateFile: `${pathTemplate}/${file.template}`,
+        force: !!file.force
+        // force: true
       }
-    ]
+
+      action.push(createFile)
+    })
+
+    // Message
+    const message = () => 'APP Startup files created'
+    action.push(message)
 
     return action
   }

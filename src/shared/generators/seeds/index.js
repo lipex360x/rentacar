@@ -41,12 +41,15 @@ module.exports = {
   ],
 
   actions: (data) => {
+    const pathTemplate = './seeds/templates'
+    const generatePath = '../../shared/infra/typeorm/seeds'
+    
     const files = () => {
       const arrayFiles = []
 
       arrayFiles.push({
         data: {},
-        path: '../../shared/infra/typeorm/seeds',
+        path: generatePath,
         name: '{{pascalCase name}}.ts',
         template: 'seed.hbs',
         force: false
@@ -54,6 +57,7 @@ module.exports = {
 
       return arrayFiles
     }
+    
     // Create Files
     const action = []
 

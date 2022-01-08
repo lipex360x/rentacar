@@ -16,8 +16,6 @@ const s3Client = new S3({
   region: process.env.AWS_S3_BUCKET_REGION
 })
 
-console.log(s3Client)
-
 export default {
   service: 's3',
   config: {

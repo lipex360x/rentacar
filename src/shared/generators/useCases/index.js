@@ -1,5 +1,5 @@
 /* eslint-disable */
-const { capitalize, pascalCase } = require('../_utils/textTransform')
+const { capitalize, pascalCase, camelCase } = require('../_utils/textTransform')
 const get = require('../_utils/fileSystem')
 
 const modules = get('./src/modules', 'folder')
@@ -68,13 +68,14 @@ module.exports = {
 
   actions: (data) => {
     const pascalTableName = pascalCase(data.tableName)
-    const pathTemplate = './modules/templates'
+    const generatePath = `../../modules/${camelCase(data.moduleName)}`
+    const pathTemplate = './modules/typeorm/templates'
 
     const files = [
       // Controller
       {
         data: {},
-        path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
+        path: `${generatePath}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}`,
         name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.controller.ts',
         template: 'controller.hbs',
         force: false
@@ -83,7 +84,7 @@ module.exports = {
       // Service
       {
         data: { pascalTableName },
-        path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
+        path: `${generatePath}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}`,
         name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.service.ts',
         template: 'service.hbs',
         force: false
@@ -92,7 +93,7 @@ module.exports = {
       // Tests
       {
         data: { pascalTableName },
-        path: '../../modules/{{camelCase moduleName}}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}',
+        path: `${generatePath}/useCases/{{pascalCase useCaseName}}/{{pascalCase actionName}}`,
         name: '{{pascalCase useCaseName}}{{pascalCase actionName}}.spec.ts',
         template: 'service.spec.hbs',
         force: false
@@ -115,7 +116,6 @@ module.exports = {
     })
 
     // Message
-    console.log('hello useCase')
     const message = () => (`UseCase ${capitalize(data.moduleName)}/${capitalize(data.useCaseName)}/${capitalize(data.actionName)} created`)
     action.push(message)
 
