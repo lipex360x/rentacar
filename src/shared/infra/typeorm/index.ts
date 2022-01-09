@@ -1,21 +1,20 @@
 import { createConnection, getConnectionOptions } from 'typeorm'
 
 class OrmConnect {
-  static async execute (): Promise<boolean> {
+  static async execute () {
     const options = await getConnectionOptions()
 
     Object.assign(options, {
       connection: process.env.TYPEORM_CONNECTION
     })
 
-    console.log('\n📡 Traying to connect to postgres...')
+    console.log('📡 Traying to connect to mongodb...')
 
     try {
-      await createConnection()
-      console.log('📚 Connected to database postgres')
-      return true
+      await createConnection(options)
+      console.log('📚 Connected to database', options.database)
     } catch (error) {
-      console.log('❌ Fail to Connect to postgres', error)
+      console.log('❌ Fail to Connect to database', options.database, error)
       process.exit()
     }
   }

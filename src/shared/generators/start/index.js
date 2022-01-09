@@ -4,6 +4,16 @@ module.exports = {
   description: 'Start Project (Just once)',
   prompts: [
     {
+      type: 'list',
+      name: 'type',
+      message: 'Environment',
+      choices: () => [
+        { name: 'Develop', value: 'ts' },
+        { name: 'Production', value: 'js' }
+      ]
+    },
+
+    {
       type: 'input',
       name: 'projectName',
       message: 'Project Name',
@@ -81,7 +91,7 @@ module.exports = {
         },
         path: generatePath,
         name: '.env',
-        template: 'env.hbs',
+        template: 'env.{{type}}.hbs',
         force: true
       })
 
